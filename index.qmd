@@ -1,0 +1,11 @@
+# Introducción al curso {.unnumbered}
+
+Esta es una breve introducción a R.
+
+El curso será asincrónico y sincrónico. Las sesiones asincrónicas se deben acreditar en el aula habilitada en EdPuzzle.
+
+1.  Se debe hacer una cuenta en <https://edpuzzle.com>
+
+2.  Luego se debe "unir" a la clase <https://edpuzzle.com/join/> con el código que se brindó por correo electrónico.
+
+3.  Las prácticas se abocaran a la modalidad taller, por lo que se asume que los videos se deben haber acreditado.

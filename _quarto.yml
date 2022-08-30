@@ -1,0 +1,28 @@
+project:
+  type: book
+  output-dir: docs
+
+book:
+  title: "R para investigación social"
+  author: "Ana Escoto"
+  date: "08/31/2022"
+  chapters:
+    - index.qmd
+    - P1.qmd
+    - P2.qmd
+    - P3.qmd
+    - P4.qmd
+    - P5.qmd
+    - P6.qmd
+    - P7.qmd
+    - P8.qmd
+
+
+format:
+  html:
+    theme: journal
+  pdf:
+    documentclass: scrreprt
+
+editor: visual
+
