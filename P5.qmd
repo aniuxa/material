@@ -1,4 +1,4 @@
-# Factores de expansión
+# Factores de expansión e intro a la regresión lineal
 
 ## Paquetes
 
@@ -174,9 +174,9 @@ ags_srvy %>%
             total = survey_total() ) # totales
 ```
 
-# Introducción a la regresión lineal
+## Introducción a la regresión lineal
 
-## La relación entre dos variables
+### La relación entre dos variables
 
 En términos *mincerianos*, los ingresos estarían explicados por la escolaridad y la experiencia...
 
@@ -245,7 +245,6 @@ model<-ehpm_2019 %>%
 model
 ```
 
-
 Para ver esto más guapo:
 
 ```{r}
@@ -257,4 +256,3 @@ model %>%
   # add_glance_table()
 
 ```
-
