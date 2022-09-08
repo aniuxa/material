@@ -258,9 +258,9 @@ Para poner más de un modelo:
 plot_models(modelo1, modelo2) + ggtitle("P(acceso a servicios médicos)")
 ```
 
-## Regresión Probit
+### Regresión Probit
 
-### Un solo predictor
+El ejemplo de un solo predictor para comparar contra el logit.
 
 ```{r}
 mprobit<-glm(y_binomial ~ aproba1, family = binomial("probit"), data=ehpm_2019, na.action=na.exclude)

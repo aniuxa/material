@@ -1,0 +1,410 @@
+# Análisis longitundinal: panel
+
+## Paquetes
+
+```{r, warning=FALSE}
+#install.packages("sjPlot", dependencies=T) # solito porque da problmas
+library(sjPlot)
+
+if (!require("pacman")) install.packages("pacman") # instala pacman si se requiere
+pacman::p_load(tidyverse, magrittr, # sobretodo para dplyr
+              haven, readxl, #importación
+              janitor, #tablas
+              sjlabelled, # etiquetas
+              DescTools, # Paquete para estimaciones y pruebas
+              infer, # tidy way 
+              broom,  # Una escobita para limpiar (pero es para arreglar)
+              estimatr, car, stargazer, ggpubr, 
+              jtools, lm.beta, robustbase, sandwich,
+              officer,flextable,huxtable, ggstance, kableExtra,
+              ResourceSelection, lmtest, mlogit, nnet,
+              plm, tseries) # este es
+
+```
+
+## Nuevos datos
+
+Vamos a trabajar con una base por países, de tal manera que los países son las unidades.
+
+Vamos a importar toda la base. En este documento de excel hay muchas hojas. Podemos importar un grupo de hojas de un solo. Los datos son del IMCO <https://imco.org.mx/indices/internacional>
+
+```{r}
+
+ruta <- "datos/ICI_total.xlsx" # nombre del archivo y su rura
+
+# hojas a leer
+
+data<-readxl::excel_sheets(ruta)[5:21] %>% 
+  purrr::set_names() %>%
+  purrr::map_df(~ readxl::read_excel(path = ruta,
+                      sheet = .x, # proviene del purr::set_names
+                      range = "A7:CI50"),
+         .id = "hoja") %>% # Qué nombre le doy a la hoja
+ janitor::clean_names() # limpiamos nombres
+
+
+```
+
+Esta base de datos tiene como primera columna la hoja de la que proviene. Nos va a servir para revisar algunos elementos de limpieza.
+
+```{r}
+data %>% 
+  tabyl(hoja)
+```
+
+Tenemos un panel de 43 países del año 2005 de 2021. Si tenemos una cadena que tiene algún número podemos "extraerlo" conparse_number
+
+```{r}
+data %<>%  # recuerda este pipe diferente
+  mutate(year=parse_number(hoja))
+
+tabyl(data$year)
+```
+
+Aprovechando que andamos revisando otros trucos, vamos a limpiar los caracteres especial de país, tiene muchos acentos y espacios
+
+```{r}
+data %<>%
+  mutate(pais2=stringr::str_replace_all(pais, "[^a-zA-Z0-9]", "" )) %>% 
+  mutate(pais2=stringr::str_to_lower(pais2))
+
+tabyl(data$pais2)
+```
+
+Como vemos tenemos nuestra base en formato ancho. Tenemos países (unidades) y cada tiempo como una línea.
+
+Vamos a quedarnos con un par de variables y ver las pruebas apareadas en R. Vamos a quedarnos con dos años 2005 y 2021
+
+```{r}
+data_wide <-data %>% 
+  filter(year %in% c(2005,2021)) %>% 
+  select(year, pais, indice_de_gini) %>% 
+  tidyr::pivot_wider(names_from = year, names_prefix = "t",
+                     values_from = indice_de_gini)
+```
+
+Con esta base ya tenemos un renglón por persona. La primera prueba que podemos hacer es la prueba muestras apareadas.
+
+## Pruebas de muestras apareadas
+
+```{r}
+t.test(data_wide$t2021, data_wide$t2005, paired=T)
+```
+
+Con el paquete infer también la podemos realizar, pero debemos estimar la diferencia a manita
+
+```{r}
+data_wide %>% 
+  mutate(diff=t2021-t2005) %>% 
+  infer::t_test(response=diff)
+```
+
+## Revisando el panel
+
+De aquí en adelante seguiremos con la base en formato largo. Dentro del paquete plm, podemos revisar si nuestro panel está o no balanceado.
+
+Para eso debemos volver nuestro objeto data.frame a un pdata.frame
+
+```{r}
+
+pdata <-pdata.frame(data, index=c("pais","year"), drop.index=F, row.names=TRUE)
+
+pdata %>%  is.pbalanced()
+```
+
+También podemos preguntarnos si tenemos datos consecutivos
+
+```{r}
+pdata %>%
+  is.pconsecutive()
+```
+
+```{r}
+pdata %>% pdim()
+```
+
+Maravilloso.
+
+Tenemos nuestros datos balanceados y consecutivos para todos los países.
+
+Podemos jugar con lo que pasa al interior de los grupos y entre los grupos
+
+```{r}
+plot(pdata$indice_de_gini)
+```
+
+```{r}
+summary(pdata$indice_de_gini) # ahí ya tenmos info  diferente
+summary(pdata$crecimiento_del_pib) # ahí ya tenmos info  diferente
+
+```
+
+### Graficas
+
+Vamos a pasar de un simple gráfico de línea a uno que nos muestre la heterogeneidad en el tiempo y entre grupos.
+
+```{r}
+pdata %>% 
+  ggplot() +
+  aes(x = as_factor(year), y = indice_de_gini, color=pais) +
+  geom_jitter() +
+  labs(x = "Year",  y = "Gini") 
+```
+
+Esto está muy feo... Tenemos que hacer un par de cosas para que se vea mejor.
+
+```{r}
+as_tibble(pdata) %>%  #ojo, con las propiedades del panel no podemos
+  ggplot() +
+  aes(x = year, y = indice_de_gini) +
+  geom_jitter(alpha=I(0.3)) +
+  stat_summary(fun = "mean", color = "red", size = 2, geom = "point")+
+  labs(x = "Year",  y = "Gini")  +
+  guides(color="none") + theme_minimal()
+
+
+
+```
+
+Se me mejor, pero bueno tenemos muchos países. Ahora veamos la heterogeneidad en el tiempo
+
+```{r}
+as_tibble(pdata) %>%  #ojo, con las propiedades del panel no podemos
+  ggplot() +
+  aes(x = pais, y = indice_de_gini) +
+  geom_jitter(alpha=I(0.3)) +
+  stat_summary(fun = "mean", color = "red", size = 2, geom = "point")+
+  labs(x = "pais",  y = "Gini")  +
+  guides(color="none") + theme_minimal() + coord_flip()
+  
+```
+
+## Modelos
+
+Vamos a empezar con los modelos más simples
+
+### Modelo "pooled"
+
+```{r}
+mpool_lm<-lm(indice_de_gini ~ crecimiento_del_pib,
+             data=data)
+```
+
+Con plm también se puede hacer
+
+```{r}
+mpool_plm<-plm(indice_de_gini ~ crecimiento_del_pib,
+              data=pdata, #ojo
+              model="pooling")
+```
+
+Comparemos los modelos con jtools::summs
+
+```{r}
+#jtools::summ(mpool_plm)
+jtools::summ(mpool_lm)
+jtools::export_summs(mpool_lm, mpool_plm)
+
+summary(mpool_plm)
+```
+
+### Efectos fijos de país
+
+Least squares dummy variable (LSDV)
+
+```{r}
+mldsv_lm<-lm(indice_de_gini ~ crecimiento_del_pib + pais2,
+              data=data)
+
+summ(mldsv_lm)
+```
+
+Podemos también excluir el intercepto
+
+```{r}
+mldsv_lm_nocons <- lm(indice_de_gini ~ crecimiento_del_pib + pais2 -1, data = data)
+
+summ(mldsv_lm_nocons)
+```
+
+comparemos
+
+```{r}
+export_summs(mpool_plm, mldsv_lm)
+```
+
+### Efectos fijos y aleatorios
+
+> Si no se disponen de todas las variables de influencia entonces $Cov(X_{it},\varepsilon_{it}) ≠ 0$,es decir los residuos no son independientes de las observaciones por lo que MCO estará sesgado.
+
+$$ y= \alpha + \beta x_{it} + u_{it} $$ (regresión agrupada)
+
+En un modelo de efectos fijos podemos suponer qué el intercepto tiene una parte común y otra parte explicada por los individuos
+
+$$\alpha_i = \alpha + v_i$$
+
+Si sustituimos:
+
+$$ y= \alpha + \beta x_{it}  + v_i + u_{it} $$ Es decir nuestro error $\varepsilon_{ij}$ tiene dos componentes, el estimador "within" o fija para cada individuo $v_i$ y otra aleatoria $u_{it}$
+
+Es decir, tendremos una tendencia general por regresión dando a cada individuo un punto de origen (intercepto) distinto.
+
+> El modelo de efectos aleatorios tiene la misma especificación que el de efectos fijos con la salvedad de que $v_i$, en lugar de ser un valor fijo para cada individuo y constante a lo largo del tiempo para cada individuo, es una variable aleatoria con un valor medio $v_i$ y una varianza $Var(v_i)=0$
+
+$$ y= \alpha + \beta x_{it}  + v_i + u_{it} $$
+
+```{r}
+plm_fe <- plm(indice_de_gini ~ crecimiento_del_pib, data = pdata, model = "within")
+plm_re <- plm(indice_de_gini ~ crecimiento_del_pib, data = pdata, model = "random")
+
+summary(plm_fe)
+summary(plm_re)
+```
+
+Veamos como van nuestros modelos
+
+```{r}
+export_summs(mpool_plm,mldsv_lm, plm_fe, plm_re)
+```
+
+### "Sacando" los efectos
+
+Una de las cosa bonitas de haber modelado los efectos... es verlos
+
+Para los efectos fijos tenemos:
+
+```{r}
+fixef(plm_fe) # se pueden sacar otros tipo
+
+```
+
+Tenemos un efecto por país, las constanste o puntos de partida para cada uno
+
+```{r}
+summary(fixef(plm_fe)) # esto se tarda más
+
+```
+
+Para los efectos aleatorios, no especificamos qué tipo. Pero hay varios - "swar": from Swamy and Arora (1972), *the default value* - "walhus": from Wallace and Hussain (1969), - "amemiya": from T. Amemiya (1971), - "nerlove": from Nerlove (1971). - "ht": for Hausman-Taylor-type instrumental variable (IV) estimation, discussed later, see Section
+
+```{r}
+plm::ranef(plm_re)
+```
+
+## Pruebas de especificación
+
+### Pool vs Fijo
+
+Para saber si necesitamos efectos fijos, podemos hacer una prueba "F Test for Individual and/or Time Effects"
+
+```{r}
+plm::pFtest(plm_fe, #primero va el modelo de efectos fijos
+            mpool_plm) # luego va el modelo pool
+
+```
+
+La hipótesis nos dice que hay efectos a nivel de firma, en este caso, países, que debemos explorar.
+
+Ahora nosotros debemos también decidir si hay efectos fijos o aleatorios.
+
+### Hausman fe vs re
+
+```{r}
+plm::phtest(plm_fe, plm_re)
+
+```
+
+La Ho no puede ser rechazada por lo que debemos usar efectos aleatorios:
+
+### RE vs OLS
+
+Breusch-Pagan Lagrange Multiplier for random effects. Null is no panel effect
+
+```{r}
+plm::plmtest(mpool_plm, type=c("bp"))
+```
+
+Rechazamos la HO de que no hay efectos significativos. Hay efectos aleatorios a nivel de país en la relación entre Gini y crecimiento del PIB
+
+### Correlación contemporánea
+
+Para modelos fijos, con muchos años -paneles muy largo-, a veces existe este problema
+
+```{r}
+ pcdtest(plm_fe, test = c("lm"))
+ pcdtest(plm_fe, test = c("cd"))
+```
+
+La Ho: "No hay dependencia crosseccional o correlación contemporánea" Entonces, sí tenemos un problema de correlación contemporánea.
+
+Parecido, para paneles largos tenemos el problema
+
+### Correlación serial
+
+Breusch-Godfrey/Wooldridge test
+
+```{r}
+plm::pbgtest(plm_fe)
+```
+
+Rechazamos Ho
+
+... Hay correlación lineal
+
+En este caso específico no es tanto un problema. Porque decidimos por usar efectos aleatorios. En caso de tener que corregir, se puede ver esto: <https://sandwich.r-forge.r-project.org/reference/vcovPL.html>
+
+### Raíces unitarias
+
+Como en las series de tiempo pueden ser un problema. Haremos la prueba Dickey-Fuller Si la raíz unitaria es mayor que 1, podemos usar la primera diferencia.
+
+```{r}
+tseries::adf.test(pdata$indice_de_gini, k=2)
+```
+
+Rechazamos la H0 de no estacionariedad, y por tanto podemos decir que es estacionaria
+
+### Heterocedasticidad
+
+Vamos a revisarlo de la siguiente manera:
+
+```{r}
+lmtest::bptest(indice_de_gini ~ crecimiento_del_pib + pais2, 
+               data = pdata, 
+               studentize=F)
+```
+
+La H0. Los errores son homocedásticos La Ha: Los errores no son homcedásticos
+
+Por lo tanto tenemos un problema de heterocedasticidad.
+
+Podemos solucionar con el paquete sandwich.
+
+Tomado de Torres <https://www.princeton.edu/~otorres/Panel101R.pdf>
+
+> The --vcovHC-- function estimates three heteroskedasticity-consistent covariance estimators: •"white1" -for general heteroskedasticity but no serial correlation. Recommended for random effects. •"white2" - is "white1" restricted to a common variance within groups. Recommended for random effects. •"arellano" - both heteroskedasticityand serial correlation. Recommended for fixed effects.
+
+> The following options apply\*: •HC0 - heteroskedasticityconsistent. The default. •HC1,HC2, HC3 -- Recommended for small samples. HC3 gives less weight to influential observations. •HC4 - small samples with influential observations •HAC - heteroskedasticityand autocorrelation consistent
+
+```{r}
+coeftest(plm_re)
+coeftest(plm_re, vcovHC)  
+coeftest(plm_re, vcovHC(plm_re, type = "HC3"))
+
+```
+
+```{r}
+coeftest(plm_fe) 
+coeftest(plm_fe, vcovHC)  
+coeftest(plm_fe, vcovHC(plm_re, method = "arellano"))
+coeftest(plm_fe, vcovHC(plm_re, type = "HC3"))
+
+```
+
+## Inspiración
+
+Mucho de este código y algunos elementos teóricos ha sido retomados, traducidos y adaptados de
+
+-   [Torres-Reyna(2007)](https://www.princeton.edu/~otorres/Panel101R.pdf).
+-   [Croissant & Millo(2015)](https://cran.r-project.org/web/packages/plm/vignettes/A_plmPackage.html)
+-   [Leppert(2021)](https://rpubs.com/phle/r_tutorial_panel_data_analysis)
+-   [Montero Grandos (2011)](https://www.ugr.es/~montero/matematicas/especificacion.pdf)

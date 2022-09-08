@@ -20,10 +20,10 @@ pacman::p_load(tidyverse,
 )
 ```
 
-
 ## Cargando los datos
 
 Desde STATA
+
 ```{r}
 ehpm_2019 <- read_dta("datos/ehpm_2019.dta", encoding="latin1") %>% 
   janitor::clean_names() # checa esto
@@ -38,16 +38,15 @@ ejemploxl <- readxl::read_excel("datos/ejemplo_xlsx.xlsx", sheet = "para_importa
 
 ```
 
-
-
 ## Visualización de datos, un pequeño disclaimer
-Hay cursos específicos de visualización de datos. Es maravilloso pero también requiere que estudiemos bien qué tipo de datos tenemos y cuáles son nuestros objetivos. 
+
+Hay cursos específicos de visualización de datos. Es maravilloso pero también requiere que estudiemos bien qué tipo de datos tenemos y cuáles son nuestros objetivos.
 
 Me gusta mucho este recurso: <https://www.data-to-viz.com/>
 
-##  Gráficos de base
+## Gráficos de base
 
-"plot()" Es la función más simple. 
+"plot()" Es la función más simple.
 
 ```{r}
   plot(as_label(ehpm_2019$pobreza))
@@ -65,38 +64,35 @@ Histograma y el boxplot
 hist(ejemploxl$esperanza_de_vida)
 ```
 
-
 ```{r}
 boxplot(ejemploxl$esperanza_de_vida)
 ```
-
-
 
 ## *Grammar of graphics: ggplot*
 
 Hoy vamos a presentar a un gran paquete ¡Es de los famosos! Y tiene más de diez años.
 
-* <https://qz.com/1007328/all-hail-ggplot2-the-code-powering-all-those-excellent-charts-is-10-years-old/>
+-   <https://qz.com/1007328/all-hail-ggplot2-the-code-powering-all-those-excellent-charts-is-10-years-old/>
 
 "gg" proviene de "Grammar of Graphics", funciona un poco como sintácticamente, de ahí su nombre.
 
 Algunos recursos para aprender ggplot
 
-* <https://ggplot2-book.org/> hecha por el mero mero.
+-   <https://ggplot2-book.org/> hecha por el mero mero.
 
-* <http://sape.inf.usi.ch/quick-reference/ggplot2> 
+-   <http://sape.inf.usi.ch/quick-reference/ggplot2>
 
-* <https://raw.githubusercontent.com/rstudio/cheatsheets/master/data-visualization-2.1.pdf>
+-   <https://raw.githubusercontent.com/rstudio/cheatsheets/master/data-visualization-2.1.pdf>
 
 Vamos a revisar una presentación que es muy interesante
 
-* <https://evamaerey.github.io/ggplot2_grammar_guide/ggplot2_grammar_guide.html>
+-   <https://evamaerey.github.io/ggplot2_grammar_guide/ggplot2_grammar_guide.html>
 
-* <https://huygens.science.uva.nl/ggPlotteR/> Hace gráficos de ggplot con la base de datos de Gapminder
+-   <https://huygens.science.uva.nl/ggPlotteR/> Hace gráficos de ggplot con la base de datos de Gapminder
 
 # Un lienzo para dibujar
 
-Para hacer un gráfico, ggplot2 tiene el comando "ggplot()".  Hacer gráficos con esta función tiene una lógica  aditiva. Lo ideal es que iniciemos estableciendo el mapeo estético de nuestro gráfico, con el comando aes()
+Para hacer un gráfico, ggplot2 tiene el comando "ggplot()". Hacer gráficos con esta función tiene una lógica aditiva. Lo ideal es que iniciemos estableciendo el mapeo estético de nuestro gráfico, con el comando aes()
 
 ```{r}
 g1<-ehpm_2019 %>%
@@ -105,8 +101,6 @@ g1<-ehpm_2019 %>%
 g1 # imprime el lienzo
 ```
 
-
-
 ## Gráficos univariados
 
 ### Para cualitativas
@@ -114,7 +108,6 @@ g1 # imprime el lienzo
 ```{r}
 g1 + geom_bar()
 ```
-
 
 ```{r}
 g1 +  geom_bar(aes(
@@ -132,6 +125,7 @@ ehpm_2019 %>%
 ```
 
 ### Para variables cuantitativas
+
 Podemos hacer histogramas y gráficos de densidad, de manera fácil. La idea es agregar en nuestro "lienzo" una geometría, un valor para dibujar en él. Esto se agrega con un "+" y con la figura que se añadirá a nuestro gráfico.
 
 ```{r}
@@ -142,6 +136,7 @@ g2 # imprime el lienzo
 ```
 
 #### Histograma
+
 ```{r}
 g2 + geom_histogram() 
 ```
@@ -151,7 +146,6 @@ g2 + geom_histogram()
 ```{r}
 g2 + geom_density() 
 ```
-
 
 ## Intro a dos variables
 
@@ -163,5 +157,3 @@ ehpm_2019 %>%
   select(r106, money, aproba1) %>% 
   GGally::ggpairs()
 ```
-
-

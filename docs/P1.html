@@ -183,7 +183,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./P5.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Factores de expansión</span></a>
+  <a href="./P5.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Factores de expansión e intro a la regresión lineal</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -199,6 +199,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./P8.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Regresión logística</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P9.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Análisis longitundinal: panel</span></a>
   </div>
 </li>
     </ul>
@@ -440,8 +445,8 @@ sum&gt; sum(1:5, NA, na.rm = TRUE)
 <div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">gc</span>()           <span class="co"># Garbage collection, reporta memoria en uso</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>          used (Mb) gc trigger (Mb) limit (Mb) max used (Mb)
-Ncells  599759 32.1    1305991 69.8         NA  1305991 69.8
-Vcells 1109141  8.5    8388608 64.0      16384  1839580 14.1</code></pre>
+Ncells  599769 32.1    1306041 69.8         NA  1306041 69.8
+Vcells 1109166  8.5    8388608 64.0      16384  1839638 14.1</code></pre>
 </div>
 </div>
 <p>Para borrar todos nuestros objetos, usamos el siguiente comando, que equivale a usar la escobita de la venta de environment</p>
@@ -462,10 +467,12 @@ Vcells 1109141  8.5    8388608 64.0      16384  1839580 14.1</code></pre>
 <span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a><span class="fu">list.files</span>()      <span class="co"># Lista de archivos en ese directorio</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code> [1] "_book"          "_quarto.yml"    "datos"          "index.qmd"     
- [5] "LICENSE"        "material.Rproj" "P1.qmd"         "P1.rmarkdown"  
- [9] "P2.qmd"         "P3.qmd"         "P4.qmd"         "P5.qmd"        
-[13] "P6.qmd"         "P7.qmd"         "P8_files"       "P8.qmd"        </code></pre>
+<pre><code> [1] "_quarto.yml"         "datos"               "docs"               
+ [4] "index.qmd"           "LICENSE"             "material.Rproj"     
+ [7] "Mi_Exportación.xlsx" "P1.qmd"              "P1.rmarkdown"       
+[10] "P2.qmd"              "P3.qmd"              "P4.qmd"             
+[13] "P5.qmd"              "P6.qmd"              "P7.qmd"             
+[16] "P8.qmd"              "P9.qmd"             </code></pre>
 </div>
 </div>
 <p>Checar que esto también se puede hacer desde el menú:</p>
