@@ -1,0 +1,1685 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.1.163">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>R para investigación social - 11&nbsp; p11</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./P10.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">p11</span></h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">R para investigación social</a> 
+    </div>
+      </div>
+      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">Introducción al curso</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P1.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Primer acercamiento al uso del programa</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P2.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Manejo de datos: importación, selección y revisión</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P3.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Análisis descriptivo básico</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P4.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Análisis descriptivo básico II</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P5.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Factores de expansión e intro a la regresión lineal</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P6.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Introducción a la inferencia</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P7.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Regresión lineal</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P8.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Regresión logística</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P9.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Análisis longitundinal: panel</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P10.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Análisis longitundinal: secuencias</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P11.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">p11</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#importación-bases-ehpm2018" id="toc-importación-bases-ehpm2018" class="nav-link active" data-scroll-target="#importación-bases-ehpm2018"><span class="toc-section-number">11.1</span>  Importación bases ehpm2018</a></li>
+  <li><a href="#juntando-bases" id="toc-juntando-bases" class="nav-link" data-scroll-target="#juntando-bases"><span class="toc-section-number">12</span>  Juntando bases</a></li>
+  <li><a href="#merge-con-id-compuesto" id="toc-merge-con-id-compuesto" class="nav-link" data-scroll-target="#merge-con-id-compuesto"><span class="toc-section-number">13</span>  Merge con id compuesto</a></li>
+  <li><a href="#bases-de-distinto-tamaño" id="toc-bases-de-distinto-tamaño" class="nav-link" data-scroll-target="#bases-de-distinto-tamaño"><span class="toc-section-number">14</span>  Bases de distinto tamaño</a>
+  <ul class="collapse">
+  <li><a href="#a.-casos-comunes-en-las-dos-bases" id="toc-a.-casos-comunes-en-las-dos-bases" class="nav-link" data-scroll-target="#a.-casos-comunes-en-las-dos-bases"><span class="toc-section-number">14.1</span>  A. Casos comunes en las dos bases</a></li>
+  <li><a href="#b.-todos-los-casos" id="toc-b.-todos-los-casos" class="nav-link" data-scroll-target="#b.-todos-los-casos"><span class="toc-section-number">14.2</span>  B. Todos los casos</a></li>
+  <li><a href="#c.-casos-de-la-base-1" id="toc-c.-casos-de-la-base-1" class="nav-link" data-scroll-target="#c.-casos-de-la-base-1"><span class="toc-section-number">14.3</span>  C. Casos de la base 1&gt;</a></li>
+  <li><a href="#d.-casos-de-la-base-2" id="toc-d.-casos-de-la-base-2" class="nav-link" data-scroll-target="#d.-casos-de-la-base-2"><span class="toc-section-number">14.4</span>  D. Casos de la base 2</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">p11</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    
+  </div>
+  
+
+</header>
+
+<section id="importación-bases-ehpm2018" class="level2" data-number="11.1">
+<h2 data-number="11.1" class="anchored" data-anchor-id="importación-bases-ehpm2018"><span class="header-section-number">11.1</span> Importación bases ehpm2018</h2>
+<p>Vamos a trabajar con esta base que tiene elementos separados.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">require</span>(<span class="st">"pacman"</span>)) <span class="fu">install.packages</span>(<span class="st">"pacman"</span>) <span class="co"># instala pacman si se requiere</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: pacman</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(skimr,tidyverse, magrittr, <span class="co"># sobretodo para dplyr</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>              haven, readxl, <span class="co">#importación</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>              janitor, </span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>              sjlabelled) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Hoy cargamos la versión seccionada de la base</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>hogares <span class="ot">&lt;-</span> haven<span class="sc">::</span><span class="fu">read_sav</span>(<span class="st">"datos/ehpm2018/HOGARES_EHPM 2018.sav"</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>personas<span class="ot">&lt;-</span> haven<span class="sc">::</span><span class="fu">read_sav</span>(<span class="st">"datos/ehpm2018/PERSONA_EHPM 2018.sav"</span>)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>gastos_a<span class="ot">&lt;-</span> haven<span class="sc">::</span><span class="fu">read_sav</span>(<span class="st">"datos/ehpm2018/EHPM 2018 SEC 8 A.sav"</span>)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>gastos_b<span class="ot">&lt;-</span> haven<span class="sc">::</span><span class="fu">read_sav</span>(<span class="st">"datos/ehpm2018/EHPM 2018 SEC 8 B.sav"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="juntando-bases" class="level1" data-number="12">
+<h1 data-number="12"><span class="header-section-number">12</span> Juntando bases</h1>
+<p>Muchas bases de datos están organizadas en varias tablas. La ventaja de la programación por objetos de R, nos permite tener las bases cargadas en nuestro ambiente y llamarlas y juntarlas cuando sea necesario.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(hogares)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 20840   387</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(hogares[,<span class="dv">1</span><span class="sc">:</span><span class="dv">15</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "edicion"     "KEY_PERSONA" "KEY_HOGAR"   "lote"        "tipo"       
+ [6] "folio"       "viv"         "r101"        "fac00"       "area"       
+[11] "region"      "correlativo" "municauto"   "estratoarea" "codigomunic"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(personas)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 75045   449</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(personas[,<span class="dv">1</span><span class="sc">:</span><span class="dv">15</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "edicion"     "KEY_PERSONA" "KEY_HOGAR"   "lote"        "tipo"       
+ [6] "folio"       "viv"         "r101"        "fac00"       "area"       
+[11] "region"      "correlativo" "municauto"   "estratoarea" "codigomunic"</code></pre>
+</div>
+</div>
+<p>Para juntar bases usamos el comando “merge”</p>
+<p>En “by” ponemos el id, correspondiente a la variable o variables que forman el id, entrecomillado. Cuando estamos mezclando bases del mismo nivel de análisis el id es igual en ambas bases. Cuando estamos incoporando información de bases de distinto nivel debemos escoger</p>
+<p>En general ponemos el id de la base de mayor nivel. En este caso, sabemos que a una vivienda corresponde más de un hogar. Tal como revisamos nuestra documentación, sabemos que el id de la tabla hogares es “KEY_HOGAR”</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>merge_data<span class="ot">&lt;-</span> <span class="fu">merge</span>(hogares, personas, <span class="at">by=</span><span class="st">"KEY_HOGAR"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Revisemos la base creada</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(merge_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  [1] "KEY_HOGAR"            "edicion.x"            "KEY_PERSONA.x"       
+  [4] "lote.x"               "tipo.x"               "folio.x"             
+  [7] "viv.x"                "r101.x"               "fac00.x"             
+ [10] "area.x"               "region.x"             "correlativo.x"       
+ [13] "municauto.x"          "estratoarea.x"        "codigomunic.x"       
+ [16] "autorrepresentado.x"  "znorte.x"             "r004.x"              
+ [19] "r005.x"               "r006.x"               "r015.x"              
+ [22] "r017"                 "r018"                 "r019"                
+ [25] "r020"                 "r021a"                "r021b"               
+ [28] "r022"                 "r023"                 "r024"                
+ [31] "r027"                 "r033"                 "r034"                
+ [34] "r035"                 "r035a"                "r036"                
+ [37] "r038"                 "r039"                 "r042"                
+ [40] "r04a"                 "gasper"               "gastohog"            
+ [43] "ghali"                "ghu12"                "gmed"                
+ [46] "gmem"                 "gmsa"                 "gmvi"                
+ [49] "gtmh"                 "ingfa"                "ingpe"               
+ [52] "miemh"                "miemh_exdomestico"    "pobreza.x"           
+ [55] "totayuda"             "r01a"                 "r01b"                
+ [58] "r01c"                 "r01d"                 "r01e"                
+ [61] "r01f_a"               "r01f_b"               "r01f_c"              
+ [64] "r01f_d"               "r01otr"               "r02a"                
+ [67] "r02b"                 "r02c"                 "r02d"                
+ [70] "r03"                  "r0401"                "r0402"               
+ [73] "r0501"                "r0502"                "r06"                 
+ [76] "r301"                 "r301otr"              "r301b"               
+ [79] "r301c"                "r302"                 "r302otr"             
+ [82] "r302b"                "r303"                 "r303otr"             
+ [85] "r303b"                "r304"                 "r304otr"             
+ [88] "r305"                 "r306"                 "r307"                
+ [91] "r308"                 "r308otr"              "r308b"               
+ [94] "r308c"                "r309"                 "r310"                
+ [97] "r310a"                "r310b"                "r310_01"             
+[100] "r311"                 "r311otr"              "r312"                
+[103] "r312d"                "r312h"                "r313"                
+[106] "r313otr"              "r314"                 "r314otr"             
+[109] "r315a"                "r316"                 "r317"                
+[112] "r318"                 "r318_1"               "r319a"               
+[115] "r319b"                "r319c"                "r319otr"             
+[118] "r320"                 "r320otr"              "r321a1"              
+[121] "r321a2"               "r321a3"               "r321a4"              
+[124] "r321a5"               "r321a6"               "r321a7"              
+[127] "r321a8"               "r321aotr"             "r322"                
+[130] "r322otr"              "r323"                 "r323b"               
+[133] "r3241a"               "r3241b"               "r3242a"              
+[136] "r3242b"               "r3243a"               "r3243a1"             
+[139] "r3244a"               "r3245a"               "r325"                
+[142] "r325ot"               "r32601a"              "r32601b"             
+[145] "r32602a"              "r32602b"              "r32603a"             
+[148] "r32603b"              "r32604a"              "r32604b"             
+[151] "r32605a"              "r32605b"              "r32606a"             
+[154] "r32606b"              "r32607a"              "r32607b"             
+[157] "r32608a"              "r32608b"              "r32609a"             
+[160] "r32609b"              "r32610a"              "r32610b"             
+[163] "r32611a"              "r32611b"              "r32612a"             
+[166] "r32612b"              "r32613a"              "r32613b"             
+[169] "r32614a"              "r32614b"              "r32615a"             
+[172] "r32615b"              "r32616a"              "r32616b"             
+[175] "r32617a"              "r32617b"              "r32618a"             
+[178] "r32618b"              "r32619a"              "r32619b"             
+[181] "r327"                 "r3281"                "r3282"               
+[184] "r3283"                "r3284"                "r3285"               
+[187] "r3286"                "r3287"                "r329"                
+[190] "r330"                 "r33101a"              "r33101b"             
+[193] "r33101a1"             "r33101b1"             "r33101a2"            
+[196] "r33101b2"             "r33102a"              "r33102b"             
+[199] "r33103a"              "r33103b"              "r33104a"             
+[202] "r33104b"              "r33105a"              "r33105b"             
+[205] "r33106a"              "r33106b"              "r33107a"             
+[208] "r33107b"              "r33108a"              "r33108b"             
+[211] "r33109a"              "r33109b"              "r33110a"             
+[214] "r33110b"              "r33111a"              "r33111b"             
+[217] "r33112a"              "r33112b"              "r33113a"             
+[220] "r33113b"              "r33114a"              "r33114b"             
+[223] "r33115a"              "r33115b"              "r33116a"             
+[226] "r33116b"              "r33117a"              "r33117b"             
+[229] "r33118a"              "r33118b"              "r33118otr"           
+[232] "r331total"            "r701"                 "r702a"               
+[235] "r703"                 "r7041a"               "r7043a"              
+[238] "r7043aotr"            "r7041b"               "r7042b"              
+[241] "r7042botr"            "r70501a"              "r70501b"             
+[244] "r70502a"              "r70502b"              "r70503a"             
+[247] "r70503b"              "r70504a"              "r70504b"             
+[250] "r70505a"              "r70505b"              "r70506a"             
+[253] "r70506b"              "r70507a"              "r70507b"             
+[256] "r70508a"              "r70508b"              "r70509a"             
+[259] "r70509b"              "r70510a"              "r70510b"             
+[262] "r70511a"              "r70511b"              "r70512a"             
+[265] "r70512b"              "r70513a"              "r70513b"             
+[268] "r70514a"              "r70514b"              "r70515a"             
+[271] "r70515b"              "r70516a"              "r70516b"             
+[274] "r70516ot"             "r706"                 "r706e"               
+[277] "irefa"                "irefa1"               "irefb"               
+[280] "irefb1"               "ires"                 "r901"                
+[283] "r902"                 "r902otr"              "r903"                
+[286] "r904"                 "r905"                 "r906"                
+[289] "r907a"                "r907b"                "r908a"               
+[292] "r908b"                "r909"                 "r910"                
+[295] "r910otr"              "r911"                 "r912"                
+[298] "r913"                 "r914"                 "r915"                
+[301] "r915otr"              "r916"                 "r917"                
+[304] "r918"                 "r918otr"              "r919"                
+[307] "r920"                 "r921"                 "r921otr"             
+[310] "r922"                 "r923"                 "r924"                
+[313] "r924otros"            "r925"                 "r9260101"            
+[316] "r9260102"             "r9260103"             "r9260104"            
+[319] "r9260105"             "r9260106"             "r9260107"            
+[322] "r9260107_otros"       "r927"                 "r927a"               
+[325] "r927b"                "r9280101"             "r9280102"            
+[328] "r9280103"             "r9280104"             "r9280105"            
+[331] "r9280105_otr"         "r1101"                "r1102"               
+[334] "r1103"                "r1104"                "r1105"               
+[337] "r1106"                "r1107"                "r1108"               
+[340] "r1109"                "r1110"                "r1111"               
+[343] "r1112"                "r1113"                "r1114"               
+[346] "r1115"                "control1116"          "r1116_01"            
+[349] "r1116_02"             "r1116_03"             "r1116_04"            
+[352] "r1116_05"             "r1116_05otr"          "r1117_01"            
+[355] "r1117_02"             "r1117_03"             "r1117_04"            
+[358] "r1117_05"             "r1118_01"             "r1118_02"            
+[361] "r1118_03"             "r1118_04"             "r1118_05"            
+[364] "r1118_otr_01"         "r1118_otr_02"         "r1118_otr_03"        
+[367] "r1118_otr_04"         "r1118_otr_05"         "control1119"         
+[370] "r1119_1"              "r1119_2"              "r1119_3"             
+[373] "r1119_4"              "r1119_5"              "r1119_6"             
+[376] "r1119_7"              "r1119_8"              "r1119_9"             
+[379] "r1119_10"             "r1119_11"             "r1119_11_otr"        
+[382] "control1120"          "r1120_1"              "r1120_2"             
+[385] "r1120_3"              "r1120_4"              "r1120_5"             
+[388] "edicion.y"            "KEY_PERSONA.y"        "lote.y"              
+[391] "tipo.y"               "folio.y"              "viv.y"               
+[394] "r101.y"               "fac00.y"              "area.y"              
+[397] "region.y"             "correlativo.y"        "municauto.y"         
+[400] "estratoarea.y"        "codigomunic.y"        "autorrepresentado.y" 
+[403] "znorte.y"             "r004.y"               "r005.y"              
+[406] "r006.y"               "r015.y"               "pobreza.y"           
+[409] "r06a"                 "r06b"                 "r06c"                
+[412] "r06otr"               "r103"                 "r103otr"             
+[415] "r104"                 "r105m"                "r105a"               
+[418] "r106"                 "r107"                 "r108a"               
+[421] "r108b"                "r201a"                "r202a"               
+[424] "r202b"                "r202botr"             "r203"                
+[427] "r204"                 "r204otr"              "r204g"               
+[430] "r205"                 "r206a"                "r206b"               
+[433] "r207"                 "r207otr"              "r208"                
+[436] "r208otr"              "r209"                 "r210a"               
+[439] "r210b"                "r210c"                "r211a"               
+[442] "r211b"                "r211c"                "r211d"               
+[445] "r211e"                "r211f"                "r211g"               
+[448] "r211h"                "r212"                 "r213"                
+[451] "r214"                 "r215a"                "r215otr"             
+[454] "r215b"                "r216a"                "r216b"               
+[457] "r217"                 "r217otro"             "r218"                
+[460] "r218otr"              "r219"                 "r219otr"             
+[463] "r220a1"               "r220a2"               "r220b1"              
+[466] "r220b2"               "r220c1"               "r220c2"              
+[469] "r220d1"               "r220d2"               "r220e1"              
+[472] "r220e2"               "r220f1"               "r220f2"              
+[475] "r221a1"               "r221a2"               "r221b1"              
+[478] "r221b2"               "r221c1"               "r221c2"              
+[481] "r221d1"               "r221d2"               "gasto_mat_iniciacion"
+[484] "aproba1"              "r402"                 "r403"                
+[487] "r404"                 "r405"                 "r405b"               
+[490] "r406"                 "r4061"                "r4062"               
+[493] "r406a"                "r406b"                "r407"                
+[496] "r408"                 "r408otr"              "r409"                
+[499] "r409otr"              "r409a"                "r410"                
+[502] "r411a"                "r411b"                "r411c"               
+[505] "r411d"                "r411e"                "r411f"               
+[508] "r412a"                "r412b"                "r412c"               
+[511] "r412d"                "r412e"                "r412f"               
+[514] "h411a"                "h412a"                "d411b"               
+[517] "d412b"                "r413"                 "r413otr"             
+[520] "r413a"                "r413a_otr"            "r414"                
+[523] "ciuo414"              "r416"                 "ciiu416"             
+[526] "r414indicador"        "r417a01"              "r417a02"             
+[529] "r417a03"              "r417a04"              "r417a05"             
+[532] "r417a06"              "r417a07"              "r417a08"             
+[535] "r417a09"              "r417a10"              "r417a11"             
+[538] "r417a12"              "r417a13"              "r417a14"             
+[541] "r417a15"              "r417a16"              "r417a14otr"          
+[544] "r417a"                "r418"                 "r418tr"              
+[547] "r418a"                "r418a_otr"            "r419"                
+[550] "r419a"                "r420"                 "r420_otr"            
+[553] "r421"                 "r422a"                "r422b"               
+[556] "r422c"                "r422d"                "r422e"               
+[559] "r422f"                "r422g"                "r423"                
+[562] "r424"                 "r424a"                "r42501a"             
+[565] "r42501b"              "r42502a"              "r42502b"             
+[568] "r42503a"              "r42503b"              "r42504a"             
+[571] "r42504b"              "r42505a"              "r42505b"             
+[574] "r42506a"              "r42506b"              "r42507a"             
+[577] "r42507b"              "r42508a"              "r42508b"             
+[580] "r42509a"              "r42509b"              "r42510a"             
+[583] "r42510b"              "r42511a"              "r42511b"             
+[586] "r42512a"              "r42512b"              "r42512ot"            
+[589] "r425a"                "r425b"                "r426"                
+[592] "r426a"                "r426b1"               "r426b2"              
+[595] "r427"                 "r428"                 "r429"                
+[598] "r430"                 "r431"                 "r431a"               
+[601] "r431otr"              "r432"                 "r433"                
+[604] "r434"                 "r43501a"              "r43501b"             
+[607] "r43502a"              "r43502b"              "r43503a"             
+[610] "r43503b"              "r43504a"              "r43504b"             
+[613] "r43505a"              "r43505b"              "r43506a"             
+[616] "r43506b"              "r43507a"              "r43507b"             
+[619] "r43508a"              "r43508b"              "r43509a"             
+[622] "r43509b"              "r43510a"              "r43510b"             
+[625] "r43511a"              "r43511b"              "r43512a"             
+[628] "r43512b"              "r43512ot"             "ciuo436"             
+[631] "ciiu438"              "r436"                 "r438"                
+[634] "r439"                 "r440"                 "r440tr"              
+[637] "r441"                 "r442"                 "r443"                
+[640] "r443otr"              "r44401a"              "r44401b"             
+[643] "r44402a"              "r44402b"              "r44403a"             
+[646] "r44403b"              "r44404a"              "r44404b"             
+[649] "r44405a"              "r44405b"              "r44406a"             
+[652] "r44406b"              "r44407a"              "r44407b"             
+[655] "r44408a"              "r44408b"              "r44409a"             
+[658] "r44409b"              "r44410a"              "r44410b"             
+[661] "r44411a"              "r44411b"              "r44411ot"            
+[664] "r44501"               "r44502"               "r44503"              
+[667] "r44504"               "r44505"               "r44506"              
+[670] "r44507"               "r44508"               "r44509"              
+[673] "r44510"               "r44511"               "r44512"              
+[676] "r44512ot"             "r445a"                "r445b1"              
+[679] "r445b2"               "r445b3"               "r445b4"              
+[682] "r445b5"               "r445b6"               "r445b6otr"           
+[685] "r445c"                "r445d"                "r445e"               
+[688] "r445fh1"              "r445fh2"              "r445fh3"             
+[691] "r445fh4"              "r445fh5"              "r445fm1"             
+[694] "r445fm2"              "r445fm3"              "r445fm4"             
+[697] "r445fm5"              "r44601"               "r44602"              
+[700] "r44603"               "r44604"               "r44605"              
+[703] "r44605ot"             "r44701"               "r44702"              
+[706] "r44703"               "r44704"               "r44705"              
+[709] "r44801"               "r44802"               "r44803"              
+[712] "r44804"               "r44805"               "r44901"              
+[715] "r44902"               "r44903"               "r44904"              
+[718] "r45001"               "r45002"               "r45003"              
+[721] "r45004"               "r45101"               "r45102"              
+[724] "r45103"               "r45104"               "r452a"               
+[727] "r452b"                "r453"                 "actse"               
+[730] "actpr"                "actpr2018"            "segm"                
+[733] "imeds"                "imei"                 "money"               
+[736] "imes"                 "imnl"                 "oia"                 
+[739] "oimed"                "ingre"                "r502"                
+[742] "r503a"                "r503a1"               "r503b"               
+[745] "r503aotr"             "r5031"                "r5032"               
+[748] "r5033"                "r5033otr"             "r504"                
+[751] "r5051"                "r5052"                "r5053"               
+[754] "r5054"                "r5055"                "r5056"               
+[757] "r5057"                "r5057a"               "r5058"               
+[760] "r50508ot"             "r506"                 "r506b"               
+[763] "r507"                 "r508"                 "r509"                
+[766] "r509otr"              "r510"                 "r511"                
+[769] "r512"                 "r513a"                "r513b"               
+[772] "r513c"                "r513d"                "r514"                
+[775] "r515a"                "r515b"                "ingneto"             
+[778] "r601"                 "r601otr"              "r602"                
+[781] "r602otr"              "r603"                 "r604"                
+[784] "r604otr"              "r6051a"               "r6052a"              
+[787] "r6053a"               "r6053a_otr"           "r6051b"              
+[790] "r6052b"               "r6053b"               "r6053b_otr"          
+[793] "r6051c"               "r6052c"               "r6053c"              
+[796] "r6053c_otr"           "r6051d"               "r6052d"              
+[799] "r6053d"               "r6053d_otr"           "r606"                
+[802] "r607"                 "r607otr"              "r608"                
+[805] "r6091a"               "r6092a"               "r6093a"              
+[808] "r6094aotr"            "r6093b"               "r6091b"              
+[811] "r6092b"               "r6094botr"            "r6091c"              
+[814] "r6092c"               "r6093c"               "r6094cotr"           
+[817] "r6101"                "r6102"                "r6103"               
+[820] "r610otr"              "r611"                 "r611otr"             
+[823] "r612"                 "r612otr"              "r613"                
+[826] "r613otr"              "r1002a"               "r1002b"              
+[829] "r1003"                "r1004"                "r1004otr"            
+[832] "r1005"                "r1006a"               "r1006b"              
+[835] "r1007"               </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(merge_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 75045   835</code></pre>
+</div>
+</div>
+<p>¿Qué observas?</p>
+<ol type="1">
+<li><p>El orden de las variables corresponde al orden que pusimos las bases en las opciones.</p></li>
+<li><p>También vemos que las variables que se repetían en ambas bases se repiten en la nueva base, seguida de un un punto y una “x”, para lo que proviene de la primera base y con una “y”, lo que proviene de la segunda. R dejará las variables intactas y son coincidentes, en nuestro caso, porque las variables son iguales. R hace esto para precaver que por error tengamos alguna variable con un nombre igual y no sea la misma</p></li>
+</ol>
+<p>Revisemos que las variables “repetidas son iguales</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(merge_data<span class="sc">$</span>region.x, merge_data<span class="sc">$</span>region.y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   
+        1     2     3     4     5
+  1 17578     0     0     0     0
+  2     0 16677     0     0     0
+  3     0     0 12742     0     0
+  4     0     0     0 17733     0
+  5     0     0     0     0 10315</code></pre>
+</div>
+</div>
+<p>Si nos molesta mucho esta repetición de comandos, pues colocar un argumento señalando cual de las dos variables es la “real”, y eliminarlas de la base. Haremos un vector de nombres de variables que tienen .y para luego usar este vector para “deseleccionarlas”</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>merge_data<span class="ot">&lt;-</span><span class="fu">select</span>(merge_data,<span class="sc">-</span><span class="fu">ends_with</span>(<span class="st">".y"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="merge-con-id-compuesto" class="level1" data-number="13">
+<h1 data-number="13"><span class="header-section-number">13</span> Merge con id compuesto</h1>
+<p>La EHPM en ediciones más recientes tiene un id (o “key”) ya establecido. Si trabajas co una versión más antigua no la tendra.</p>
+<p>Hogares {hogares} es “lote”, “tipo”, “folio”, “viv” Persons {individuos} es “lote”, “tipo”, “folio”, “viv”, “r101”</p>
+<p>Esto significa que tenemos un id compuesto. No es una sola variable. Para esto modificamos ligeramente cómo ponemos el “by”, pero siempre eligiendo el id de la base de mayor nivel. (Tené cuidado con los paréntesis)</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>merge_data2<span class="ot">&lt;-</span> <span class="fu">merge</span>(hogares, personas, <span class="at">by=</span><span class="fu">c</span>(<span class="st">"lote"</span>, <span class="st">"tipo"</span>, <span class="st">"folio"</span>, <span class="st">"viv"</span>))</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(merge_data2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 75045   832</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>merge_data2<span class="ot">&lt;-</span><span class="fu">select</span>(merge_data2,<span class="sc">-</span><span class="fu">ends_with</span>(<span class="st">".y"</span>))</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(merge_data2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 75045   814</code></pre>
+</div>
+</div>
+<p>Revisemos la base</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(merge_data2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>'data.frame':   75045 obs. of  814 variables:
+ $ lote                : num  10004 10004 10004 10004 10004 ...
+ $ tipo                : dbl+lbl [1:75045] 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0...
+   ..@ label        : chr "Tipo"
+   ..@ format.spss  : chr "F1.0"
+   ..@ display_width: int 12
+   ..@ labels       : Named num  0 1 2 3
+   .. ..- attr(*, "names")= chr [1:4] "Hogar principal" "Doble hogar" "Doble hogar" "Doble hogar"
+ $ folio               : num  114 114 114 114 114 117 117 117 117 123 ...
+ $ viv                 : dbl+lbl [1:75045] 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0...
+   ..@ label        : chr "Vivienda"
+   ..@ format.spss  : chr "F1.0"
+   ..@ display_width: int 6
+   ..@ labels       : Named num  0 1
+   .. ..- attr(*, "names")= chr [1:2] "Vivienda en muestra" "Vivienda extra"
+ $ edicion.x           : num  2018 2018 2018 2018 2018 ...
+ $ KEY_PERSONA.x       : num  19614701 19614701 19614701 19614701 19614701 ...
+ $ KEY_HOGAR.x         : num  196147 196147 196147 196147 196147 ...
+ $ r101.x              : num  1 1 1 1 1 1 1 1 1 1 ...
+ $ fac00.x             : num  230 230 230 230 230 230 230 230 230 230 ...
+ $ area.x              : dbl+lbl [1:75045] 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1...
+   ..@ label        : chr "Área geográfica"
+   ..@ format.spss  : chr "F1.0"
+   ..@ display_width: int 6
+   ..@ labels       : Named num  0 1
+   .. ..- attr(*, "names")= chr [1:2] "Rural" "Urbano"
+ $ region.x            : dbl+lbl [1:75045] 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4...
+   ..@ label        : chr "Región geográfica"
+   ..@ format.spss  : chr "F1.0"
+   ..@ display_width: int 6
+   ..@ labels       : Named num  1 2 3 4 5
+   .. ..- attr(*, "names")= chr [1:5] "Occidental" "Central I" "Central II" "Oriental" ...
+ $ correlativo.x       : num  10004 10004 10004 10004 10004 ...
+ $ municauto.x         : num  50 50 50 50 50 50 50 50 50 50 ...
+ $ estratoarea.x       : dbl+lbl [1:75045] 11501, 11501, 11501, 11501, 11501, 11501, 11501, 115...
+   ..@ label        : chr "Estratos"
+   ..@ format.spss  : chr "F5.0"
+   ..@ display_width: int 6
+   ..@ labels       : Named num  1010 1011 1030 1031 1070 ...
+   .. ..- attr(*, "names")= chr [1:119] "Ahuachapán rural" "Ahuachapán urbano" "Atiquizaya rural" "Atiquizaya urbano" ...
+ $ codigomunic.x       : dbl+lbl [1:75045] 1111, 1111, 1111, 1111, 1111, 1111, 1111, 1111, 1111...
+   ..@ label        : chr "Códigos municipales"
+   ..@ format.spss  : chr "F4.0"
+   ..@ display_width: int 6
+   ..@ labels       : Named num  101 102 103 104 105 106 107 108 109 110 ...
+   .. ..- attr(*, "names")= chr [1:262] "Ahuachapán" "Apaneca" "Atiquizaya" "Concepción de Ataco" ...
+ $ autorrepresentado.x : num  0 0 0 0 0 0 0 0 0 0 ...
+ $ znorte.x            : num  0 0 0 0 0 0 0 0 0 0 ...
+ $ r004.x              : dbl+lbl [1:75045] 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, ...
+   ..@ label        : chr "Código de departamento"
+   ..@ format.spss  : chr "F2.0"
+   ..@ display_width: int 6
+   ..@ labels       : Named num  1 2 3 4 5 6 7 8 9 10 ...
+   .. ..- attr(*, "names")= chr [1:14] "Ahuachapán" "Santa Ana" "Sonsonate" "Chalatenango" ...
+ $ r005.x              : num  11 11 11 11 11 11 11 11 11 11 ...
+ $ r006.x              : num  0 0 0 0 0 0 0 0 0 0 ...
+ $ r015.x              : dbl+lbl [1:75045] 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6...
+   ..@ label        : chr "Mes de levantamiento"
+   ..@ format.spss  : chr "F2.0"
+   ..@ display_width: int 6
+   ..@ labels       : Named num  1 2 3 4 5 6 7 8 9 10 ...
+   .. ..- attr(*, "names")= chr [1:12] "Enero" "Febrero" "Marzo" "Abril" ...
+ $ r017                : dbl+lbl [1:75045] 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1...
+   ..@ label        : chr "Resultado final de la entrevista"
+   ..@ format.spss  : chr "F1.0"
+   ..@ display_width: int 6
+   ..@ labels       : Named num  1 2 3 4 5 6 7 8
+   .. ..- attr(*, "names")= chr [1:8] "Completa" "Ausente temporal" "Rehúso" "Otros tipo A" ...
+ $ r018                : num  2 2 2 2 2 1 1 1 1 1 ...
+ $ r019                : dbl+lbl [1:75045] 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 2, 2...
+   ..@ label        : chr "Entrevista con boleta anexa"
+   ..@ format.spss  : chr "F1.0"
+   ..@ display_width: int 6
+   ..@ labels       : Named num  1 2
+   .. ..- attr(*, "names")= chr [1:2] "Con boleta anexa" "Sin boleta anexa"
+ $ r020                : dbl+lbl [1:75045] 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1...
+   ..@ label        : chr "Confiabilidad de la información"
+   ..@ format.spss  : chr "F1.0"
+   ..@ display_width: int 6
+   ..@ labels       : Named num  1 2 3
+   .. ..- attr(*, "names")= chr [1:3] "Información confiable" "Informacion poco confiable" "Información no confiable"
+ $ r021a               : num  5 5 5 5 5 4 4 4 4 7 ...
+ $ r021b               : num  5 5 5 5 5 4 4 4 4 6 ...
+ $ r022                : num  5 5 5 5 5 4 4 4 4 6 ...
+ $ r023                : num  1 1 1 1 1 1 1 1 1 2 ...
+ $ r024                : num  1 1 1 1 1 0 0 0 0 1 ...
+ $ r027                : num  3 3 3 3 3 2 2 2 2 0 ...
+ $ r033                : num  5 5 5 5 5 4 4 4 4 6 ...
+ $ r034                : num  5 5 5 5 5 4 4 4 4 6 ...
+ $ r035                : num  1 1 1 1 1 1 1 1 1 2 ...
+ $ r035a               : num  0 0 0 0 0 0 0 0 0 1 ...
+ $ r036                : num  1 1 1 1 1 0 0 0 0 1 ...
+ $ r038                : dbl+lbl [1:75045] 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1...
+   ..@ label        : chr "Boleta con sección de subsidios"
+   ..@ format.spss  : chr "F1.0"
+   ..@ display_width: int 6
+   ..@ labels       : Named num  0 1
+   .. ..- attr(*, "names")= chr [1:2] "Boleta sin sección de subsidios" "Boleta con sección de subsidios"
+ $ r039                : dbl+lbl [1:75045] 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1...
+   ..@ label        : chr "Hogar con sección de pobreza multidimensional"
+   ..@ format.spss  : chr "F1.0"
+   ..@ display_width: int 6
+   ..@ labels       : Named num  1 8 9
+   .. ..- attr(*, "names")= chr [1:3] "Hogar con sección de pobreza multidimensional" "Sin sección de pobreza multidimensional por ser una zona de riesgo" "Sin sección de pobreza multidimensional por rechazo del informante"
+ $ r042                : dbl+lbl [1:75045] 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1...
+   ..@ label        : chr "Boleta con sección de subsidios"
+   ..@ format.spss  : chr "F1.0"
+   ..@ display_width: int 6
+   ..@ labels       : Named num  0 1
+   .. ..- attr(*, "names")= chr [1:2] "Boleta sin sección de subsidios" "Boleta con sección de subsidios"
+ $ r04a                : num  0 0 0 0 0 0 0 0 0 1 ...
+ $ gasper              : num  103 103 103 103 103 ...
+ $ gastohog            : num  516 516 516 516 516 ...
+ $ ghali               : num  50 50 50 50 50 ...
+ $ ghu12               : num  74.6 74.6 74.6 74.6 74.6 ...
+ $ gmed                : num  333 333 333 333 333 67 67 67 67 19.4 ...
+ $ gmem                : num  0 0 0 0 0 0 0 0 0 0 ...
+ $ gmsa                : num  1 1 1 1 1 0 0 0 0 0 ...
+ $ gmvi                : num  57.8 57.8 57.8 57.8 57.8 ...
+ $ gtmh                : num  125 125 125 125 125 ...
+ $ ingfa               : num  347 347 347 347 347 ...
+ $ ingpe               : num  69.5 69.5 69.5 69.5 69.5 ...
+ $ miemh               : num  5 5 5 5 5 4 4 4 4 7 ...
+ $ miemh_exdomestico   : num  5 5 5 5 5 4 4 4 4 7 ...
+ $ pobreza.x           : dbl+lbl [1:75045] 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2...
+   ..@ label        : chr "Condición de pobreza del hogar"
+   ..@ format.spss  : chr "F1.0"
+   ..@ display_width: int 6
+   ..@ labels       : Named num  1 2 3
+   .. ..- attr(*, "names")= chr [1:3] "Pobreza extrema" "Pobreza relativa" "No pobre"
+ $ totayuda            : num  60 60 60 60 60 200 200 200 200 0 ...
+ $ r01a                : dbl+lbl [1:75045] 2, 2, 2, 2, 2, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2...
+   ..@ label        : chr "Tiene el hogar algún miembro en el extranjero"
+   ..@ format.spss  : chr "F1.0"
+   ..@ display_width: int 6
+   ..@ labels       : Named num  1 2
+   .. ..- attr(*, "names")= chr [1:2] "Sí" "No"
+ $ r01b                : num  NA NA NA NA NA 1 1 1 1 NA ...
+ $ r01c                : num  NA NA NA NA NA 1 1 1 1 NA ...
+ $ r01d                : num  NA NA NA NA NA NA NA NA NA NA ...
+ $ r01e                : num  NA NA NA NA NA 8 8 8 8 NA ...
+ $ r01f_a              : dbl+lbl [1:75045]  NA,  NA,  NA,  NA,  NA, 840, 840, 840, 840,  NA,  N...
+   ..@ label        : chr "País de residencia de los miembros en el extranjero"
+   ..@ format.spss  : chr "F3.0"
+   ..@ display_width: int 6
+   ..@ labels       : Named num  36 124 484 724 840 999
+   .. ..- attr(*, "names")= chr [1:6] "Australia" "Canadá" "México" "España" ...
+ $ r01f_b              : dbl+lbl [1:75045] NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, ...
+   ..@ label        : chr "País de residencia de los miembros en el extranjero"
+   ..@ format.spss  : chr "F3.0"
+   ..@ display_width: int 6
+   ..@ labels       : Named num  36 124 484 724 840 999
+   .. ..- attr(*, "names")= chr [1:6] "Australia" "Canadá" "México" "España" ...
+ $ r01f_c              : dbl+lbl [1:75045] NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, ...
+   ..@ label        : chr "País de residencia de los miembros en el extranjero"
+   ..@ format.spss  : chr "F3.0"
+   ..@ display_width: int 6
+   ..@ labels       : Named num  36 124 484 724 840 999
+   .. ..- attr(*, "names")= chr [1:6] "Australia" "Canadá" "México" "España" ...
+ $ r01f_d              : dbl+lbl [1:75045] NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, ...
+   ..@ label        : chr "País de residencia de los miembros en el extranjero"
+   ..@ format.spss  : chr "F3.0"
+   ..@ display_width: int 6
+   ..@ labels       : Named num  36 124 484 724 840 999
+   .. ..- attr(*, "names")= chr [1:6] "Australia" "Canadá" "México" "España" ...
+ $ r01otr              : num  NA NA NA NA NA NA NA NA NA NA ...
+ $ r02a                : dbl+lbl [1:75045] 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2...
+   ..@ label        : chr "Tiene el hogar pupilos"
+   ..@ format.spss  : chr "F1.0"
+   ..@ display_width: int 6
+   ..@ labels       : Named num  1 2
+   .. ..- attr(*, "names")= chr [1:2] "Sí" "No"
+ $ r02b                : num  NA NA NA NA NA NA NA NA NA NA ...
+ $ r02c                : num  NA NA NA NA NA NA NA NA NA NA ...
+ $ r02d                : num  NA NA NA NA NA NA NA NA NA NA ...
+ $ r03                 : dbl+lbl [1:75045] 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2...
+   ..@ label        : chr "Realizó el hogar viajes turísticos"
+   ..@ format.spss  : chr "F1.0"
+   ..@ display_width: int 6
+   ..@ labels       : Named num  1 2
+   .. ..- attr(*, "names")= chr [1:2] "Sí" "No"
+ $ r0401               : num  NA NA NA NA NA NA NA NA NA NA ...
+ $ r0402               : num  NA NA NA NA NA NA NA NA NA NA ...
+ $ r0501               : dbl+lbl [1:75045] NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, ...
+   ..@ label        : chr "Gasto en viajes con pernoctación"
+   ..@ format.spss  : chr "F8.2"
+   ..@ display_width: int 7
+   ..@ labels       : Named num  1 2 3
+   .. ..- attr(*, "names")= chr [1:3] "Si" "No" "No sabe"
+ $ r0502               : dbl+lbl [1:75045] NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, ...
+   ..@ label        : chr "Gasto en viajes de un día"
+   ..@ format.spss  : chr "F8.2"
+   ..@ display_width: int 7
+   ..@ labels       : Named num  1 2 3
+   .. ..- attr(*, "names")= chr [1:3] "Si" "No" "No sabe"
+ $ r06                 : dbl+lbl [1:75045] 2, 2, 2, 2, 2, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2...
+   ..@ label        : chr "Hay menores de edad cuyos padres no viven en el hogar"
+   ..@ format.spss  : chr "F1.0"
+   ..@ display_width: int 6
+   ..@ labels       : Named num  1 2
+   .. ..- attr(*, "names")= chr [1:2] "Sí" "No"
+ $ r301                : dbl+lbl [1:75045] 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1...
+   ..@ label        : chr "Tipo de vivienda"
+   ..@ format.spss  : chr "F1.0"
+   ..@ display_width: int 11
+   ..@ labels       : Named num  1 2 3 4 5 6 7 8 9
+   .. ..- attr(*, "names")= chr [1:9] "Casa privada o independiente" "Apartamento" "Condominio" "Pieza en una casa" ...
+ $ r301otr             : num  NA NA NA NA NA NA NA NA NA NA ...
+ $ r301b               : num  NA NA NA NA NA NA NA NA NA NA ...
+ $ r301c               : dbl+lbl [1:75045] 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1...
+   ..@ label        : chr "Vivienda en buen estado"
+   ..@ format.spss  : chr "F1.0"
+   ..@ display_width: int 6
+   ..@ labels       : Named num  1 2
+   .. ..- attr(*, "names")= chr [1:2] "Sí" "No"
+ $ r302                : dbl+lbl [1:75045] 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2...
+   ..@ label        : chr "Material predominante en el techo"
+   ..@ format.spss  : chr "F1.0"
+   ..@ display_width: int 6
+   ..@ labels       : Named num  1 2 3 4 5 6 7
+   .. ..- attr(*, "names")= chr [1:7] "Losa de concreto" "Teja de barro o cemento" "Lámina de asbesto o fibra de cemento" "Lámina metálica" ...
+ $ r302otr             : num  NA NA NA NA NA NA NA NA NA NA ...
+ $ r302b               : dbl+lbl [1:75045] 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1...
+   ..@ label        : chr "Techo en buen estado"
+   ..@ format.spss  : chr "F1.0"
+   ..@ display_width: int 6
+   ..@ labels       : Named num  1 2
+   .. ..- attr(*, "names")= chr [1:2] "Sí" "No"
+ $ r303                : dbl+lbl [1:75045] 1, 1, 1, 1, 1, 3, 3, 3, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1...
+   ..@ label        : chr "Material predominante en las paredes"
+   ..@ format.spss  : chr "F1.0"
+   ..@ display_width: int 6
+   ..@ labels       : Named num  1 2 3 4 5 6 7 8
+   .. ..- attr(*, "names")= chr [1:8] "Concreto o mixto" "Bahareque" "Adobe" "Madera" ...
+ $ r303otr             : num  NA NA NA NA NA NA NA NA NA NA ...
+ $ r303b               : dbl+lbl [1:75045] 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1...
+   ..@ label        : chr "Paredes en buen estado"
+   ..@ format.spss  : chr "F1.0"
+   ..@ display_width: int 6
+   ..@ labels       : Named num  1 2
+   .. ..- attr(*, "names")= chr [1:2] "Sí" "No"
+ $ r304                : dbl+lbl [1:75045] 2, 2, 2, 2, 2, 5, 5, 5, 5, 2, 2, 2, 2, 2, 2, 2, 4, 4...
+   ..@ label        : chr "Material predominante en el piso"
+   ..@ format.spss  : chr "F1.0"
+   ..@ display_width: int 6
+   ..@ labels       : Named num  1 2 3 4 5 6
+   .. ..- attr(*, "names")= chr [1:6] "Ladrillo cerámico" "Ladrillo de cemento" "Ladrillo de barro" "Cemento" ...
+ $ r304otr             : num  NA NA NA NA NA NA NA NA NA NA ...
+ $ r305                : num  4 4 4 4 4 2 2 2 2 3 ...
+ $ r306                : num  3 3 3 3 3 1 1 1 1 2 ...
+ $ r307                : num  0 0 0 0 0 0 0 0 0 0 ...
+ $ r308                : dbl+lbl [1:75045] 3, 3, 3, 3, 3, 3, 3, 3, 3, 8, 8, 8, 8, 8, 8, 8, 8, 8...
+   ..@ label        : chr "Forma de tenencia de la vivienda"
+   ..@ format.spss  : chr "F1.0"
+   ..@ display_width: int 6
+   ..@ labels       : Named num  1 2 3 4 5 6 7 8 9
+   .. ..- attr(*, "names")= chr [1:9] "Inquilino(a)" "Propietario(a) de la vivienda pero la está pagando a plazos" "Propietario(a)" "Propietario(a) de la vivienda en terreno público" ...
+ $ r308otr             : num  NA NA NA NA NA NA NA NA NA NA ...
+ $ r308b               : num  1 1 1 1 1 2 2 2 2 NA ...
+ $ r308c               : num  NA NA NA NA NA NA NA NA NA NA ...
+ $ r309                : dbl+lbl [1:75045] NA, NA, NA, NA, NA, NA, NA, NA, NA,  2,  2,  2,  2, ...
+   ..@ label        : chr "Paga con algún bien o servicio el uso de la vivienda"
+   ..@ format.spss  : chr "F1.0"
+   ..@ display_width: int 6
+   ..@ labels       : Named num  1 2
+   .. ..- attr(*, "names")= chr [1:2] "Sí" "No"
+ $ r310                : num  NA NA NA NA NA NA NA NA NA NA ...
+ $ r310a               : num  200 200 200 200 200 50 50 50 50 40 ...
+ $ r310b               : dbl+lbl [1:75045]  1,  1,  1,  1,  1,  1,  1,  1,  1, NA, NA, NA, NA, ...
+   ..@ label        : chr "Está el terreno inscrito en el CNR a nombre de algún miembro del hogar"
+   ..@ format.spss  : chr "F1.0"
+   ..@ display_width: int 6
+   ..@ labels       : Named num  1 2 3 4
+   .. ..- attr(*, "names")= chr [1:4] "Sí" "No" "Está en trámite" "No sabe"
+ $ r310_01             : num  1 1 1 1 1 1 1 1 1 NA ...
+  [list output truncated]</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span>(merge_data2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      lote tipo folio viv edicion.x KEY_PERSONA.x KEY_HOGAR.x r101.x fac00.x
+75040 9998    0    98   0      2018      18872901      188729      1     181
+75041 9998    0    98   0      2018      18872901      188729      1     181
+75042 9998    0    98   0      2018      18872901      188729      1     181
+75043 9998    0    99   0      2018      18873001      188730      1     181
+75044 9998    0    99   0      2018      18873001      188730      1     181
+75045 9998    0    99   0      2018      18873001      188730      1     181
+      area.x region.x correlativo.x municauto.x estratoarea.x codigomunic.x
+75040      0        4          9998          50         11500          1110
+75041      0        4          9998          50         11500          1110
+75042      0        4          9998          50         11500          1110
+75043      0        4          9998          50         11500          1110
+75044      0        4          9998          50         11500          1110
+75045      0        4          9998          50         11500          1110
+      autorrepresentado.x znorte.x r004.x r005.x r006.x r015.x r017 r018 r019
+75040                   0        0     11     10      7      3    1    1    2
+75041                   0        0     11     10      7      3    1    1    2
+75042                   0        0     11     10      7      3    1    1    2
+75043                   0        0     11     10      7      3    1    1    2
+75044                   0        0     11     10      7      3    1    1    2
+75045                   0        0     11     10      7      3    1    1    2
+      r020 r021a r021b r022 r023 r024 r027 r033 r034 r035 r035a r036 r038 r039
+75040    1     4     4    4    1    4    2    4    4    1     0    4    1    1
+75041    1     4     4    4    1    4    2    4    4    1     0    4    1    1
+75042    1     4     4    4    1    4    2    4    4    1     0    4    1    1
+75043    1     3     3    3    1    3    2    3    3    1     0    3    1    1
+75044    1     3     3    3    1    3    2    3    3    1     0    3    1    1
+75045    1     3     3    3    1    3    2    3    3    1     0    3    1    1
+      r042 r04a gasper gastohog ghali ghu12 gmed gmem gmsa gmvi  gtmh  ingfa
+75040    1    0  35.84   143.34 65.31 29.83 33.2    0    0   15 95.14 790.08
+75041    1    0  35.84   143.34 65.31 29.83 33.2    0    0   15 95.14 790.08
+75042    1    0  35.84   143.34 65.31 29.83 33.2    0    0   15 95.14 790.08
+75043    1    0  32.98    98.94 39.11 14.33 23.5    0    0   22 53.44 245.66
+75044    1    0  32.98    98.94 39.11 14.33 23.5    0    0   22 53.44 245.66
+75045    1    0  32.98    98.94 39.11 14.33 23.5    0    0   22 53.44 245.66
+       ingpe miemh miemh_exdomestico pobreza.x totayuda r01a r01b r01c r01d
+75040 197.52     4                 4         3        0    2   NA   NA   NA
+75041 197.52     4                 4         3        0    2   NA   NA   NA
+75042 197.52     4                 4         3        0    2   NA   NA   NA
+75043  81.89     3                 3         3        0    2   NA   NA   NA
+75044  81.89     3                 3         3        0    2   NA   NA   NA
+75045  81.89     3                 3         3        0    2   NA   NA   NA
+      r01e r01f_a r01f_b r01f_c r01f_d r01otr r02a r02b r02c r02d r03 r0401
+75040   NA     NA     NA     NA     NA     NA    2   NA   NA   NA   2    NA
+75041   NA     NA     NA     NA     NA     NA    2   NA   NA   NA   2    NA
+75042   NA     NA     NA     NA     NA     NA    2   NA   NA   NA   2    NA
+75043   NA     NA     NA     NA     NA     NA    2   NA   NA   NA   2    NA
+75044   NA     NA     NA     NA     NA     NA    2   NA   NA   NA   2    NA
+75045   NA     NA     NA     NA     NA     NA    2   NA   NA   NA   2    NA
+      r0402 r0501 r0502 r06 r301 r301otr r301b r301c r302 r302otr r302b r303
+75040    NA    NA    NA   2    1      NA    NA     1    4      NA     1    5
+75041    NA    NA    NA   2    1      NA    NA     1    4      NA     1    5
+75042    NA    NA    NA   2    1      NA    NA     1    4      NA     1    5
+75043    NA    NA    NA   2    1      NA    NA     1    4      NA     1    5
+75044    NA    NA    NA   2    1      NA    NA     1    4      NA     1    5
+75045    NA    NA    NA   2    1      NA    NA     1    4      NA     1    5
+      r303otr r303b r304 r304otr r305 r306 r307 r308 r308otr r308b r308c r309
+75040      NA     1    5      NA    1    0    0    3      NA     1    NA   NA
+75041      NA     1    5      NA    1    0    0    3      NA     1    NA   NA
+75042      NA     1    5      NA    1    0    0    3      NA     1    NA   NA
+75043      NA     1    4      NA    1    0    0    8      NA    NA    NA    2
+75044      NA     1    4      NA    1    0    0    8      NA    NA    NA    2
+75045      NA     1    4      NA    1    0    0    8      NA    NA    NA    2
+      r310 r310a r310b r310_01 r311 r311otr r312 r312d r312h r313 r313otr r314
+75040   NA    35     4      NA    2      NA    4     3     3   NA      NA    5
+75041   NA    35     4      NA    2      NA    4     3     3   NA      NA    5
+75042   NA    35     4      NA    2      NA    4     3     3   NA      NA    5
+75043   NA    20    NA      NA    1      NA    4     3     3   NA      NA    2
+75044   NA    20    NA      NA    1      NA    4     3     3   NA      NA    2
+75045   NA    20    NA      NA    1      NA    4     3     3   NA      NA    2
+      r314otr r315a r316 r317 r318 r318_1 r319a r319b r319c r319otr r320
+75040      NA     2   NA    7    2     NA    NA    NA    NA      NA    5
+75041      NA     2   NA    7    2     NA    NA    NA    NA      NA    5
+75042      NA     2   NA    7    2     NA    NA    NA    NA      NA    5
+75043      NA     2   NA    7    2     NA    NA    NA    NA      NA    5
+75044      NA     2   NA    7    2     NA    NA    NA    NA      NA    5
+75045      NA     2   NA    7    2     NA    NA    NA    NA      NA    5
+      r320otr r321a1 r321a2 r321a3 r321a4 r321a5 r321a6 r321a7 r321a8 r321aotr
+75040      NA      2      2      1      2      1      2      2      1       NA
+75041      NA      2      2      1      2      1      2      2      1       NA
+75042      NA      2      2      1      2      1      2      2      1       NA
+75043      NA      2      2      2      2      2      2      2      2       NA
+75044      NA      2      2      2      2      2      2      2      2       NA
+75045      NA      2      2      2      2      2      2      2      2       NA
+      r322 r322otr r323 r323b r3241a r3241b r3242a r3242b r3243a r3243a1 r3244a
+75040    4      NA    2    NA      2     NA      1      3      2       2      2
+75041    4      NA    2    NA      2     NA      1      3      2       2      2
+75042    4      NA    2    NA      2     NA      1      3      2       2      2
+75043    3      NA    2    NA      2     NA      1      2      2       2      2
+75044    3      NA    2    NA      2     NA      1      2      2       2      2
+75045    3      NA    2    NA      2     NA      1      2      2       2      2
+      r3245a r325 r325ot r32601a r32601b r32602a r32602b r32603a r32603b
+75040      2    6     NA       1       1       2      NA       1       1
+75041      2    6     NA       1       1       2      NA       1       1
+75042      2    6     NA       1       1       2      NA       1       1
+75043      1    1     NA       2      NA       1       1       1       1
+75044      1    1     NA       2      NA       1       1       1       1
+75045      1    1     NA       2      NA       1       1       1       1
+      r32604a r32604b r32605a r32605b r32606a r32606b r32607a r32607b r32608a
+75040       2      NA       1       1       2      NA       2      NA       2
+75041       2      NA       1       1       2      NA       2      NA       2
+75042       2      NA       1       1       2      NA       2      NA       2
+75043       2      NA       1       1       2      NA       2      NA       2
+75044       2      NA       1       1       2      NA       2      NA       2
+75045       2      NA       1       1       2      NA       2      NA       2
+      r32608b r32609a r32609b r32610a r32610b r32611a r32611b r32612a r32612b
+75040      NA       2      NA       2      NA       2      NA       2      NA
+75041      NA       2      NA       2      NA       2      NA       2      NA
+75042      NA       2      NA       2      NA       2      NA       2      NA
+75043      NA       2      NA       2      NA       2      NA       2      NA
+75044      NA       2      NA       2      NA       2      NA       2      NA
+75045      NA       2      NA       2      NA       2      NA       2      NA
+      r32613a r32613b r32614a r32614b r32615a r32615b r32616a r32616b r32617a
+75040       1       1       2      NA       2      NA       2      NA       2
+75041       1       1       2      NA       2      NA       2      NA       2
+75042       1       1       2      NA       2      NA       2      NA       2
+75043       1       1       2      NA       2      NA       2      NA       2
+75044       1       1       2      NA       2      NA       2      NA       2
+75045       1       1       2      NA       2      NA       2      NA       2
+      r32617b r32618a r32618b r32619a r32619b r327 r3281 r3282 r3283 r3284
+75040      NA       2      NA       1       1    2    NA    NA    NA    NA
+75041      NA       2      NA       1       1    2    NA    NA    NA    NA
+75042      NA       2      NA       1       1    2    NA    NA    NA    NA
+75043      NA       2      NA       2      NA    2    NA    NA    NA    NA
+75044      NA       2      NA       2      NA    2    NA    NA    NA    NA
+75045      NA       2      NA       2      NA    2    NA    NA    NA    NA
+      r3285 r3286 r3287 r329 r330 r33101a r33101b r33101a1 r33101b1 r33101a2
+75040    NA    NA    NA    2    2       5      NA        5       NA        1
+75041    NA    NA    NA    2    2       5      NA        5       NA        1
+75042    NA    NA    NA    2    2       5      NA        5       NA        1
+75043    NA    NA    NA    2    2       5      NA        5       NA        1
+75044    NA    NA    NA    2    2       5      NA        5       NA        1
+75045    NA    NA    NA    2    2       5      NA        5       NA        1
+      r33101b2 r33102a r33102b r33103a r33103b r33104a r33104b r33105a r33105b
+75040      4.5       1     2.5       5      NA       5      NA       5      NA
+75041      4.5       1     2.5       5      NA       5      NA       5      NA
+75042      4.5       1     2.5       5      NA       5      NA       5      NA
+75043      4.0       1    13.0       5      NA       5      NA       5      NA
+75044      4.0       1    13.0       5      NA       5      NA       5      NA
+75045      4.0       1    13.0       5      NA       5      NA       5      NA
+      r33106a r33106b r33107a r33107b r33108a r33108b r33109a r33109b r33110a
+75040       5      NA       5      NA       5      NA       5      NA       1
+75041       5      NA       5      NA       5      NA       5      NA       1
+75042       5      NA       5      NA       5      NA       5      NA       1
+75043       5      NA       5      NA       5      NA       5      NA       1
+75044       5      NA       5      NA       5      NA       5      NA       1
+75045       5      NA       5      NA       5      NA       5      NA       1
+      r33110b r33111a r33111b r33112a r33112b r33113a r33113b r33114a r33114b
+75040       8       5      NA       5      NA       5      NA       5      NA
+75041       8       5      NA       5      NA       5      NA       5      NA
+75042       8       5      NA       5      NA       5      NA       5      NA
+75043       5       6      NA       5      NA       5      NA       5      NA
+75044       5       6      NA       5      NA       5      NA       5      NA
+75045       5       6      NA       5      NA       5      NA       5      NA
+      r33115a r33115b r33116a r33116b r33117a r33117b r33118a r33118b r33118otr
+75040       5      NA       5      NA       5      NA       5      NA        NA
+75041       5      NA       5      NA       5      NA       5      NA        NA
+75042       5      NA       5      NA       5      NA       5      NA        NA
+75043       5      NA       5      NA       5      NA       5      NA        NA
+75044       5      NA       5      NA       5      NA       5      NA        NA
+75045       5      NA       5      NA       5      NA       5      NA        NA
+      r331total r701 r702a r703 r7041a r7043a r7043aotr r7041b r7042b r7042botr
+75040        15    1     2    5     NA     NA        NA     NA     NA        NA
+75041        15    1     2    5     NA     NA        NA     NA     NA        NA
+75042        15    1     2    5     NA     NA        NA     NA     NA        NA
+75043        22    1     2    5     NA     NA        NA     NA     NA        NA
+75044        22    1     2    5     NA     NA        NA     NA     NA        NA
+75045        22    1     2    5     NA     NA        NA     NA     NA        NA
+      r70501a r70501b r70502a r70502b r70503a r70503b r70504a r70504b r70505a
+75040      NA      NA      NA      NA      NA      NA      NA      NA      NA
+75041      NA      NA      NA      NA      NA      NA      NA      NA      NA
+75042      NA      NA      NA      NA      NA      NA      NA      NA      NA
+75043      NA      NA      NA      NA      NA      NA      NA      NA      NA
+75044      NA      NA      NA      NA      NA      NA      NA      NA      NA
+75045      NA      NA      NA      NA      NA      NA      NA      NA      NA
+      r70505b r70506a r70506b r70507a r70507b r70508a r70508b r70509a r70509b
+75040      NA      NA      NA      NA      NA      NA      NA      NA      NA
+75041      NA      NA      NA      NA      NA      NA      NA      NA      NA
+75042      NA      NA      NA      NA      NA      NA      NA      NA      NA
+75043      NA      NA      NA      NA      NA      NA      NA      NA      NA
+75044      NA      NA      NA      NA      NA      NA      NA      NA      NA
+75045      NA      NA      NA      NA      NA      NA      NA      NA      NA
+      r70510a r70510b r70511a r70511b r70512a r70512b r70513a r70513b r70514a
+75040      NA      NA      NA      NA      NA      NA      NA      NA      NA
+75041      NA      NA      NA      NA      NA      NA      NA      NA      NA
+75042      NA      NA      NA      NA      NA      NA      NA      NA      NA
+75043      NA      NA      NA      NA      NA      NA      NA      NA      NA
+75044      NA      NA      NA      NA      NA      NA      NA      NA      NA
+75045      NA      NA      NA      NA      NA      NA      NA      NA      NA
+      r70514b r70515a r70515b r70516a r70516b r70516ot r706 r706e irefa irefa1
+75040      NA      NA      NA      NA      NA       NA   NA    NA     0      0
+75041      NA      NA      NA      NA      NA       NA   NA    NA     0      0
+75042      NA      NA      NA      NA      NA       NA   NA    NA     0      0
+75043      NA      NA      NA      NA      NA       NA   NA    NA     0      0
+75044      NA      NA      NA      NA      NA       NA   NA    NA     0      0
+75045      NA      NA      NA      NA      NA       NA   NA    NA     0      0
+      irefb irefb1 ires r901 r902 r902otr r903 r904 r905 r906 r907a r907b r908a
+75040     0      0    0    1    4      NA  200    1  200    3     1     6   1.5
+75041     0      0    0    1    4      NA  200    1  200    3     1     6   1.5
+75042     0      0    0    1    4      NA  200    1  200    3     1     6   1.5
+75043     0      0    0    2   NA      NA   NA    1   60    3     1     6   1.0
+75044     0      0    0    2   NA      NA   NA    1   60    3     1     6   1.0
+75045     0      0    0    2   NA      NA   NA    1   60    3     1     6   1.0
+      r908b r909 r910 r910otr r911 r912 r913 r914 r915 r915otr r916 r917 r918
+75040    15    1    1      NA   70    4   NA    2   NA      NA   NA    1    4
+75041    15    1    1      NA   70    4   NA    2   NA      NA   NA    1    4
+75042    15    1    1      NA   70    4   NA    2   NA      NA   NA    1    4
+75043    10    2   NA      NA   NA    4   NA    2   NA      NA   NA    2   NA
+75044    10    2   NA      NA   NA    4   NA    2   NA      NA   NA    2   NA
+75045    10    2   NA      NA   NA    4   NA    2   NA      NA   NA    2   NA
+      r918otr r919 r920 r921 r921otr r922 r923 r924 r924otros r925 r9260101
+75040      NA   30    2   NA      NA   NA    2   NA        NA    2        1
+75041      NA   30    2   NA      NA   NA    2   NA        NA    2        1
+75042      NA   30    2   NA      NA   NA    2   NA        NA    2        1
+75043      NA   NA    2   NA      NA   NA    1    4        NA    2       NA
+75044      NA   NA    2   NA      NA   NA    1    4        NA    2       NA
+75045      NA   NA    2   NA      NA   NA    1    4        NA    2       NA
+      r9260102 r9260103 r9260104 r9260105 r9260106 r9260107 r9260107_otros r927
+75040        2        2        1        1        2        2             NA    2
+75041        2        2        1        1        2        2             NA    2
+75042        2        2        1        1        2        2             NA    2
+75043       NA       NA       NA       NA       NA       NA             NA    2
+75044       NA       NA       NA       NA       NA       NA             NA    2
+75045       NA       NA       NA       NA       NA       NA             NA    2
+      r927a r927b r9280101 r9280102 r9280103 r9280104 r9280105 r9280105_otr
+75040    NA    NA        3        3        3        3        3           NA
+75041    NA    NA        3        3        3        3        3           NA
+75042    NA    NA        3        3        3        3        3           NA
+75043    NA    NA        3        3        3        3        3           NA
+75044    NA    NA        3        3        3        3        3           NA
+75045    NA    NA        3        3        3        3        3           NA
+      r1101 r1102 r1103 r1104 r1105 r1106 r1107 r1108 r1109 r1110 r1111 r1112
+75040     2     2     2     2     2     2     2     2     2     2     2     2
+75041     2     2     2     2     2     2     2     2     2     2     2     2
+75042     2     2     2     2     2     2     2     2     2     2     2     2
+75043     2     2     2     2     2     2     2     2     2     2     2     2
+75044     2     2     2     2     2     2     2     2     2     2     2     2
+75045     2     2     2     2     2     2     2     2     2     2     2     2
+      r1113 r1114 r1115 control1116 r1116_01 r1116_02 r1116_03 r1116_04
+75040     2     2     2           1        1        2        2        1
+75041     2     2     2           1        1        2        2        1
+75042     2     2     2           1        1        2        2        1
+75043     2     2     2           1        1        2        2        1
+75044     2     2     2           1        1        2        2        1
+75045     2     2     2           1        1        2        2        1
+      r1116_05 r1116_05otr r1117_01 r1117_02 r1117_03 r1117_04 r1117_05
+75040        2          NA        1       NA       NA        1       NA
+75041        2          NA        1       NA       NA        1       NA
+75042        2          NA        1       NA       NA        1       NA
+75043        2          NA        1       NA       NA        1       NA
+75044        2          NA        1       NA       NA        1       NA
+75045        2          NA        1       NA       NA        1       NA
+      r1118_01 r1118_02 r1118_03 r1118_04 r1118_05 r1118_otr_01 r1118_otr_02
+75040       NA       NA       NA       NA       NA           NA           NA
+75041       NA       NA       NA       NA       NA           NA           NA
+75042       NA       NA       NA       NA       NA           NA           NA
+75043       NA       NA       NA       NA       NA           NA           NA
+75044       NA       NA       NA       NA       NA           NA           NA
+75045       NA       NA       NA       NA       NA           NA           NA
+      r1118_otr_03 r1118_otr_04 r1118_otr_05 control1119 r1119_1 r1119_2
+75040           NA           NA           NA           1       2       2
+75041           NA           NA           NA           1       2       2
+75042           NA           NA           NA           1       2       2
+75043           NA           NA           NA           1       2       2
+75044           NA           NA           NA           1       2       2
+75045           NA           NA           NA           1       2       2
+      r1119_3 r1119_4 r1119_5 r1119_6 r1119_7 r1119_8 r1119_9 r1119_10 r1119_11
+75040       2       2       2       2       2       2       2        2        2
+75041       2       2       2       2       2       2       2        2        2
+75042       2       2       2       2       2       2       2        2        2
+75043       2       2       2       2       2       2       2        2        2
+75044       2       2       2       2       2       2       2        2        2
+75045       2       2       2       2       2       2       2        2        2
+      r1119_11_otr control1120 r1120_1 r1120_2 r1120_3 r1120_4 r1120_5 r06a
+75040           NA           1       1       1       1       1       1   NA
+75041           NA           1       1       1       1       1       1   NA
+75042           NA           1       1       1       1       1       1   NA
+75043           NA           1       1       1       1       1       1   NA
+75044           NA           1       1       1       1       1       1   NA
+75045           NA           1       1       1       1       1       1   NA
+      r06b r06c r06otr r103 r103otr r104 r105m r105a r106 r107 r108a r108b
+75040   NA   NA     NA    3      NA    1     6  1997   20    6    NA    NA
+75041   NA   NA     NA    2      NA    2    11  1981   36    1    NA    NA
+75042   NA   NA     NA    1      NA    1     7  1943   74    1    NA    NA
+75043   NA   NA     NA    3      NA    2    12  2010    7   NA     1     2
+75044   NA   NA     NA    2      NA    2     7  1981   36    1    NA    NA
+75045   NA   NA     NA    1      NA    1     2  1986   32    1    NA    NA
+      r201a r202a r202b r202botr r203 r204 r204otr r204g r205 r206a r206b r207
+75040    NA     1     1       NA    2   NA      NA    NA   NA    NA    NA   NA
+75041    NA     2    NA       NA    2   NA      NA    NA   NA    NA    NA   NA
+75042    NA     1     1       NA    2   NA      NA    NA   NA    NA    NA   NA
+75043    NA     1     1       NA    1    2      NA     1    2     2    NA   NA
+75044    NA     1     1       NA    2   NA      NA    NA   NA    NA    NA   NA
+75045    NA     1     1       NA    2   NA      NA    NA   NA    NA    NA   NA
+      r207otr r208 r208otr r209 r210a r210b r210c r211a r211b r211c r211d r211e
+75040      NA   NA      NA   NA    NA    NA    NA    NA    NA    NA    NA    NA
+75041      NA   NA      NA   NA    NA    NA    NA    NA    NA    NA    NA    NA
+75042      NA   NA      NA   NA    NA    NA    NA    NA    NA    NA    NA    NA
+75043      NA   NA      NA    1     1     1     1     1     1     1     2     2
+75044      NA   NA      NA   NA    NA    NA    NA    NA    NA    NA    NA    NA
+75045      NA   NA      NA   NA    NA    NA    NA    NA    NA    NA    NA    NA
+      r211f r211g r211h r212 r213 r214 r215a r215otr r215b r216a r216b r217
+75040    NA    NA    NA    2    1    1     2      NA     5     2    NA    1
+75041    NA    NA    NA    2    2   NA    NA      NA    NA    NA    NA   NA
+75042    NA    NA    NA    2    1    1     2      NA     6     2    NA    1
+75043     1     1     1   NA   NA   NA    NA      NA    NA    NA    NA   NA
+75044    NA    NA    NA    2    1    1     2      NA     9     2    NA    1
+75045    NA    NA    NA    2    1    1     2      NA     3     2    NA    1
+      r217otro r218 r218otr r219 r219otr r220a1 r220a2 r220b1 r220b2 r220c1
+75040       NA   NA      NA    1      NA     NA     NA     NA     NA     NA
+75041       NA   NA      NA   12      NA     NA     NA     NA     NA     NA
+75042       NA   NA      NA    7      NA     NA     NA     NA     NA     NA
+75043       NA   NA      NA   NA      NA      1     NA      1     NA      0
+75044       NA   NA      NA   10      NA     NA     NA     NA     NA     NA
+75045       NA   NA      NA    1      NA     NA     NA     NA     NA     NA
+      r220c2 r220d1 r220d2 r220e1 r220e2 r220f1 r220f2 r221a1 r221a2 r221b1
+75040     NA     NA     NA     NA     NA     NA     NA     NA     NA     NA
+75041     NA     NA     NA     NA     NA     NA     NA     NA     NA     NA
+75042     NA     NA     NA     NA     NA     NA     NA     NA     NA     NA
+75043     15      1     NA      1     NA      1     NA      1     NA      1
+75044     NA     NA     NA     NA     NA     NA     NA     NA     NA     NA
+75045     NA     NA     NA     NA     NA     NA     NA     NA     NA     NA
+      r221b2 r221c1 r221c2 r221d1 r221d2 gasto_mat_iniciacion aproba1 r402 r403
+75040     NA     NA     NA     NA     NA                    0       5    1    1
+75041     NA     NA     NA     NA     NA                    0       0    1    1
+75042     NA     NA     NA     NA     NA                    0       6    1    1
+75043     NA      0     20      0      2                    0       0    1    2
+75044     NA     NA     NA     NA     NA                    0       9    1    1
+75045     NA     NA     NA     NA     NA                    0       3    1    2
+      r404 r405 r405b r406 r4061 r4062 r406a r406b r407 r408 r408otr r409
+75040   NA   NA    NA   NA    NA    NA    NA    NA   NA   NA      NA   NA
+75041   NA   NA    NA   NA    NA    NA    NA    NA   NA   NA      NA   NA
+75042   NA   NA    NA   NA    NA    NA    NA    NA   NA   NA      NA   NA
+75043   10    2     2   NA    NA    NA    NA    NA    2   NA      NA    8
+75044   NA   NA    NA   NA    NA    NA    NA    NA   NA   NA      NA   NA
+75045   10    2     2   NA    NA    NA    NA    NA    2   NA      NA    7
+      r409otr r409a r410 r411a r411b r411c r411d r411e r411f r412a r412b r412c
+75040      NA    NA   NA    40     5     1     4     1     1    NA    NA    NA
+75041      NA    NA   NA    40     5     1    16     2     1    NA    NA    NA
+75042      NA    NA   NA    40     5     1    16     2     1    NA    NA    NA
+75043      NA    NA    2    NA    NA    NA    NA    NA    NA    NA    NA    NA
+75044      NA    NA   NA    50     5     1    NA    NA    NA    NA    NA    NA
+75045      NA     1    1    NA    NA    NA    NA    NA    NA    NA    NA    NA
+      r412d r412e r412f h411a h412a d411b d412b r413 r413otr r413a r413a_otr
+75040    NA    NA    NA    44     0     6     0   NA      NA     1        NA
+75041    NA    NA    NA    56     0     7     0   NA      NA     2        NA
+75042    NA    NA    NA    56     0     7     0   NA      NA     1        NA
+75043    NA    NA    NA    NA    NA    NA    NA   NA      NA    NA        NA
+75044    NA    NA    NA    50     0     5     0   NA      NA     1        NA
+75045    NA    NA    NA    NA    NA    NA    NA   NA      NA    NA        NA
+      r414 ciuo414 r416 ciiu416 r414indicador r417a01 r417a02 r417a03 r417a04
+75040 9313      10 4100       6            NA       1       2       2       2
+75041 9111      10 9700      13            NA       2       2       2       2
+75042 3132       9 3600       5            NA       1       2       2       2
+75043   NA      NA   NA      NA            NA      NA      NA      NA      NA
+75044 9111      10 9700      13            NA       2       2       2       2
+75045   NA      NA   NA      NA            NA      NA      NA      NA      NA
+      r417a05 r417a06 r417a07 r417a08 r417a09 r417a10 r417a11 r417a12 r417a13
+75040       2       2       2       2       2       2       1       2       2
+75041       1       2       2       2       2       2       1       2       2
+75042       1       2       2       2       2       2       1       2       2
+75043      NA      NA      NA      NA      NA      NA      NA      NA      NA
+75044       2       2       2       2       2       2       2       2       2
+75045      NA      NA      NA      NA      NA      NA      NA      NA      NA
+      r417a14 r417a15 r417a16 r417a14otr r417a r418 r418tr r418a r418a_otr r419
+75040       2       2       2         NA     2    7     NA     1        NA    7
+75041       2       2       2         NA     2    9     NA     2        NA    7
+75042       2       2       2         NA     2    6     NA    NA        NA    7
+75043      NA      NA      NA         NA    NA   NA     NA    NA        NA   NA
+75044       2       2       2         NA    NA    9     NA     1        NA    7
+75045      NA      NA      NA         NA    NA   NA     NA    NA        NA   NA
+      r419a r420 r420_otr r421 r422a r422b r422c r422d r422e r422f r422g r423
+75040    NA    1       NA    3     3     3     3     3     3     3     3    2
+75041    NA   NA       NA   NA     3     3     3     3     3     3     3    4
+75042    NA    1       NA    8     3     3     3     3     3     3     3    3
+75043    NA   NA       NA   NA    NA    NA    NA    NA    NA    NA    NA   NA
+75044    NA   NA       NA   NA     3     3     3     3     3     3     3    1
+75045    NA   NA       NA   NA    NA    NA    NA    NA    NA    NA    NA   NA
+      r424 r424a r42501a r42501b r42502a r42502b r42503a r42503b r42504a
+75040   48     2       0      NA       0      NA       0      NA       0
+75041  250     2       0      NA       0      NA       0      NA       0
+75042  105     2       0      NA       0      NA       0      NA       0
+75043   NA    NA      NA      NA      NA      NA      NA      NA      NA
+75044    8     2       0      NA       0      NA       0      NA       0
+75045   NA    NA      NA      NA      NA      NA      NA      NA      NA
+      r42504b r42505a r42505b r42506a r42506b r42507a r42507b r42508a r42508b
+75040      NA       0      NA       0      NA       0      NA       0      NA
+75041      NA      40      12       0      NA       0      NA       0      NA
+75042      NA       0      NA       0      NA       0      NA       0      NA
+75043      NA      NA      NA      NA      NA      NA      NA      NA      NA
+75044      NA      50      12       0      NA       0      NA       0      NA
+75045      NA      NA      NA      NA      NA      NA      NA      NA      NA
+      r42509a r42509b r42510a r42510b r42511a r42511b r42512a r42512b r42512ot
+75040       0      NA       0      NA       0      NA       0      NA       NA
+75041       0      NA       0      NA       0      NA       0      NA       NA
+75042       0      NA       0      NA       0      NA       0      NA       NA
+75043      NA      NA      NA      NA      NA      NA      NA      NA       NA
+75044       0      NA       0      NA       0      NA       0      NA       NA
+75045      NA      NA      NA      NA      NA      NA      NA      NA       NA
+      r425a r425b r426 r426a r426b1 r426b2 r427 r428 r429 r430 r431 r431a
+75040     2     2   NA     3      2      2   NA   NA   NA   NA   NA    NA
+75041    NA    NA   NA     3      2      2   NA   NA   NA   NA   NA    NA
+75042     2     2   NA     3      2      2   NA   NA   NA   NA   NA    NA
+75043    NA    NA   NA    NA     NA     NA   NA   NA   NA   NA   NA    NA
+75044    NA    NA   NA     3      2      2   NA   NA   NA   NA   NA    NA
+75045    NA    NA   NA    NA     NA     NA   NA   NA   NA   NA   NA    NA
+      r431otr r432 r433 r434 r43501a r43501b r43502a r43502b r43503a r43503b
+75040      NA    2   NA   NA      NA      NA      NA      NA      NA      NA
+75041      NA    2   NA   NA      NA      NA      NA      NA      NA      NA
+75042      NA    2   NA   NA      NA      NA      NA      NA      NA      NA
+75043      NA   NA   NA   NA      NA      NA      NA      NA      NA      NA
+75044      NA    2   NA   NA      NA      NA      NA      NA      NA      NA
+75045      NA   NA   NA   NA      NA      NA      NA      NA      NA      NA
+      r43504a r43504b r43505a r43505b r43506a r43506b r43507a r43507b r43508a
+75040      NA      NA      NA      NA      NA      NA      NA      NA      NA
+75041      NA      NA      NA      NA      NA      NA      NA      NA      NA
+75042      NA      NA      NA      NA      NA      NA      NA      NA      NA
+75043      NA      NA      NA      NA      NA      NA      NA      NA      NA
+75044      NA      NA      NA      NA      NA      NA      NA      NA      NA
+75045      NA      NA      NA      NA      NA      NA      NA      NA      NA
+      r43508b r43509a r43509b r43510a r43510b r43511a r43511b r43512a r43512b
+75040      NA      NA      NA      NA      NA      NA      NA      NA      NA
+75041      NA      NA      NA      NA      NA      NA      NA      NA      NA
+75042      NA      NA      NA      NA      NA      NA      NA      NA      NA
+75043      NA      NA      NA      NA      NA      NA      NA      NA      NA
+75044      NA      NA      NA      NA      NA      NA      NA      NA      NA
+75045      NA      NA      NA      NA      NA      NA      NA      NA      NA
+      r43512ot ciuo436 ciiu438 r436 r438 r439 r440 r440tr r441 r442 r443
+75040       NA      NA      NA   NA   NA   NA   NA     NA   NA   NA   NA
+75041       NA      NA      NA   NA   NA   NA   NA     NA   NA   NA   NA
+75042       NA      NA      NA   NA   NA   NA   NA     NA   NA   NA   NA
+75043       NA      NA      NA   NA   NA   NA   NA     NA   NA   NA   NA
+75044       NA      NA      NA   NA   NA   NA   NA     NA   NA   NA   NA
+75045       NA       7       1 6111  111    0    3     NA   NA   NA    2
+      r443otr r44401a r44401b r44402a r44402b r44403a r44403b r44404a r44404b
+75040      NA       0      NA       0      NA       0      NA       0      NA
+75041      NA       0      NA       0      NA       0      NA       0      NA
+75042      NA       0      NA       0      NA       0      NA       0      NA
+75043      NA      NA      NA      NA      NA      NA      NA      NA      NA
+75044      NA       0      NA       0      NA       0      NA       0      NA
+75045      NA       0      NA       0      NA       0      NA       0      NA
+      r44405a r44405b r44406a r44406b r44407a r44407b r44408a r44408b r44409a
+75040       0      NA       0      NA       0      NA       0      NA       0
+75041       0      NA       0      NA       0      NA       0      NA       0
+75042       0      NA       0      NA       0      NA       0      NA       0
+75043      NA      NA      NA      NA      NA      NA      NA      NA      NA
+75044       0      NA       0      NA       0      NA       0      NA       0
+75045       0      NA       0      NA       0      NA       0      NA       0
+      r44409b r44410a r44410b r44411a r44411b r44411ot r44501 r44502 r44503
+75040      NA       0      NA       0      NA       NA      0      0      0
+75041      NA       0      NA       0      NA       NA      0      0      0
+75042      NA       0      NA       0      NA       NA      0      0      0
+75043      NA      NA      NA      NA      NA       NA     NA     NA     NA
+75044      NA       0      NA       0      NA       NA      0      0      0
+75045      NA       0      NA       0      NA       NA      0      0      0
+      r44504 r44505 r44506 r44507 r44508 r44509 r44510 r44511 r44512 r44512ot
+75040      0      0      0      0      0      0      0      0      0       NA
+75041      0      0     90      0      0      0      0      0      0       NA
+75042      0      0    600      0      0      0      0      0      0       NA
+75043     NA     NA     NA     NA     NA     NA     NA     NA     NA       NA
+75044      0      0      0      0      0      0      0      0      0       NA
+75045      0      0      0      0      0      0      0      0      0       NA
+      r445a r445b1 r445b2 r445b3 r445b4 r445b5 r445b6 r445b6otr r445c r445d
+75040    14      2      2      2      2      2      2        NA     2    NA
+75041    18      2      2      2      2      2      2        NA     2    NA
+75042    10      2      2      2      2      2      2        NA     2    NA
+75043    NA     NA     NA     NA     NA     NA     NA        NA    NA    NA
+75044    20      2      2      2      2      2      2        NA     2    NA
+75045    10      2      2      2      2      2      2        NA     1     5
+      r445e r445fh1 r445fh2 r445fh3 r445fh4 r445fh5 r445fm1 r445fm2 r445fm3
+75040     1       0       0       3       0       0       0       0       0
+75041     1       0       0      10       0       0       0       0       0
+75042     1       0       0       4       0       0       0       0       0
+75043    NA       0       0       2       0       0       0       0       0
+75044     1       0       0      12       0       0       0       0       0
+75045     1       6       0      12       0       0       0       0       0
+      r445fm4 r445fm5 r44601 r44602 r44603 r44604 r44605 r44605ot r44701 r44702
+75040       0       0      2      2      2      2      2       NA     NA     NA
+75041       0       0      2      2      2      2      2       NA     NA     NA
+75042       0       0      2      2      2      2      2       NA     NA     NA
+75043       0       0     NA     NA     NA     NA     NA       NA     NA     NA
+75044       0       0      2      2      2      2      2       NA     NA     NA
+75045       0       0      2      2      2      2      2       NA     NA     NA
+      r44703 r44704 r44705 r44801 r44802 r44803 r44804 r44805 r44901 r44902
+75040     NA     NA     NA     NA     NA     NA     NA     NA      2      2
+75041     NA     NA     NA     NA     NA     NA     NA     NA      2      2
+75042     NA     NA     NA     NA     NA     NA     NA     NA      2      2
+75043     NA     NA     NA     NA     NA     NA     NA     NA     NA     NA
+75044     NA     NA     NA     NA     NA     NA     NA     NA      2      2
+75045     NA     NA     NA     NA     NA     NA     NA     NA      2      2
+      r44903 r44904 r45001 r45002 r45003 r45004 r45101 r45102 r45103 r45104
+75040      2      2     NA     NA     NA     NA     NA     NA     NA     NA
+75041      2      2     NA     NA     NA     NA     NA     NA     NA     NA
+75042      2      2     NA     NA     NA     NA     NA     NA     NA     NA
+75043     NA     NA     NA     NA     NA     NA     NA     NA     NA     NA
+75044      2      2     NA     NA     NA     NA     NA     NA     NA     NA
+75045      2      2     NA     NA     NA     NA     NA     NA     NA     NA
+      r452a r452b r453 actse actpr actpr2018 segm  imeds imei  money imes imnl
+75040     2    NA    1    NA    10        10   NA 208.00    0 208.00    0    0
+75041     2    NA    4    NA    10        10   NA 250.00    0 250.00    0    0
+75042     2    NA    4    NA    10        10   NA 227.50    0 227.50    0    0
+75043    NA    NA   NA    NA    30        30   NA   0.00    0   0.00    0    0
+75044     2    NA    4    NA    10        10   NA 173.33    0 173.33    0    0
+75045     2    NA    1     4    25        20   NA   0.00    0   0.00    0    0
+       oia oimed  ingre r502 r503a r503a1 r503b r503aotr r5031 r5032 r5033
+75040  0.0     0 208.00    3     2     NA    NA       NA    NA    NA    NA
+75041  7.5    40 297.50   NA    NA     NA    NA       NA    NA    NA    NA
+75042 50.0     0 277.50   NA    NA     NA    NA       NA    NA    NA    NA
+75043  0.0     0   0.00   NA    NA     NA    NA       NA    NA    NA    NA
+75044  0.0    50 223.33   NA    NA     NA    NA       NA    NA    NA    NA
+75045  0.0     0   0.00    1     6     NA    NA       NA    NA    NA    NA
+      r5033otr r504 r5051 r5052 r5053 r5054 r5055 r5056 r5057 r5057a r5058
+75040       NA    1     1    NA    NA    NA    NA    NA    NA     NA    NA
+75041       NA   NA    NA    NA    NA    NA    NA    NA    NA     NA    NA
+75042       NA   NA    NA    NA    NA    NA    NA    NA    NA     NA    NA
+75043       NA   NA    NA    NA    NA    NA    NA    NA    NA     NA    NA
+75044       NA   NA    NA    NA    NA    NA    NA    NA    NA     NA    NA
+75045       NA    3     3    NA    NA    NA    NA    NA    NA     NA    NA
+      r50508ot r506 r506b r507 r508 r509 r509otr r510 r511 r512 r513a r513b
+75040       NA    1     0    2   NA   NA      NA  460  400    1    NA    NA
+75041       NA   NA    NA   NA   NA   NA      NA   NA   NA   NA    NA    NA
+75042       NA   NA    NA   NA   NA   NA      NA   NA   NA   NA    NA    NA
+75043       NA   NA    NA   NA   NA   NA      NA   NA   NA   NA    NA    NA
+75044       NA   NA    NA   NA   NA   NA      NA   NA   NA   NA    NA    NA
+75045       NA    1     0    1    1    9      NA  548  300    1    NA    NA
+      r513c r513d r514 r515a r515b ingneto r601 r601otr r602 r602otr r603 r604
+75040     4    NA    1    25    NA    7.08    8      NA    6      NA    7   NA
+75041    NA    NA   NA    NA    NA    0.00    8      NA    6      NA    7   NA
+75042    NA    NA   NA    NA    NA    0.00    8      NA    6      NA    7   NA
+75043    NA    NA   NA    NA    NA    0.00    8      NA    6      NA    1    2
+75044    NA    NA   NA    NA    NA    0.00    8      NA    6      NA    1    2
+75045    NA     4    1    20    NA   22.33    8      NA    6      NA    1    2
+      r604otr r6051a r6052a r6053a r6053a_otr r6051b r6052b r6053b r6053b_otr
+75040      NA     NA     NA     NA         NA     NA     NA     NA         NA
+75041      NA     NA     NA     NA         NA     NA     NA     NA         NA
+75042      NA     NA     NA     NA         NA     NA     NA     NA         NA
+75043      NA      0     NA      1         NA      1     NA     NA         NA
+75044      NA      0     NA      1         NA      1     NA     NA         NA
+75045      NA      0     NA      1         NA      1     NA     NA         NA
+      r6051c r6052c r6053c r6053c_otr r6051d r6052d r6053d r6053d_otr r606 r607
+75040     NA     NA     NA         NA     NA     NA     NA         NA   NA   NA
+75041     NA     NA     NA         NA     NA     NA     NA         NA   NA   NA
+75042     NA     NA     NA         NA     NA     NA     NA         NA   NA   NA
+75043      1     NA     NA         NA      1     NA     NA         NA    2   NA
+75044      1     NA     NA         NA      1     NA     NA         NA    2   NA
+75045      1     NA     NA         NA      1     NA     NA         NA    2   NA
+      r607otr r608 r6091a r6092a r6093a r6094aotr r6093b r6091b r6092b
+75040      NA   NA     NA     NA     NA        NA     NA     NA     NA
+75041      NA   NA     NA     NA     NA        NA     NA     NA     NA
+75042      NA   NA     NA     NA     NA        NA     NA     NA     NA
+75043      NA   NA     NA     NA     NA        NA     NA     NA     NA
+75044      NA   NA     NA     NA     NA        NA     NA     NA     NA
+75045      NA   NA     NA     NA     NA        NA     NA     NA     NA
+      r6094botr r6091c r6092c r6093c r6094cotr r6101 r6102 r6103 r610otr r611
+75040        NA     NA     NA     NA        NA     8    NA    NA      NA    1
+75041        NA     NA     NA     NA        NA     8    NA    NA      NA    1
+75042        NA     NA     NA     NA        NA     8    NA    NA      NA    1
+75043        NA     NA     NA     NA        NA     0    NA     1      NA   NA
+75044        NA     NA     NA     NA        NA     0    NA     1      NA   NA
+75045        NA     NA     NA     NA        NA     0    NA     1      NA   NA
+      r611otr r612 r612otr r613 r613otr r1002a r1002b r1003 r1004 r1004otr
+75040      NA   NA      NA   NA      NA      1      1     1     7       NA
+75041      NA   NA      NA   NA      NA      1      2     2    NA       NA
+75042      NA   NA      NA   NA      NA      1      2     2    NA       NA
+75043      NA   NA      NA   NA      NA     NA     NA    NA    NA       NA
+75044      NA   NA      NA   NA      NA      1      1     1     7       NA
+75045      NA   NA      NA   NA      NA      1      1     1     7       NA
+      r1005 r1006a r1006b r1007
+75040     2      1      6     1
+75041    NA     NA     NA    NA
+75042    NA     NA     NA    NA
+75043    NA     NA     NA    NA
+75044     2      1      6     1
+75045     2      1      5     1</code></pre>
+</div>
+</div>
+</section>
+<section id="bases-de-distinto-tamaño" class="level1" data-number="14">
+<h1 data-number="14"><span class="header-section-number">14</span> Bases de distinto tamaño</h1>
+<p>Hasta ahorita hemos hecho merge que son de unidades de distinto nivel y son incluyentes. A veces tenemos bases de datos que son de distinto tamaño y del mismo nivel. A veces las dos aportan casos y a veces aportan variables, y a veces, las dos aportan las dos cosas.</p>
+<p>Vamos a revisar qué pasaría si quisiéramos incorporar la información de los hogares que han gastado en paquetes turísticos</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>gastos_turis<span class="ot">&lt;-</span>gastos_b <span class="sc">%&gt;%</span> </span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(DESCRIPCION<span class="sc">==</span><span class="st">"18. 096.Paquetes turísticos"</span> <span class="sc">&amp;</span> r808<span class="sc">==</span><span class="dv">1</span>) </span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(gastos_turis)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 221  19</code></pre>
+</div>
+</div>
+<p>Vamos a hacer el primer tipo de merge</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>merge_data3<span class="ot">&lt;-</span><span class="fu">merge</span>(hogares,gastos_turis, <span class="at">by=</span><span class="fu">c</span>(<span class="st">"lote"</span>, <span class="st">"tipo"</span>, <span class="st">"folio"</span>, <span class="st">"viv"</span>))</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(merge_data3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 221 402</code></pre>
+</div>
+</div>
+<p>¡La base nueva no tiene a todas las observaciones, solo la que tiene en la base más pequeña! Tenemos sólo 221 hogares.</p>
+<p>En realidad hay cuatro formas de hacer un merge</p>
+<section id="a.-casos-comunes-en-las-dos-bases" class="level2" data-number="14.1">
+<h2 data-number="14.1" class="anchored" data-anchor-id="a.-casos-comunes-en-las-dos-bases"><span class="header-section-number">14.1</span> A. Casos comunes en las dos bases</h2>
+<p>Por <i>default</i>, el comando tiene activado la opción “all = FALSE”, que nos deja los datos de ambas bases comunes. (tipo una intersección)</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>merge_data3<span class="ot">&lt;-</span><span class="fu">merge</span>(hogares,gastos_turis, <span class="at">by=</span><span class="fu">c</span>(<span class="st">"lote"</span>, <span class="st">"tipo"</span>, <span class="st">"folio"</span>, <span class="st">"viv"</span>), <span class="at">all =</span> F)</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(merge_data3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 221 402</code></pre>
+</div>
+</div>
+</section>
+<section id="b.-todos-los-casos" class="level2" data-number="14.2">
+<h2 data-number="14.2" class="anchored" data-anchor-id="b.-todos-los-casos"><span class="header-section-number">14.2</span> B. Todos los casos</h2>
+<p>Si cambiamos la opción “all = TRUE”, que nos deja los datos comunes a ambas bases. (como una unión)</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>merge_data3<span class="ot">&lt;-</span><span class="fu">merge</span>(hogares,gastos_turis, <span class="at">by=</span><span class="fu">c</span>(<span class="st">"lote"</span>, <span class="st">"tipo"</span>, <span class="st">"folio"</span>, <span class="st">"viv"</span>), <span class="at">all =</span> T)</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(merge_data3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 20840   402</code></pre>
+</div>
+</div>
+</section>
+<section id="c.-casos-de-la-base-1" class="level2" data-number="14.3">
+<h2 data-number="14.3" class="anchored" data-anchor-id="c.-casos-de-la-base-1"><span class="header-section-number">14.3</span> C. Casos de la base 1&gt;</h2>
+<p>Si queremos quedarnos con todos los datos que hay en la primera base, x, vamos a usar a opción all.x = TRUE.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>merge_data3<span class="ot">&lt;-</span><span class="fu">merge</span>(hogares,gastos_turis, <span class="at">by=</span><span class="fu">c</span>(<span class="st">"lote"</span>, <span class="st">"tipo"</span>, <span class="st">"folio"</span>, <span class="st">"viv"</span>), <span class="at">all.x  =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(merge_data3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 20840   402</code></pre>
+</div>
+</div>
+</section>
+<section id="d.-casos-de-la-base-2" class="level2" data-number="14.4">
+<h2 data-number="14.4" class="anchored" data-anchor-id="d.-casos-de-la-base-2"><span class="header-section-number">14.4</span> D. Casos de la base 2</h2>
+<p>Notamos que hoy sí tenemos los datos de toda la población y hay missings en las variables aportadas por la base de trabajo</p>
+<p>Si queremos lo contrario, quedarnos con los datos aportados por la segunda base, y, vamos a usar la opción all.y=TRUE</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>merge_data3<span class="ot">&lt;-</span><span class="fu">merge</span>(hogares,gastos_turis, <span class="at">by=</span><span class="fu">c</span>(<span class="st">"lote"</span>, <span class="st">"tipo"</span>, <span class="st">"folio"</span>, <span class="st">"viv"</span>), <span class="at">all.y  =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(merge_data3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 221 402</code></pre>
+</div>
+</div>
+<p>Esta imagen te puede ser utilidad: <img src="merge.png" class="img-fluid" alt="image"></p>
+<p>(tomada de aquí <a href="https://www.dummies.com/programming/r/how-to-use-the-merge-function-with-data-sets-in-r/" class="uri">https://www.dummies.com/programming/r/how-to-use-the-merge-function-with-data-sets-in-r/</a>)</p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./P10.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Análisis longitundinal: secuencias</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+</body></html>

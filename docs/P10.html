@@ -1,0 +1,1477 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.1.163">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>R para investigación social - 10&nbsp; Análisis longitundinal: secuencias</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./P11.html" rel="next">
+<link href="./P9.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Análisis longitundinal: secuencias</span></h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">R para investigación social</a> 
+    </div>
+      </div>
+      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">Introducción al curso</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P1.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Primer acercamiento al uso del programa</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P2.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Manejo de datos: importación, selección y revisión</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P3.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Análisis descriptivo básico</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P4.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Análisis descriptivo básico II</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P5.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Factores de expansión e intro a la regresión lineal</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P6.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Introducción a la inferencia</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P7.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Regresión lineal</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P8.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Regresión logística</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P9.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Análisis longitundinal: panel</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P10.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Análisis longitundinal: secuencias</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P11.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">p11</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#paquetes" id="toc-paquetes" class="nav-link active" data-scroll-target="#paquetes"><span class="toc-section-number">10.1</span>  Paquetes</a></li>
+  <li><a href="#datos" id="toc-datos" class="nav-link" data-scroll-target="#datos"><span class="toc-section-number">10.2</span>  Datos</a></li>
+  <li><a href="#grafico-alluvial" id="toc-grafico-alluvial" class="nav-link" data-scroll-target="#grafico-alluvial"><span class="toc-section-number">10.3</span>  Grafico alluvial</a></li>
+  <li><a href="#paquete-traminer" id="toc-paquete-traminer" class="nav-link" data-scroll-target="#paquete-traminer"><span class="toc-section-number">10.4</span>  Paquete TraMineR</a></li>
+  <li><a href="#el-programa-central" id="toc-el-programa-central" class="nav-link" data-scroll-target="#el-programa-central"><span class="toc-section-number">10.5</span>  El programa central</a>
+  <ul class="collapse">
+  <li><a href="#paso-1" id="toc-paso-1" class="nav-link" data-scroll-target="#paso-1"><span class="toc-section-number">10.5.1</span>  Paso 1:</a></li>
+  <li><a href="#paso-2." id="toc-paso-2." class="nav-link" data-scroll-target="#paso-2."><span class="toc-section-number">10.5.2</span>  Paso 2.</a></li>
+  <li><a href="#paso-3" id="toc-paso-3" class="nav-link" data-scroll-target="#paso-3"><span class="toc-section-number">10.5.3</span>  Paso 3:</a></li>
+  <li><a href="#paso-4" id="toc-paso-4" class="nav-link" data-scroll-target="#paso-4"><span class="toc-section-number">10.5.4</span>  Paso 4:</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Análisis longitundinal: secuencias</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    
+  </div>
+  
+
+</header>
+
+<section id="paquetes" class="level2" data-number="10.1">
+<h2 data-number="10.1" class="anchored" data-anchor-id="paquetes"><span class="header-section-number">10.1</span> Paquetes</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">require</span>(<span class="st">"pacman"</span>)) <span class="fu">install.packages</span>(<span class="st">"pacman"</span>) <span class="co"># instala pacman si se requiere</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: pacman</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(skimr,tidyverse, magrittr, <span class="co"># sobretodo para dplyr</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>              haven, readxl, <span class="co">#importación</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>              janitor, <span class="co">#tablas</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>              sjlabelled, <span class="co"># etiquetas</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>              TraMineR, WeightedCluster, wesanderson, remotes, gtable) <span class="co"># este es</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>mos a graficar las preferencias a lo largo de las ondas</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">#remotes::install_github("erblast/easyalluvial") </span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co">#suppressPackageStartupMessages(require(easyalluvial) )</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(easyalluvial) <span class="co">#carga la librería</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="datos" class="level2" data-number="10.2">
+<h2 data-number="10.2" class="anchored" data-anchor-id="datos"><span class="header-section-number">10.2</span> Datos</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>panel_funda <span class="ot">&lt;-</span> <span class="fu">read_dta</span>(<span class="st">"datos/2021_11_01_Fundaungo.dta"</span>, <span class="at">encoding =</span> <span class="st">"latin1"</span>) <span class="sc">%&gt;%</span> <span class="fu">clean_names</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Revisamos las rondas en esta base de datos</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(panel_funda)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   [1] "correlativo"                  "id"                          
+   [3] "ronda"                        "departamento"                
+   [5] "r1"                           "r2"                          
+   [7] "r3"                           "r4"                          
+   [9] "r5"                           "informante_final"            
+  [11] "informante"                   "filtro_r1"                   
+  [13] "filtro_r2"                    "filtro_r3"                   
+  [15] "filtro_r4"                    "filtro_r12"                  
+  [17] "filtro_r13"                   "filtro_r14"                  
+  [19] "filtro_r23"                   "filtro_r24"                  
+  [21] "filtro_r34"                   "filtro_r123"                 
+  [23] "filtro_r124"                  "filtro_r134"                 
+  [25] "filtro_r234"                  "filtro_r1234"                
+  [27] "filtro_r13f"                  "filtro_r23f"                 
+  [29] "filtro_r24f"                  "filtro_r34f"                 
+  [31] "filtro_r34cses"               "filtro_4f"                   
+  [33] "refresh2"                     "refresh3"                    
+  [35] "refresh4"                     "ponderador_r1"               
+  [37] "ponderador_r2"                "ponderador_r3"               
+  [39] "ponderador_r4"                "ponderador_r12"              
+  [41] "ponderador_r1234"             "ponderador13f"               
+  [43] "ponderador23f"                "ponderador24f"               
+  [45] "ponderador34f"                "ponderador34cses"            
+  [47] "ponderador4f"                 "cuestionario"                
+  [49] "cuestionario_final"           "fecha"                       
+  [51] "supervisor"                   "encuestador"                 
+  [53] "codigo_departamento"          "area"                        
+  [55] "municipio"                    "segmento"                    
+  [57] "hora_inicio"                  "se1"                         
+  [59] "se2"                          "se3"                         
+  [61] "se4"                          "se5"                         
+  [63] "se6"                          "ac1"                         
+  [65] "ac2"                          "sit1"                        
+  [67] "sit1_otros"                   "sit2"                        
+  [69] "sit3"                         "sit4"                        
+  [71] "sit5"                         "sit6"                        
+  [73] "sit7"                         "sit8"                        
+  [75] "eval1"                        "pol1"                        
+  [77] "eval2"                        "sub1"                        
+  [79] "sub2"                         "sub3"                        
+  [81] "eval3"                        "se7"                         
+  [83] "l1"                           "pol2"                        
+  [85] "pol3"                         "pol4"                        
+  [87] "ep1"                          "ep1_otros"                   
+  [89] "t1"                           "t2"                          
+  [91] "t3"                           "t4"                          
+  [93] "t5"                           "t6"                          
+  [95] "t7"                           "t8"                          
+  [97] "t9"                           "ep2"                         
+  [99] "id1"                          "id1_r"                       
+ [101] "id1_otros"                    "id2"                         
+ [103] "id3"                          "id3_otros"                   
+ [105] "simp1"                        "simp2"                       
+ [107] "simp3"                        "simp4"                       
+ [109] "simp5"                        "simp6"                       
+ [111] "simp6_otros"                  "simp7"                       
+ [113] "simp8"                        "id4"                         
+ [115] "id4_otros"                    "id5"                         
+ [117] "id5_otros"                    "eval4"                       
+ [119] "eval5"                        "ep3"                         
+ [121] "nb1"                          "nb2"                         
+ [123] "ep12"                         "ep12_otros"                  
+ [125] "ep12r"                        "dui1"                        
+ [127] "vp1"                          "vp2"                         
+ [129] "vp2_otros"                    "vp3"                         
+ [131] "vp3_otros"                    "vp4"                         
+ [133] "vp4_otros"                    "vp5"                         
+ [135] "vp6"                          "mc1"                         
+ [137] "ep4"                          "pol5"                        
+ [139] "pol6"                         "pol7"                        
+ [141] "pol8"                         "pol9"                        
+ [143] "ep5"                          "ep5_r"                       
+ [145] "ep5_otros"                    "ep6"                         
+ [147] "ep7"                          "ep7_otros"                   
+ [149] "ep8"                          "ep9"                         
+ [151] "ep10"                         "ep10_otros"                  
+ [153] "ep11"                         "pol10"                       
+ [155] "dem1"                         "dem2"                        
+ [157] "mc2"                          "mc3"                         
+ [159] "mc4"                          "mc5"                         
+ [161] "mc6"                          "mc7"                         
+ [163] "mc8"                          "mc8_otros"                   
+ [165] "mc9"                          "mc10"                        
+ [167] "mc11"                         "mc11_otros"                  
+ [169] "mc12"                         "mc13"                        
+ [171] "mc14"                         "mc14_otros"                  
+ [173] "mc15"                         "mc16"                        
+ [175] "mc17"                         "mc17_otros"                  
+ [177] "mc18"                         "mc19"                        
+ [179] "mc20"                         "mc21"                        
+ [181] "mc22"                         "mc23"                        
+ [183] "mc23_otros"                   "int1"                        
+ [185] "int2"                         "ci1"                         
+ [187] "ci2"                          "ci3"                         
+ [189] "ci4"                          "ci5"                         
+ [191] "ci6"                          "ci7"                         
+ [193] "ci8"                          "eval6"                       
+ [195] "mig1"                         "mig2"                        
+ [197] "mig2_otros"                   "mig3"                        
+ [199] "mig4"                         "mig5"                        
+ [201] "mig6"                         "mig7"                        
+ [203] "mig8"                         "mig9"                        
+ [205] "mig10"                        "mig10_otros"                 
+ [207] "mig11"                        "mig12"                       
+ [209] "cg1"                          "cg2"                         
+ [211] "cg3"                          "cg4"                         
+ [213] "se8"                          "bh1"                         
+ [215] "bh2"                          "bh3"                         
+ [217] "bh4"                          "bh5"                         
+ [219] "bh6"                          "bh7"                         
+ [221] "bh8"                          "bh9"                         
+ [223] "bh10"                         "hora_final"                  
+ [225] "usuario"                      "y"                           
+ [227] "x"                            "ep1r"                        
+ [229] "grupoedad"                    "cuota"                       
+ [231] "grupoetario"                  "ocupacion"                   
+ [233] "escolaridad"                  "sit1r"                       
+ [235] "idnum1_2"                     "idnum2_2"                    
+ [237] "canton_2"                     "idnum3_2"                    
+ [239] "idnum4_2"                     "idnum4_otros_2"              
+ [241] "fecha_2"                      "hora_inicio_2"               
+ [243] "hora_final_2"                 "se2_2"                       
+ [245] "sit1_2"                       "sit1_otros_2"                
+ [247] "sit2_2"                       "sit3_2"                      
+ [249] "sit4_2"                       "sit5_2"                      
+ [251] "sit6_2"                       "sit7_2"                      
+ [253] "sit8_2"                       "eval3_2"                     
+ [255] "l1_2"                         "pol2_2"                      
+ [257] "pol4_2"                       "pol3_2"                      
+ [259] "pol11_2"                      "pol12_2"                     
+ [261] "ep13_2"                       "ep13_otros_2"                
+ [263] "ep13_2r"                      "mc1_2"                       
+ [265] "ep1_2"                        "ep1_otros_2"                 
+ [267] "t1_2"                         "t2_2"                        
+ [269] "t3_2"                         "t4_2"                        
+ [271] "t5_2"                         "t6_2"                        
+ [273] "t7_2"                         "t8_2"                        
+ [275] "t9_2"                         "id1_2"                       
+ [277] "id1_2r"                       "id1_otros_2"                 
+ [279] "id2_2"                        "id3_2"                       
+ [281] "id3_otros_2"                  "simp1_2"                     
+ [283] "simp2_2"                      "simp3_2"                     
+ [285] "simp4_2"                      "simp5_2"                     
+ [287] "simp6_2"                      "simp6_otros_2"               
+ [289] "simp7_2"                      "simp8_2"                     
+ [291] "cg5_2"                        "simp9_2"                     
+ [293] "simp9_otros_2"                "simp10_2"                    
+ [295] "simp10_otros_2"               "simp11_2"                    
+ [297] "simp11_otros_2"               "ep3_2"                       
+ [299] "pol6_2"                       "nb2_2"                       
+ [301] "ep14_2"                       "ep14_r2"                     
+ [303] "ep12_2"                       "ep12_otros_2"                
+ [305] "ep12_2r"                      "ep15_2"                      
+ [307] "ep15_otros_2"                 "dui1_2"                      
+ [309] "ci9_2"                        "eval7_2"                     
+ [311] "ci10_2"                       "ep4_2"                       
+ [313] "ep11_2"                       "pol5_2"                      
+ [315] "vc1_2"                        "vc2a_2"                      
+ [317] "vc2b_2"                       "vc2c_2"                      
+ [319] "vc2d_2"                       "pol7_2"                      
+ [321] "pol13_2"                      "pol14_2"                     
+ [323] "pol16_2"                      "se5_2"                       
+ [325] "pol15_2"                      "pol8_2"                      
+ [327] "ep5_2"                        "ep5_2r"                      
+ [329] "ep5_otros_2"                  "ep6_2"                       
+ [331] "ep16_2"                       "ep17_2"                      
+ [333] "ep17_r2"                      "ep7_2"                       
+ [335] "ep7_otros_2"                  "ep8_2"                       
+ [337] "ep18_2"                       "ep18_r2"                     
+ [339] "ep9_2"                        "ci12_2"                      
+ [341] "ep10_2"                       "ep10_otros_2"                
+ [343] "ep20_2"                       "ep21_2"                      
+ [345] "ep22_2"                       "pol10_2"                     
+ [347] "dem2_2"                       "ep23_2"                      
+ [349] "nb3_2"                        "nb4_2"                       
+ [351] "mc2_2"                        "mc3_2"                       
+ [353] "mc4_2"                        "mc5_2"                       
+ [355] "mc6_2"                        "mc7_2"                       
+ [357] "mc9_2"                        "mc10_2"                      
+ [359] "mc12_2"                       "mc13_2"                      
+ [361] "mc15_2"                       "mc16_2"                      
+ [363] "mc18_2"                       "mc19_2"                      
+ [365] "mc20_2"                       "mc21_2"                      
+ [367] "mc24_2"                       "mc25_2"                      
+ [369] "mc26_2"                       "deb1_2"                      
+ [371] "deb2_2"                       "deb3_2"                      
+ [373] "deb4_2"                       "deb5_2"                      
+ [375] "deb6_2"                       "ci1_2"                       
+ [377] "ci2_2"                        "ci3_2"                       
+ [379] "ci4_2"                        "ci5_2"                       
+ [381] "ci6_2"                        "ci7_2"                       
+ [383] "ci8_2"                        "cg1_2"                       
+ [385] "cg2_2"                        "cg3_2"                       
+ [387] "cg4_2"                        "se8_2"                       
+ [389] "bh1_2"                        "bh2_2"                       
+ [391] "bh3_2"                        "bh4_2"                       
+ [393] "bh5_2"                        "bh6_2"                       
+ [395] "bh7_2"                        "bh8_2"                       
+ [397] "bh9_2"                        "bh10_2"                      
+ [399] "entr1_2"                      "entr2_2"                     
+ [401] "entr3_2"                      "y_2"                         
+ [403] "x_2"                          "grupoedad_2"                 
+ [405] "descontento"                  "sit1_2r"                     
+ [407] "escolaridad_2"                "ocupacion_2"                 
+ [409] "ep5_dic"                      "ep5_2r_dic"                  
+ [411] "vp2r"                         "vp3r"                        
+ [413] "vp6r"                         "pol3_2r"                     
+ [415] "vc2a_2r"                      "vc2b_2r"                     
+ [417] "vc2c_2r"                      "vc2d_2r"                     
+ [419] "visitacandidatos"             "ep12_r"                      
+ [421] "pol2_2r"                      "pol2_r"                      
+ [423] "pol4_2r"                      "pol4_r"                      
+ [425] "escolaridad_2r"               "ep12_2rr"                    
+ [427] "l1_resta"                     "sit2_2r"                     
+ [429] "sit5_2r"                      "sit7_2r"                     
+ [431] "sit8_2r"                      "pol6_2r"                     
+ [433] "pol5_2r"                      "pol7_2r"                     
+ [435] "pol13_2r"                     "pol14_2r"                    
+ [437] "pol16_2r"                     "pol8_2r"                     
+ [439] "fac1_1"                       "fac2_1"                      
+ [441] "fac3_1"                       "intencionvoto"               
+ [443] "fac1_2"                       "fac2_2"                      
+ [445] "fac3_2"                       "l1_promedio"                 
+ [447] "vp2rr"                        "vp6rr"                       
+ [449] "intencionvoto2"               "intencionvoto3"              
+ [451] "simp6_2r"                     "intencionvoto3r"             
+ [453] "nfac1_2"                      "nfac2_2"                     
+ [455] "nfac3_2"                      "nfac2_1"                     
+ [457] "riqueza"                      "cg1r"                        
+ [459] "cg2r"                         "cg3r"                        
+ [461] "cg4r"                         "conoc"                       
+ [463] "riqueza_2"                    "cg1r_2"                      
+ [465] "cg2r_2"                       "cg3r_2"                      
+ [467] "cg4r_2"                       "conoc_2"                     
+ [469] "iv_a"                         "eval4_dic"                   
+ [471] "eval5_dic"                    "desc2"                       
+ [473] "desc_fmln"                    "desc_arena"                  
+ [475] "d_t6"                         "d_t7"                        
+ [477] "d_t8"                         "simp_arena"                  
+ [479] "simp_fmln"                    "simp_gana"                   
+ [481] "simp_ni"                      "vp_arena"                    
+ [483] "vp_fmln"                      "se22"                        
+ [485] "pol2_rec"                     "redessociales"               
+ [487] "bh1_r"                        "bh2_r"                       
+ [489] "bh3_r"                        "bh4_r"                       
+ [491] "bh5_r"                        "bh6_r"                       
+ [493] "bh7_r"                        "bh8_r"                       
+ [495] "bh9_r"                        "bh10_r"                      
+ [497] "irr_1"                        "nirr_1"                      
+ [499] "bh1_2r"                       "bh2_2r"                      
+ [501] "bh3_2r"                       "bh4_2r"                      
+ [503] "bh5_2r"                       "bh6_2r"                      
+ [505] "bh7_2r"                       "bh8_2r"                      
+ [507] "bh9_2r"                       "bh10_2r"                     
+ [509] "irr_2"                        "nirr_2"                      
+ [511] "mig9r"                        "pol2r"                       
+ [513] "redessociales_2"              "television_2"                
+ [515] "television"                   "t6_cat"                      
+ [517] "t7_cat"                       "t8_cat"                      
+ [519] "convencidos"                  "sit2r"                       
+ [521] "sit7r"                        "sit8r"                       
+ [523] "ronda_3"                      "area_3r"                     
+ [525] "telefonicas_3"                "cuestionario_3"              
+ [527] "supervisor_3"                 "encuestador_3"               
+ [529] "idnum1_3"                     "departamento_3"              
+ [531] "fecha_3"                      "municipio_3"                 
+ [533] "segmento_3"                   "area_3"                      
+ [535] "ext1_3"                       "idnum3_3"                    
+ [537] "idnum4_3"                     "idnum4_otros_3"              
+ [539] "se1_3"                        "se1_3r"                      
+ [541] "d01_3r"                       "d01_3"                       
+ [543] "se2_3"                        "d14_3"                       
+ [545] "d14_otro_3"                   "se4_3"                       
+ [547] "se3_3"                        "se6_3"                       
+ [549] "se5_3"                        "d06_3"                       
+ [551] "d08_3"                        "d07_3"                       
+ [553] "d07_ocupacion"                "d07r"                        
+ [555] "d07a_3"                       "d05_3"                       
+ [557] "d15_3"                        "d20_3"                       
+ [559] "d20_miembros"                 "sit1_3"                      
+ [561] "sit1_otros_3"                 "q11_3"                       
+ [563] "sit2_3"                       "sit3_3"                      
+ [565] "sit4_3"                       "sit5_3"                      
+ [567] "sit6_3"                       "q07_3"                       
+ [569] "sit7_3"                       "sit9_3"                      
+ [571] "q11b_3"                       "sit8_3"                      
+ [573] "eval3_3"                      "cl1_3"                       
+ [575] "cl2_3"                        "cl3_3"                       
+ [577] "cl4_3"                        "cl5_3"                       
+ [579] "cl6_3"                        "cl7_3"                       
+ [581] "cl8_3"                        "q17a_3"                      
+ [583] "q17b_3"                       "q17c_3"                      
+ [585] "q17d_3"                       "q17e_3"                      
+ [587] "q17f_3"                       "q18_3"                       
+ [589] "l1_3"                         "q01_3"                       
+ [591] "pol2_3"                       "pol4_3"                      
+ [593] "pol3_3"                       "q15a_3"                      
+ [595] "q15b_3"                       "q15c_3"                      
+ [597] "q15d_3"                       "q15e_3"                      
+ [599] "t11_3"                        "t11_pal_3"                   
+ [601] "t11r"                         "t12_3"                       
+ [603] "t12_pal_3"                    "t12r"                        
+ [605] "t13_3"                        "t13_pal_3"                   
+ [607] "t13r"                         "t14_3"                       
+ [609] "t14_pal_3"                    "t14r"                        
+ [611] "q16a_3"                       "q16b_3"                      
+ [613] "q16c_3"                       "q16d_3"                      
+ [615] "q16e_3"                       "t1_3"                        
+ [617] "t2_3"                         "t3_3"                        
+ [619] "t4_3"                         "t5_3"                        
+ [621] "t10_3"                        "t8_3"                        
+ [623] "q10a_3"                       "q10b_3"                      
+ [625] "q10b_otro_3"                  "id1_3"                       
+ [627] "id1_3r"                       "id1_otro_3"                  
+ [629] "id2_3"                        "id3_3"                       
+ [631] "id3_otro_3"                   "id6_3"                       
+ [633] "id6_otro_3"                   "id4_3"                       
+ [635] "id4_otro_3"                   "id5_3"                       
+ [637] "id5_otro_3"                   "q22a_3"                      
+ [639] "q22b_3"                       "q22c_3"                      
+ [641] "q22c_otro_3"                  "q22d_3"                      
+ [643] "simp5_3"                      "simp6_3"                     
+ [645] "simp6_otro_3"                 "simp7_3"                     
+ [647] "simp8_3"                      "simp9_3"                     
+ [649] "simp9_otro_3"                 "ep12_3"                      
+ [651] "ep15_3"                       "ep15_otro_3"                 
+ [653] "nb2_3"                        "q12l_ha_3"                   
+ [655] "q12l_hb_3"                    "q12l_hb_otro_3"              
+ [657] "vp1_3"                        "vp2_3"                       
+ [659] "vp2_otro_3"                   "vp3_3"                       
+ [661] "vp3_otro_3"                   "vp4_3"                       
+ [663] "vp4_otro_3"                   "q13a_3"                      
+ [665] "q13b_3"                       "vp5_3"                       
+ [667] "vp6a_3"                       "vp6b_3"                      
+ [669] "pol7_3"                       "pol13_3"                     
+ [671] "pol14_3"                      "pol16_3"                     
+ [673] "pol15_3"                      "pol8_3"                      
+ [675] "dui1_3"                       "q12p1a_3"                    
+ [677] "q12p1b_3"                     "ep24_3"                      
+ [679] "ep25_3"                       "ep25_3r"                     
+ [681] "ep26_3"                       "ep26_otras_3"                
+ [683] "ep27_3"                       "ep28_3"                      
+ [685] "ep29_3"                       "ep29_otro_3"                 
+ [687] "ep30_3"                       "ep31_3"                      
+ [689] "ep32_3"                       "ep32_otro_3"                 
+ [691] "eval9_3"                      "ci9_3"                       
+ [693] "ci11_3"                       "ci12_3"                      
+ [695] "ci13_3"                       "ci14_3"                      
+ [697] "ci15_3"                       "ci16_3"                      
+ [699] "ci17_3"                       "nb5_3"                       
+ [701] "nb6_3"                        "q09_3"                       
+ [703] "ng1_3"                        "ng1_otro_3"                  
+ [705] "ng2_3"                        "ng3_3"                       
+ [707] "ng4_3"                        "dem1_3"                      
+ [709] "q14b_3"                       "pol10_3"                     
+ [711] "q21_3"                        "dem2_3"                      
+ [713] "q08_3"                        "dem3_3"                      
+ [715] "dem4_3"                       "dem5_3"                      
+ [717] "dem6_3"                       "dem7_3"                      
+ [719] "dem8_3"                       "dem9_3"                      
+ [721] "q03_3"                        "q04a_3"                      
+ [723] "q04b_3"                       "q04c_3"                      
+ [725] "q04d_3"                       "q04e_3"                      
+ [727] "q04f_3"                       "q04g_3"                      
+ [729] "dem10_3"                      "dem11_3"                     
+ [731] "dem12_3"                      "q06a_3"                      
+ [733] "q06b_3"                       "q06c_3"                      
+ [735] "q06d_3"                       "q05a_3"                      
+ [737] "q05b_3"                       "q05c_3"                      
+ [739] "q05d_3"                       "q05e_3"                      
+ [741] "q02_3"                        "mc2_3"                       
+ [743] "mc3_3"                        "mc5_3"                       
+ [745] "mc18_3"                       "mc27_3"                      
+ [747] "mc27_otra_3"                  "mc28_3"                      
+ [749] "mc29_3"                       "mc19_3"                      
+ [751] "mc21_3"                       "mc24_3"                      
+ [753] "mc25_3"                       "mig1_3"                      
+ [755] "mig2_3"                       "mig2_otros_3"                
+ [757] "mig3_3"                       "mig4_3"                      
+ [759] "mig5_3"                       "mig6_3"                      
+ [761] "mig7_3"                       "mig8_3"                      
+ [763] "mig9_3"                       "mig10_3"                     
+ [765] "mig10_otros_3"                "mig11_3"                     
+ [767] "mig12_3"                      "cg1_3"                       
+ [769] "cg2_3"                        "cg3_3"                       
+ [771] "cg4_3"                        "se8_3"                       
+ [773] "d09a_3"                       "d09a_cant_3"                 
+ [775] "d10_3"                        "d11_3"                       
+ [777] "bh1_3"                        "bh2_3"                       
+ [779] "bh3_3"                        "bh4_3"                       
+ [781] "bh5_3"                        "bh5a_3"                      
+ [783] "bh6_3"                        "bh7_3"                       
+ [785] "bh8_3"                        "bh9_3"                       
+ [787] "bh10_3"                       "bh11_3"                      
+ [789] "bh12_3"                       "bh13_3"                      
+ [791] "hora_inicio_3"                "hora_final_3"                
+ [793] "duracion_3"                   "entr1_3"                     
+ [795] "entr2_3"                      "entr3_3"                     
+ [797] "usuario_3"                    "y_3"                         
+ [799] "x_3"                          "panel"                       
+ [801] "d16_3"                        "d13_3"                       
+ [803] "year_b"                       "generacion"                  
+ [805] "correlativo_4"                "idnum1_4"                    
+ [807] "segid"                        "departamento_n_4"            
+ [809] "departamento_a_4"             "departamento_4"              
+ [811] "codigo_departamento_a_4"      "cal_cod_departamento_viejo_4"
+ [813] "fecha_4"                      "segmento_4"                  
+ [815] "se1_4"                        "canton_n_4"                  
+ [817] "canton_a_4"                   "segmento_a_4"                
+ [819] "areade_residencia_a_4"        "areaderesidencia_4"          
+ [821] "municipio_n_4"                "codigo_municipio"            
+ [823] "municipio_a_4"                "mun_final_cadena"            
+ [825] "municipio_4"                  "cal_cod_municipio_viejo_4"   
+ [827] "codigo_municipio_a_4"         "nombre_4"                    
+ [829] "edad_anterior_4"              "idnum3_4"                    
+ [831] "hora_inicio_a_4"              "idnum4_4"                    
+ [833] "d01_4"                        "se2_4"                       
+ [835] "grupoedad_4"                  "se4_4"                       
+ [837] "escolaridad_4"                "se3_4"                       
+ [839] "sit1_4"                       "sit1_otro_4"                 
+ [841] "sit1r_4"                      "sit12_4"                     
+ [843] "sit2_4"                       "sit4_4"                      
+ [845] "sit3_4"                       "sit6_4"                      
+ [847] "sit5_4"                       "sit13_4"                     
+ [849] "sit7_4"                       "sit8_4"                      
+ [851] "eval3_4"                      "l1_4"                        
+ [853] "pol2_4"                       "t1_4"                        
+ [855] "t2_4"                         "t5_4"                        
+ [857] "t3_4"                         "t4_4"                        
+ [859] "t10_4"                        "t8_4"                        
+ [861] "t15_4"                        "t16_4"                       
+ [863] "id1_4"                        "id1_4r"                      
+ [865] "id1_otro_4"                   "id2_4"                       
+ [867] "id2_4f"                       "id3_4"                       
+ [869] "id6_4"                        "id6_otro_4"                  
+ [871] "id4_4"                        "id4_otro_4"                  
+ [873] "id5_4"                        "id5_otro_4"                  
+ [875] "eval5_4"                      "eval4_4"                     
+ [877] "q10a_4"                       "q10b_4"                      
+ [879] "q10b_otro_4"                  "simp5_4"                     
+ [881] "simp6_4"                      "simp6_otro_4"                
+ [883] "simp7_4"                      "simp8_4"                     
+ [885] "pol8_4"                       "vp1_4"                       
+ [887] "vp2_4"                        "vp2_otro_4"                  
+ [889] "vp3_4"                        "q13a_4"                      
+ [891] "q13b_4"                       "vp6a_4"                      
+ [893] "vp6b_4"                       "pol7_4"                      
+ [895] "pol13_4"                      "pol14_4"                     
+ [897] "pol16_4"                      "se5_4"                       
+ [899] "pol15_4"                      "dui1_4"                      
+ [901] "pol4_4"                       "ep24_4"                      
+ [903] "ep25_4"                       "ep25_4r"                     
+ [905] "ep27_4"                       "ep29_4"                      
+ [907] "ep29_otro_4"                  "ep31_4"                      
+ [909] "nb10_4"                       "ep32_4"                      
+ [911] "ep33_4"                       "eval1_4"                     
+ [913] "pol1_4"                       "pol1r_4"                     
+ [915] "el1_4"                        "el2_4"                       
+ [917] "el2_otro_4"                   "el3_4"                       
+ [919] "sit9_4"                       "sit10_4"                     
+ [921] "sit11_4"                      "ci1_4"                       
+ [923] "ci2_4"                        "ci2r_4"                      
+ [925] "ci3_4"                        "ci18_4"                      
+ [927] "ci19_4"                       "ci20_4"                      
+ [929] "ci4_4"                        "ci5_4"                       
+ [931] "ci5r_4"                       "ci6_4"                       
+ [933] "ci7_4"                        "ci8_4"                       
+ [935] "ci22_4"                       "nb11_4"                      
+ [937] "eval2_4"                      "ng1_4"                       
+ [939] "ng1_otro_4"                   "ng9_4"                       
+ [941] "ng11_4"                       "ng22_4"                      
+ [943] "ng6_4"                        "ng7_4"                       
+ [945] "ng8_4"                        "ng12_4"                      
+ [947] "nb8_4"                        "nb7_4"                       
+ [949] "nb2_4"                        "nb5_4"                       
+ [951] "nb6_4"                        "mc28_4"                      
+ [953] "mc29_4"                       "nb9_4"                       
+ [955] "ng10_4"                       "test1_4"                     
+ [957] "ng13_4"                       "ng14_4"                      
+ [959] "ng15_4"                       "ng16_4"                      
+ [961] "ng17_4"                       "ng18_4"                      
+ [963] "ng18r_4"                      "ng19_4"                      
+ [965] "nb13_4"                       "nb14_4"                      
+ [967] "ng20_4"                       "ng21_4"                      
+ [969] "nb12_4"                       "ng2_4"                       
+ [971] "ng5_4"                        "ng3_4"                       
+ [973] "ng4_4"                        "eval9_4"                     
+ [975] "dem1_4"                       "pol10_4"                     
+ [977] "dem14_4"                      "dem14r_4"                    
+ [979] "dem14r2_4"                    "q21_4"                       
+ [981] "q21_4r"                       "dem2_4"                      
+ [983] "dem13_4"                      "dem3_4"                      
+ [985] "dem4_4"                       "dem5_4"                      
+ [987] "dem6_4"                       "dem7_4"                      
+ [989] "dem8_4"                       "dem9_4"                      
+ [991] "dem10_4"                      "dem11_4"                     
+ [993] "dem12_4"                      "q03_4"                       
+ [995] "q04a_4"                       "q04b_4"                      
+ [997] "q04c_4"                       "q04d_4"                      
+ [999] "q04e_4"                       "q04f_4"                      
+[1001] "q04g_4"                       "mc2_4"                       
+[1003] "mc3_4"                        "mc18_4"                      
+[1005] "mc27_4"                       "mc27_otro_4"                 
+[1007] "mc19_4"                       "mc24_4"                      
+[1009] "mc25_4"                       "lib1_4"                      
+[1011] "lib2_4"                       "lib3_4"                      
+[1013] "mig1_4"                       "mig2_4"                      
+[1015] "mig2_otro_4"                  "mig3_4"                      
+[1017] "mig4_4"                       "mig5_4"                      
+[1019] "mig6_4"                       "mig13_4"                     
+[1021] "mig14_4"                      "mig14_otro_4"                
+[1023] "mig7_4"                       "mig8_4"                      
+[1025] "mig9_4"                       "mig10_4"                     
+[1027] "mig10_otro_4"                 "mig11_4"                     
+[1029] "mig12_4"                      "cg1_4"                       
+[1031] "cg1r_4"                       "cg5_4"                       
+[1033] "cg5r_4"                       "cg6_4"                       
+[1035] "cg6r_4"                       "cg3_4"                       
+[1037] "cg3r_4"                       "cg4_4"                       
+[1039] "se8_4"                        "bh1_4"                       
+[1041] "bh2_4"                        "bh3_4"                       
+[1043] "bh4_4"                        "bh5_4"                       
+[1045] "bh5a_4"                       "bh6_4"                       
+[1047] "bh7_4"                        "bh8_4"                       
+[1049] "bh9_4"                        "bh10_4"                      
+[1051] "bh11_4"                       "bh12_4"                      
+[1053] "bh13_4"                       "conoc_4"                     
+[1055] "j_horadefinalizacion_4"       "entr1_4"                     
+[1057] "entr2_4"                      "entr3_4"                     
+[1059] "x_4"                          "y_4"                         
+[1061] "duracion_4"                   "duracion2_4"                 
+[1063] "idnum2_a_4"                   "e_t_4"                       
+[1065] "aplicacion_4"                 "anosdeexperiencia_4"         
+[1067] "edaddelencuestador_4"         "grupoedad_3"                 
+[1069] "escolaridad_3"                "pol2_3r"                     
+[1071] "pol2_3rr"                     "cg1_3r"                      
+[1073] "cg2_3r"                       "cg3_3r"                      
+[1075] "cg4_3r"                       "conoc_3"                     
+[1077] "cg1_4r"                       "cg5_4r"                      
+[1079] "cg3_4r"                       "cg4_4r"                      
+[1081] "pol2_4rr"                     "pol2_4r"                     
+[1083] "bh1_3r"                       "bh2_3r"                      
+[1085] "bh3_3r"                       "bh4_3r"                      
+[1087] "bh5_3r"                       "bh6_3r"                      
+[1089] "bh7_3r"                       "bh8_3r"                      
+[1091] "bh9_3r"                       "bh10_3r"                     
+[1093] "irr_3"                        "nirr_3"                      
+[1095] "bh1_4r"                       "bh2_4r"                      
+[1097] "bh3_4r"                       "bh4_4r"                      
+[1099] "bh5_4r"                       "bh6_4r"                      
+[1101] "bh7_4r"                       "bh8_4r"                      
+[1103] "bh9_4r"                       "bh10_4r"                     
+[1105] "irr_4"                        "nirr_4"                      
+[1107] "atricion_14"                  "id1_rrr"                     
+[1109] "id1_2rrr"                     "id1_3rrr"                    
+[1111] "id1_4rrr"                     "tipo_estabilidad"            
+[1113] "tipo_estabilidad2"            "sit3_3r"                     
+[1115] "sit2_3r"                      "ninguno_4r"                  
+[1117] "muy_arenero_4r"               "algo_arenero_4r"             
+[1119] "muy_efemelenista_4r"          "algo_efemelenista_4r"        
+[1121] "muy_nuevas_ideas_4r"          "algo_nuevas_ideas_4r"        
+[1123] "sit3_r"                       "sit3_4r"                     
+[1125] "sit2_r"                       "sit2_4r"                     
+[1127] "eval2_r"                      "eval2_4r"                    
+[1129] "sit5_r"                       "sit5_4r"                     
+[1131] "d_l1"                         "sit6_r"                      
+[1133] "sit7_r"                       "sit8_r"                      
+[1135] "sit5_3r"                      "sit6_3r"                     
+[1137] "sit7_3r"                      "sit8_3r"                     
+[1139] "d_pol2_r"                     "d_t1"                        
+[1141] "d_t2"                         "d_t5"                        
+[1143] "d_sit2_r"                     "d_sit3_r"                    
+[1145] "d_sit5_r"                     "d_sit6_r"                    
+[1147] "d_sit7_r"                     "d_sit8_r"                    
+[1149] "l1_r"                         "t1_r"                        
+[1151] "t2_r"                         "t5_r"                        
+[1153] "movilidad_ninguno"            "no_partidista"               
+[1155] "estabilidad_categorica"       "dem1_3r1"                    
+[1157] "dem1_3r"                      "dem2_3r"                     
+[1159] "dem3_3r"                      "dem4_3r"                     
+[1161] "dem5_3r"                      "dem11_3r"                    
+[1163] "dem12_3r"                     "q21_3r"                      
+[1165] "id1_rr"                       "id1_2rr"                     
+[1167] "id1_3rr"                      "id1_4rr"                     
+[1169] "se6_r"                        "tipoestabilidad_r"           
+[1171] "descontento_4"                "sit7_4r"                     
+[1173] "sit8_4r"                      "dmuyarenero"                 
+[1175] "dalgoarenero"                 "dmuyefemelenista"            
+[1177] "dalgoefemelenista"            "dmuynuevasideas"             
+[1179] "dalgonuevasideas"             "dvotoalianza"                
+[1181] "dvotofmln"                    "dvotogana"                   
+[1183] "ep25_4rr"                     "dmuyarenero2"                
+[1185] "dalgoarenero2"                "dmuyefemelenista2"           
+[1187] "dalgoefemelenista2"           "dmuynuevasideas2"            
+[1189] "dalgonuevasideas2"            "votofmln_4"                  
+[1191] "votoalianza_4"                "votogana_4"                  
+[1193] "dmuyarenero4"                 "dalgoarenero4"               
+[1195] "dmuyefemelenista4"            "dalgoefemelenista4"          
+[1197] "dmuynuevasideas4"             "dalgonuevasideas4"           
+[1199] "ep25_4rrr"                    "desc2_4"                     
+[1201] "desc2_r"                      "desc2_r1"                    
+[1203] "desc2_4r"                     "no_prioridad4"               
+[1205] "no_prioridad3"                "grupoedad2_4"                
+[1207] "atricion_r1r3"                "atricion_r2r3"               
+[1209] "atricion_r2r4"                "atricion_r3r4cses"           
+[1211] "dem2_4r"                      "nb13_4r"                     
+[1213] "nb14_4r"                      "ci1_4r"                      
+[1215] "ci2_4r"                       "ci3_4r"                      
+[1217] "sit10y11_4"                   "dem3_4r"                     
+[1219] "dem4_4r"                      "dem6_4r"                     
+[1221] "dem7_4r"                      "dem8_4r"                     
+[1223] "dem9_4r"                      "dem5_4r"                     
+[1225] "fac1_3"                       "fac2_3"                      
+[1227] "f_dem6789_4"                  "f_dem345_4"                  
+[1229] "dem1_4r"                      "q04e_4r"                     
+[1231] "atricion_r3r4"                "filtro_pid3"                 
+[1233] "refresh5"                     "filtro_p5"                   
+[1235] "filtropanelr4_5"              "filtroperdidos_5"            
+[1237] "filtro_r5"                    "corr_preelectoral_5"         
+[1239] "ponderador0_5"                "ponderador1_5"               
+[1241] "ponderador2_5"                "ponderador_preelectoral2021f"
+[1243] "object_id_5"                  "global_id_5"                 
+[1245] "encuesta_5"                   "a_5"                         
+[1247] "b_5"                          "c_5"                         
+[1249] "d_5"                          "idnum1_5"                    
+[1251] "idnum2_5"                     "idnum3_5"                    
+[1253] "idnum3_otr_5"                 "idnum4_5"                    
+[1255] "idnum4_otr_5"                 "tel1_5"                      
+[1257] "tel2_5"                       "tel3_5"                      
+[1259] "departamento_5"               "depto_5"                     
+[1261] "depto_cod5"                   "cal_cod_municipio_5"         
+[1263] "cal_departamento_5"           "municipio_5"                 
+[1265] "munici_5"                     "cal_municipio_5"             
+[1267] "canton_5"                     "cal_canton_5"                
+[1269] "cal_segmento_5"               "segmento_5"                  
+[1271] "area_5"                       "cal_area_5"                  
+[1273] "area_panel_5"                 "area_n_5"                    
+[1275] "ext1_5"                       "cal_nombre_5"                
+[1277] "nombre_5"                     "cal_sexo_5"                  
+[1279] "sexo_5"                       "cal_edad_5"                  
+[1281] "edad_5"                       "inicio_5"                    
+[1283] "grupoedad2_5"                 "grupoedad_5"                 
+[1285] "escolaridad_5"                "sit1r_5"                     
+[1287] "se1_5"                        "d01_5"                       
+[1289] "se2_5"                        "se3_5"                       
+[1291] "se4_5"                        "sit1_5"                      
+[1293] "sit1_otr_5"                   "sit2_5"                      
+[1295] "sit4_5"                       "sit3_5"                      
+[1297] "sit5_5"                       "sit7_5"                      
+[1299] "sit8_5"                       "eval3_5"                     
+[1301] "eval6_5"                      "ng12_5"                      
+[1303] "nb8_5"                        "pol2_5"                      
+[1305] "pol4b_5"                      "t1_5"                        
+[1307] "t2_5"                         "t5_5"                        
+[1309] "t3_5"                         "id1_5"                       
+[1311] "id1_otro_5"                   "id2_5"                       
+[1313] "eval4_5"                      "eval5_5"                     
+[1315] "dui1_5"                       "el1_5"                       
+[1317] "el5_5"                        "el2_5"                       
+[1319] "el2_otro_5"                   "el4_5"                       
+[1321] "el2a_5"                       "el2a_otro_5"                 
+[1323] "mc2_5"                        "mc3_5"                       
+[1325] "mc18_5"                       "mc27_5"                      
+[1327] "mc27_otro_5"                  "mc19_5"                      
+[1329] "mc24_5"                       "mc25_5"                      
+[1331] "mc30_5"                       "mc31_5"                      
+[1333] "ep24_5"                       "ep25_5"                      
+[1335] "vp1_5"                        "vp2_5"                       
+[1337] "vp2_otro_5"                   "vp3_5"                       
+[1339] "vp3_otro_5"                   "eval1_5"                     
+[1341] "eval2_5"                      "nb13_5"                      
+[1343] "nb14_5"                       "it1_5"                       
+[1345] "cov1_5"                       "cov2_5"                      
+[1347] "cov3a_5"                      "cov3b_5"                     
+[1349] "cov3c_5"                      "cov3d_5"                     
+[1351] "cov3e_5"                      "cov4_5"                      
+[1353] "cov10_5"                      "cov11_5"                     
+[1355] "cov12_5"                      "cov13_5"                     
+[1357] "cov5_5"                       "cov6a_5"                     
+[1359] "cov6b_5"                      "cov6c_5"                     
+[1361] "cov7_5"                       "cov14_5"                     
+[1363] "sa7_5"                        "sn1_5"                       
+[1365] "sn2_5"                        "cov15_5"                     
+[1367] "cov16_5"                      "pol10_5"                     
+[1369] "l1_5"                         "el6_5"                       
+[1371] "ci23_5"                       "ci20_5"                      
+[1373] "ci2_5"                        "ci3a_5"                      
+[1375] "ci4_5"                        "ci5_5"                       
+[1377] "ci6_5"                        "ci7_5"                       
+[1379] "ci8_5"                        "dem1_5"                      
+[1381] "dem14a_5"                     "dem14a_otr_5"                
+[1383] "q21_5"                        "dem3_5"                      
+[1385] "dem4_5"                       "dem5_5"                      
+[1387] "dem15_5"                      "dem16_5"                     
+[1389] "q04b_5"                       "q04d_5"                      
+[1391] "q04f_5"                       "q04g_5"                      
+[1393] "el7_5"                        "nb15_5"                      
+[1395] "mig9_5"                       "rem1_5"                      
+[1397] "sc1_5"                        "sc2_5"                       
+[1399] "sc3_5"                        "se5_5"                       
+[1401] "q10d_5"                       "cg1_5"                       
+[1403] "cg2_5"                        "cg3_5"                       
+[1405] "cg4_5"                        "cg5_5"                       
+[1407] "idtel2_5"                     "tel_5"                       
+[1409] "compania_5"                   "finalizacion_5"              
+[1411] "entr2_5"                      "entr3_5"                     
+[1413] "fecha_2_5"                    "remitido_5"                  
+[1415] "fecha_3_5"                    "remitido_2_5"                
+[1417] "tel_repitido_5"               "var1_5"                      
+[1419] "var2_5"                       "date_5"                      
+[1421] "dia_x_5"                      "hora_5"                      
+[1423] "dia_5"                        "temporal_5"                  
+[1425] "day_5"                        "pretest_5"                   
+[1427] "piloto_5"                     "evaluar_5"                   
+[1429] "geta_5"                       "nivel_5"                     
+[1431] "zona_5"                       "conoc_5"                     </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co">#skimr::skim(panel_funda)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Nos vamos a quedar con todas las ondas que empezaron en el mismo momento</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>panel_funda <span class="sc">%&lt;&gt;%</span> </span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(id)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Vamos a poner sufijos</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>panel_funda <span class="sc">%&lt;&gt;%</span> <span class="fu">rename_at</span>(<span class="fu">vars</span>(se1<span class="sc">:</span>l1,pol2, nb2,id1), <span class="sc">~</span> <span class="fu">paste0</span>(., <span class="st">'_1'</span>))</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>panel_funda <span class="sc">%&gt;%</span> </span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="fu">starts_with</span>(<span class="st">"se1"</span>)) <span class="co"># Revisamos</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2,481 × 5
+           se1_1          se1_3         se1_3r          se1_4     se1_5
+       &lt;dbl+lbl&gt;      &lt;dbl+lbl&gt;      &lt;dbl+lbl&gt;      &lt;dbl+lbl&gt; &lt;dbl+lbl&gt;
+ 1 0 [Masculino] NA             NA             NA                    NA
+ 2 1 [Femenino]  NA             NA             NA                    NA
+ 3 1 [Femenino]   2 [Femenino]   0 [Femenino]   2 [Femenino]         NA
+ 4 0 [Masculino] NA             NA              1 [Masculino]        NA
+ 5 1 [Femenino]  NA             NA             NA                    NA
+ 6 0 [Masculino] NA             NA             NA                    NA
+ 7 1 [Femenino]  NA             NA             NA                    NA
+ 8 0 [Masculino]  1 [Masculino]  1 [Masculino]  1 [Masculino]        NA
+ 9 1 [Femenino]  NA             NA             NA                    NA
+10 1 [Femenino]  NA             NA             NA                    NA
+# … with 2,471 more rows</code></pre>
+</div>
+</div>
+<p>Vamos a quedarnos con un par de preguntas.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>panel_funda2 <span class="ot">&lt;-</span> panel_funda <span class="sc">%&gt;%</span> </span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(ronda<span class="sc">&lt;</span><span class="dv">2</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(correlativo, id,  departamento, </span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>         se2_1,se2_2, se2_3, se2_4, se2_5,</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>         sit1_1, sit1_2, sit1_3, sit1_4, sit1_5,</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>         id1_1, id1_2, id1_3, id1_4, id1_5) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Con estas variables ya haremos nuestra base para las secuencias, para eso es mejor tenerla long</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>panel_long<span class="ot">&lt;-</span>panel_funda2 <span class="sc">%&gt;%</span> </span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    <span class="sc">-</span><span class="fu">c</span>(correlativo, id, departamento), </span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="fu">c</span>(<span class="st">".value"</span>, <span class="st">"onda"</span>), </span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_sep =</span> <span class="st">"_"</span>,</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_drop_na =</span> <span class="cn">TRUE</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>  ) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: `sit1_1` and `sit1_4` have conflicting value labels.
+ℹ Labels for these values will be taken from `sit1_1`.
+✖ Values: 2, 9, 11, 14, 15, and 21</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: `sit1_1` and `sit1_5` have conflicting value labels.
+ℹ Labels for these values will be taken from `sit1_1`.
+✖ Values: 0, 11, 21, and 99</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: `id1_1` and `id1_4` have conflicting value labels.
+ℹ Labels for these values will be taken from `id1_1`.
+✖ Values: 99</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: `id1_1` and `id1_5` have conflicting value labels.
+ℹ Labels for these values will be taken from `id1_1`.
+✖ Values: 8</code></pre>
+</div>
+</div>
+<p>Como pusimos el drop NA, vamos a tener paneles incompletos</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>panel_long <span class="sc">%&lt;&gt;%</span> </span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(id) <span class="sc">%&gt;%</span> </span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_tally</span>(<span class="at">name=</span><span class="st">"n_total"</span>) <span class="sc">%&gt;%</span> <span class="co"># nos hace un total de observaciones</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="fu">tabyl</span>(panel_long<span class="sc">$</span>n_total) <span class="co"># cuantas entrevistas por cada i</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> panel_long$n_total    n    percent
+                  1  727 0.14152229
+                  2  448 0.08721043
+                  3  522 0.10161573
+                  4 3440 0.66965155</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tabyl</span>(panel_long<span class="sc">$</span>onda) <span class="co"># cuantos en cada onda</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> panel_long$onda    n   percent
+               1 1985 0.3864123
+               2 1244 0.2421647
+               3 1033 0.2010901
+               4  875 0.1703329</code></pre>
+</div>
+</div>
+<p>Nos quedamos con el panel completo</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>panel_completo<span class="ot">&lt;-</span> panel_long <span class="sc">%&gt;%</span> <span class="fu">filter</span>(n_total<span class="sc">==</span><span class="dv">4</span>) <span class="sc">%&gt;%</span>  <span class="fu">mutate</span>(<span class="at">onda=</span><span class="fu">as_numeric</span>(onda))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="grafico-alluvial" class="level2" data-number="10.3">
+<h2 data-number="10.3" class="anchored" data-anchor-id="grafico-alluvial"><span class="header-section-number">10.3</span> Grafico alluvial</h2>
+<p>Vamos a hacer un grafico aluvial para ver las diferencias en los diferentes momentos</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>panel_alluvial<span class="ot">&lt;-</span> panel_completo <span class="sc">%&gt;%</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">c</span>(id1, onda, id)) <span class="sc">%&gt;%</span> <span class="co">#nos quedamos sólo con las variables de la secuencia, id y i,</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">id1=</span><span class="fu">as_label</span>(id1)) <span class="sc">%&gt;%</span> <span class="co"># para que entienda las categorías</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">id=</span><span class="fu">as_factor</span>(id)) <span class="co"># cambia de numérico a factor</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>En id1, tenemos 12 valores, vamos a establecer una paleta de colores para cada valor.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>cols <span class="ot">&lt;-</span> <span class="fu">palette</span>(<span class="fu">c</span>(<span class="st">"gray80"</span>, <span class="st">"blue"</span>,<span class="st">" cornflowerblue"</span>,</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>                  <span class="st">"red4"</span>, <span class="st">"tomato2"</span>, <span class="st">"darkorange"</span>, <span class="st">"gold"</span>,</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>                  <span class="st">"darkcyan"</span>, <span class="st">"cyan1"</span>, </span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>                  <span class="st">"purple"</span>, <span class="st">"black"</span>, <span class="st">"gray50"</span>))</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>cols</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "black"   "#DF536B" "#61D04F" "#2297E6" "#28E2E5" "#CD0BBC" "#F5C710"
+[8] "gray62" </code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>allu<span class="ot">&lt;-</span>easyalluvial<span class="sc">::</span><span class="fu">alluvial_long</span>(<span class="at">data=</span>panel_alluvial, <span class="co">#seleción del objeto de base de datos</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>                    <span class="at">key =</span> onda, <span class="co"># Variable que identifica los estados</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>                    <span class="at">value =</span> id1, <span class="co"># Variable con la que estableceremos los cambios</span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>                    <span class="at">id=</span>id, <span class="co"># identificador único de los individuos</span></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>                    <span class="at">fill_by=</span><span class="st">'value'</span>, <span class="co"># Define los flujos en términos de la variable declarada en "value"</span></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>                    <span class="at">col_vector_flow =</span> cols, <span class="co"># Color para los flujos</span></span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>                    <span class="at">col_vector_value =</span> cols) <span class="co"># Color para los recuadros</span></span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>allu  <span class="co"># lo imprime</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="P10_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Con etiqutas más pequeñas podría ser más interesante. Acá este gráfico ya nos dice que hay 343 trayectorias diferentes en nuestros datos.</p>
+</section>
+<section id="paquete-traminer" class="level2" data-number="10.4">
+<h2 data-number="10.4" class="anchored" data-anchor-id="paquete-traminer"><span class="header-section-number">10.4</span> Paquete TraMineR</h2>
+<p>Este paquete es fundamental para el análisis de secuencias. Genera tanto análisis descriptivos, formas de agrupamiento de nuestras secuencias y medidas que analizan específicamente cómo se comportan estas secuencias. En esta sección nos vamos a concentrar en el análisis de secuencias de estado, tal como se describe en (Gabadinho, Ritschard, Müller, &amp; Studer, 2011).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>panel_wide <span class="ot">&lt;-</span>panel_completo <span class="sc">%&gt;%</span> </span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(correlativo, id, departamento, <span class="fu">starts_with</span>(<span class="st">"id1"</span>), onda) <span class="sc">%&gt;%</span> </span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_prefix =</span> <span class="st">"id1_"</span>, </span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_from =</span> onda,</span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_from =</span> <span class="fu">c</span>(<span class="fu">starts_with</span>(<span class="st">"id1"</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Primero vamos a definir nuestra secuencia con el comando “seqdef()”. Usaremos nuestra base en formato ancho. Este formato ancho es compatible con el formato “STate-Sequence (STS)” del paquete, es decir, los estatos sucesivos representan una posición o columna en nuestra base de datos. La definición de la sequencia la guardaremos en un nuevo objeto.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>var_seq<span class="ot">&lt;-</span><span class="fu">c</span>(<span class="st">"id1_1"</span>, <span class="st">"id1_2"</span>, <span class="st">"id1_3"</span>, <span class="st">"id1_4"</span>) <span class="co"># variables con las que se ejecutarán las secuencias</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>id1.shortlab<span class="ot">&lt;-</span><span class="fu">c</span>(<span class="st">"0"</span>, <span class="st">"++ Arena"</span>, <span class="st">"+ Arena"</span>, <span class="st">"++ FMLN"</span>, <span class="st">"+FMLN"</span>, <span class="st">"++ GANA"</span>, <span class="st">"+ GANA"</span>,</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>                <span class="st">"++ NI"</span>, <span class="st">"+ NI"</span>, <span class="st">"Otro"</span>, <span class="st">"Independiente"</span>, <span class="st">"NS/NR"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="el-programa-central" class="level2" data-number="10.5">
+<h2 data-number="10.5" class="anchored" data-anchor-id="el-programa-central"><span class="header-section-number">10.5</span> El programa central</h2>
+<p>Siguiendo programa central descrito por Cornwell(2015), elaboraremos los primeros cuatro pasos. Pero primero necesitamos declarar la base para que el programa entienda que tenemos secuencias.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>id1.seq <span class="ot">&lt;-</span> panel_wide <span class="sc">%&gt;%</span> </span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">seqdef</span>(</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">var=</span>var_seq, <span class="co"># variables en análisis</span></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">states =</span> id1.shortlab, <span class="co">#estados, preferimos usar etiquetas cortas</span></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">xtstep =</span> <span class="dv">1</span>) <span class="co">#Número de marcas en el eje x para gráficas</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code> [&gt;] state coding:</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>       [alphabet]  [label]       [long label] </code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>     1  0           0             0</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>     2  1           ++ Arena      ++ Arena</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>     3  2           + Arena       + Arena</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>     4  3           ++ FMLN       ++ FMLN</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>     5  4           +FMLN         +FMLN</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>     6  5           ++ GANA       ++ GANA</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>     7  6           + GANA        + GANA</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>     8  7           ++ NI         ++ NI</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>     9  8           + NI          + NI</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>     10  9           Otro          Otro</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>     11  10          Independiente Independiente</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>     12  99          NS/NR         NS/NR</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code> [&gt;] 860 sequences in the data set</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code> [&gt;] min/max sequence length: 4/4</code></pre>
+</div>
+</div>
+<section id="paso-1" class="level3" data-number="10.5.1">
+<h3 data-number="10.5.1" class="anchored" data-anchor-id="paso-1"><span class="header-section-number">10.5.1</span> Paso 1:</h3>
+<p>Descripción de las secuencias, mediante la tabulación y cálculo de indicadores para las características de cada secuencia;</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Tabulado y medidas ----------------------------------------------------------</span></span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a><span class="fu">seqtab</span>(id1.seq, <span class="co">#objeto de secuencia</span></span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>       <span class="at">idxs=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>) <span class="co"># establece el número de secuencias a tabular, si no se establece se tabulan todas</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                      Freq Percent
+0/4                    100    11.6
++ NI/4                  29     3.4
+++ FMLN/4               28     3.3
+++ Arena/4              22     2.6
+++ NI/4                 21     2.4
+0/3-+ NI/1              19     2.2
+0/1-+ NI/3              18     2.1
+0/2-+ NI/2              18     2.1
++ Arena/4               12     1.4
++ NI/2-++ NI/1-+ NI/1   11     1.3</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">seqstatd</span>(id1.seq) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                          [State frequencies]
+               id1_1  id1_2  id1_3  id1_4
+0             0.3593 0.3012 0.3116 0.2965
+++ Arena      0.1070 0.0884 0.0523 0.0453
++ Arena       0.0953 0.1209 0.0686 0.0709
+++ FMLN       0.0756 0.0849 0.0640 0.0523
++FMLN         0.0442 0.0663 0.0407 0.0442
+++ GANA       0.0047 0.0035 0.0035 0.0058
++ GANA        0.0151 0.0186 0.0163 0.0163
+++ NI         0.0930 0.1128 0.1686 0.1291
++ NI          0.1721 0.1721 0.2616 0.3198
+Otro          0.0023 0.0000 0.0023 0.0000
+Independiente 0.0093 0.0081 0.0023 0.0023
+NS/NR         0.0221 0.0233 0.0081 0.0174
+
+                           [Valid states]
+              id1_1 id1_2 id1_3 id1_4
+N               860   860   860   860
+
+                           [Entropy index]
+              id1_1 id1_2 id1_3 id1_4
+H              0.77   0.8  0.73  0.72</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Esta es una medida de entropía para cada uno de los estado</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="paso-2." class="level3" data-number="10.5.2">
+<h3 data-number="10.5.2" class="anchored" data-anchor-id="paso-2."><span class="header-section-number">10.5.2</span> Paso 2.</h3>
+<p>Visualización, a partir de los gráficos. En este caso presentamos gráficos de frecuencias y de índice, <em>segfplot y seqIplot</em>, respectivamente.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Gráfico de frecuencias</span></span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a><span class="fu">seqfplot</span>(<span class="at">seqdata=</span>id1.seq, <span class="co"># objeto de la definición de secuencias</span></span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">with.legend =</span> <span class="st">"right"</span>, <span class="co"># posición de la leyenda</span></span>
+<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">border =</span> <span class="cn">NA</span>, <span class="co"># opciones de bordes</span></span>
+<span id="cb51-5"><a href="#cb51-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">cpal=</span>cols, <span class="co">#colores de nuestro vector</span></span>
+<span id="cb51-6"><a href="#cb51-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">xtlab=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>) <span class="co"># Para etiquetar el eje x con el número de entrevistas</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="P10_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Gráfico de índice</span></span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a><span class="fu">seqIplot</span>(<span class="at">seqdata=</span>id1.seq, <span class="co"># objeto de la definición de secuencias</span></span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">with.legend =</span> <span class="st">"right"</span>, <span class="co"># posición de la leyenda</span></span>
+<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">border =</span> <span class="cn">NA</span>, <span class="co"># opciones de bordes</span></span>
+<span id="cb52-5"><a href="#cb52-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">cpal=</span>cols, <span class="co">#colores de nuestro vector</span></span>
+<span id="cb52-6"><a href="#cb52-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">sortv=</span>id1.seq<span class="sc">$</span>id1_1,<span class="co"># ordenadas según la condición inicial</span></span>
+<span id="cb52-7"><a href="#cb52-7" aria-hidden="true" tabindex="-1"></a>         <span class="at">xtlab=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>) <span class="co"># Para etiquetar el eje x con el número de entrevistas</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="P10_files/figure-html/unnamed-chunk-18-2.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="paso-3" class="level3" data-number="10.5.3">
+<h3 data-number="10.5.3" class="anchored" data-anchor-id="paso-3"><span class="header-section-number">10.5.3</span> Paso 3:</h3>
+<p>Comparación de las secuencias entre sí, utilizando las medidas de distancia obtenidas a través de una correspondencia óptima (OM);</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>dist.om1 <span class="ot">&lt;-</span> <span class="fu">seqdist</span>(id1.seq, <span class="co"># objeto con la secuencia declarada</span></span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>                    <span class="at">method =</span> <span class="st">"OM"</span>, <span class="co"># Cómo calculamos la disimilaridad</span></span>
+<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a>                    <span class="at">indel =</span> <span class="dv">1</span>, <span class="co"># costos de in-serción y eliminación (del-ete)</span></span>
+<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a>                    <span class="at">sm =</span> <span class="st">"TRATE"</span>) <span class="co"># La mprobabilidades de transición de los datos son los costos</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code> [&gt;] 860 sequences with 12 distinct states</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code> [&gt;] Computing sm with seqcost using  TRATE</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code> [&gt;] creating substitution-cost matrix using transition rates ...</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code> [&gt;] computing transition probabilities for states 0/++ Arena/+ Arena/++ FMLN/+FMLN/++ GANA/+ GANA/++ NI/+ NI/Otro/Independiente/NS/NR ...</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code> [&gt;] 343 distinct  sequences </code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code> [&gt;] min/max sequence lengths: 4/4</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code> [&gt;] computing distances using the OM metric</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code> [&gt;] elapsed time: 0.086 secs</code></pre>
+</div>
+</div>
+</section>
+<section id="paso-4" class="level3" data-number="10.5.4">
+<h3 data-number="10.5.4" class="anchored" data-anchor-id="paso-4"><span class="header-section-number">10.5.4</span> Paso 4:</h3>
+<p>Agrupación de las secuencias similares, en este caso, utilizaremos el clúster jerárquico con el método de mínima varianza de Ward</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>) <span class="co"># semilla para replicar y que nos dé a todes igual</span></span>
+<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a>clusterward1 <span class="ot">&lt;-</span> <span class="fu">agnes</span>(dist.om1,<span class="co"># llamamos a nuestro objeto de distancia </span></span>
+<span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a>                      <span class="at">diss =</span> <span class="cn">TRUE</span>, <span class="co"># para que entienda que le dimos un objeto de disimiliradid</span></span>
+<span id="cb62-4"><a href="#cb62-4" aria-hidden="true" tabindex="-1"></a>                      <span class="at">method =</span> <span class="st">"ward"</span>) <span class="co">#l método de varianza mínima de Ward.</span></span>
+<span id="cb62-5"><a href="#cb62-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb62-6"><a href="#cb62-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(clusterward1, <span class="at">which.plot =</span> <span class="dv">2</span>) <span class="co">#grafica para decidir</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="P10_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a>cl1<span class="fl">.3</span> <span class="ot">&lt;-</span> <span class="fu">cutree</span>(clusterward1, <span class="at">k =</span> <span class="dv">3</span>) <span class="co">#corta los casos</span></span>
+<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-3"><a href="#cb63-3" aria-hidden="true" tabindex="-1"></a>cl1<span class="fl">.3</span>fac <span class="ot">&lt;-</span> <span class="fu">factor</span>(cl1<span class="fl">.3</span>, </span>
+<span id="cb63-4"><a href="#cb63-4" aria-hidden="true" tabindex="-1"></a>                   <span class="at">labels =</span> <span class="fu">paste</span>(<span class="st">"Tipología"</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>))</span>
+<span id="cb63-5"><a href="#cb63-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-6"><a href="#cb63-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-7"><a href="#cb63-7" aria-hidden="true" tabindex="-1"></a><span class="co"># ¿Cómo se ven  las secuencias por grupo?</span></span>
+<span id="cb63-8"><a href="#cb63-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-9"><a href="#cb63-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-10"><a href="#cb63-10" aria-hidden="true" tabindex="-1"></a><span class="fu">seqIplot</span>(id1.seq, <span class="co"># objeto con secuencias declaradas</span></span>
+<span id="cb63-11"><a href="#cb63-11" aria-hidden="true" tabindex="-1"></a>         <span class="at">group =</span> cl1<span class="fl">.3</span>fac, <span class="co">#identifica los cluster calculados</span></span>
+<span id="cb63-12"><a href="#cb63-12" aria-hidden="true" tabindex="-1"></a>         <span class="at">sortv =</span> <span class="st">"from.start"</span>,<span class="co"># ordena según condición inicial</span></span>
+<span id="cb63-13"><a href="#cb63-13" aria-hidden="true" tabindex="-1"></a>         <span class="at">cpal=</span>cols)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="P10_files/figure-html/unnamed-chunk-20-2.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./P9.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Análisis longitundinal: panel</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./P11.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">p11</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+</body></html>
