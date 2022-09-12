@@ -1,7 +1,4 @@
----
-title: "p11"
-editor: visual
----
+# Fusionado de conjuntos de datos
 
 ## Importación bases EHPM 2018
 
@@ -27,11 +24,9 @@ gastos_b<- haven::read_sav("datos/ehpm2018/EHPM 2018 SEC 8 B.sav")
 
 ```
 
-
 ## Juntando bases
-Muchas bases de datos están organizadas en varias tablas. 
-La ventaja de la programación por objetos de R, nos permite tener las bases cargadas en nuestro ambiente y llamarlas y juntarlas cuando sea necesario. 
 
+Muchas bases de datos están organizadas en varias tablas. La ventaja de la programación por objetos de R, nos permite tener las bases cargadas en nuestro ambiente y llamarlas y juntarlas cuando sea necesario.
 
 ```{r}
 dim(hogares)
@@ -54,19 +49,21 @@ merge_data<- merge(hogares, personas, by="KEY_HOGAR")
 ```
 
 Revisemos la base creada
+
 ```{r}
 names(merge_data)
 dim(merge_data)
 
 ```
+
 ¿Qué observas?
 
-(1) El orden de las variables corresponde al orden que pusimos las bases en las opciones. 
+(1) El orden de las variables corresponde al orden que pusimos las bases en las opciones.
 
-(2) También vemos que las variables que se repetían en ambas bases se repiten en la nueva base, seguida de un un punto y una "x", para lo que proviene de la primera base y con una "y", lo que proviene de la segunda.
-R dejará las variables intactas y son coincidentes, en nuestro caso, porque las variables son iguales. R hace esto para precaver que por error tengamos alguna variable con un nombre igual y no sea la misma
+(2) También vemos que las variables que se repetían en ambas bases se repiten en la nueva base, seguida de un un punto y una "x", para lo que proviene de la primera base y con una "y", lo que proviene de la segunda. R dejará las variables intactas y son coincidentes, en nuestro caso, porque las variables son iguales. R hace esto para precaver que por error tengamos alguna variable con un nombre igual y no sea la misma
 
 Revisemos que las variables "repetidas son iguales
+
 ```{r}
 table(merge_data$region.x, merge_data$region.y)
 ```
@@ -79,13 +76,11 @@ merge_data<-select(merge_data,-ends_with(".y"))
 
 ```
 
-
 ## Merge con id compuesto
 
 La EHPM en ediciones más recientes tiene un id (o "key") ya establecido. Si trabajas co una versión más antigua no la tendra.
 
-Hogares {hogares} es "lote", "tipo", "folio", "viv"
-Persons {individuos} es "lote", "tipo", "folio", "viv", "r101"
+Hogares {hogares} es "lote", "tipo", "folio", "viv" Persons {individuos} es "lote", "tipo", "folio", "viv", "r101"
 
 Esto significa que tenemos un id compuesto. No es una sola variable. Para esto modificamos ligeramente cómo ponemos el "by", pero siempre eligiendo el id de la base de mayor nivel. (Tené cuidado con los paréntesis)
 
@@ -98,6 +93,7 @@ dim(merge_data2)
 ```
 
 Revisemos la base
+
 ```{r}
 str(merge_data2)
 tail(merge_data2)
@@ -105,7 +101,7 @@ tail(merge_data2)
 
 ## Bases de distinto tamaño
 
-Hasta ahorita hemos hecho merge que son de unidades de distinto nivel y son incluyentes. A veces tenemos bases de datos que son de distinto tamaño y del mismo nivel. A veces las dos aportan casos y a veces aportan variables, y a veces, las dos aportan las dos cosas. 
+Hasta ahorita hemos hecho merge que son de unidades de distinto nivel y son incluyentes. A veces tenemos bases de datos que son de distinto tamaño y del mismo nivel. A veces las dos aportan casos y a veces aportan variables, y a veces, las dos aportan las dos cosas.
 
 Vamos a revisar qué pasaría si quisiéramos incorporar la información de los hogares que han gastado en paquetes turísticos
 
@@ -122,6 +118,7 @@ Vamos a hacer el primer tipo de merge
 merge_data3<-merge(hogares,gastos_turis, by=c("lote", "tipo", "folio", "viv"))
 dim(merge_data3)
 ```
+
 ¡La base nueva no tiene a todas las observaciones, solo la que tiene en la base más pequeña! Tenemos sólo 221 hogares.
 
 ## Cuatro formas de hacer un fusionado
@@ -131,6 +128,7 @@ En realidad hay cuatro formas de hacer un "merge"
 ### Casos en ambas bases
 
 Por *default*, el comando tiene activado la opción "all = FALSE", que nos deja los datos de ambas bases comunes. (tipo una intersección)
+
 ```{r}
 merge_data3<-merge(hogares,gastos_turis, by=c("lote", "tipo", "folio", "viv"), all = F)
 dim(merge_data3)
@@ -138,8 +136,7 @@ dim(merge_data3)
 
 ### Todos los casos
 
-Si cambiamos la opción "all = TRUE", que nos deja los datos comunes a ambas bases. 
-(como una unión)
+Si cambiamos la opción "all = TRUE", que nos deja los datos comunes a ambas bases. (como una unión)
 
 ```{r}
 merge_data3<-merge(hogares,gastos_turis, by=c("lote", "tipo", "folio", "viv"), all = T)
@@ -161,13 +158,11 @@ Notamos que hoy sí tenemos los datos de toda la población y hay missings en la
 
 Si queremos lo contrario, quedarnos con los datos aportados por la segunda base, y, vamos a usar la opción all.y=TRUE
 
-
 ```{r}
 merge_data3<-merge(hogares,gastos_turis, by=c("lote", "tipo", "folio", "viv"), all.y  = TRUE)
 dim(merge_data3)
 ```
 
-Esta imagen te puede ser utilidad:
-![image](merge.png)
+Esta imagen te puede ser utilidad: ![image](merge.png)
 
 (tomada de aquí <https://www.dummies.com/programming/r/how-to-use-the-merge-function-with-data-sets-in-r/>)

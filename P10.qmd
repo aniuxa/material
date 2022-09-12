@@ -69,6 +69,7 @@ panel_funda2 <- panel_funda %>%
 ```
 
 Con estas variables ya haremos nuestra base para las secuencias, para eso es mejor tenerla long
+
 ```{r}
 
 panel_long<-panel_funda2 %>% 
@@ -79,6 +80,7 @@ panel_long<-panel_funda2 %>%
     values_drop_na = TRUE
   ) 
 ```
+
 Como pusimos el drop NA, vamos a tener paneles incompletos
 
 ```{r}
@@ -91,12 +93,12 @@ tabyl(panel_long$n_total) # cuantas entrevistas por cada i
 tabyl(panel_long$onda) # cuantos en cada onda
 
 ```
+
 Nos quedamos con el panel completo
 
 ```{r}
 panel_completo<- panel_long %>% filter(n_total==4) %>%  mutate(onda=as_numeric(onda))
 ```
-
 
 ## Grafico alluvial
 
@@ -114,7 +116,8 @@ panel_alluvial<- panel_completo %>%
 En id1, tenemos 12 valores, vamos a establecer una paleta de colores para cada valor.
 
 ```{r}
-cols <- we
+
+cols <- wes_palette(n=12,name="Darjeeling1",type="continuous" ) # un vector de colores creados con la paleta de Wes Anderson
 cols
 ```
 
@@ -129,10 +132,12 @@ allu<-easyalluvial::alluvial_long(data=panel_alluvial, #seleción del objeto de 
 
 allu  # lo imprime
 ```
+
 Con etiqutas más pequeñas podría ser más interesante. Acá este gráfico ya nos dice que hay 343 trayectorias diferentes en nuestros datos.
 
 ## Paquete TraMineR
-Este paquete es fundamental para el análisis de secuencias. Genera tanto análisis descriptivos, formas de agrupamiento de nuestras secuencias y medidas que analizan específicamente cómo se comportan estas secuencias. En esta sección nos vamos a concentrar en el análisis de secuencias de estado, tal como se describe en (Gabadinho, Ritschard, Müller, & Studer, 2011). 
+
+Este paquete es fundamental para el análisis de secuencias. Genera tanto análisis descriptivos, formas de agrupamiento de nuestras secuencias y medidas que analizan específicamente cómo se comportan estas secuencias. En esta sección nos vamos a concentrar en el análisis de secuencias de estado, tal como se describe en (Gabadinho, Ritschard, Müller, & Studer, 2011).
 
 ```{r}
 panel_wide <-panel_completo %>% 
@@ -143,8 +148,7 @@ panel_wide <-panel_completo %>%
     values_from = c(starts_with("id1")))
 ```
 
-
-Primero vamos a definir nuestra secuencia con el comando "seqdef()". Usaremos nuestra base en formato ancho. Este formato ancho es compatible con el formato "STate-Sequence (STS)" del paquete, es decir, los estatos sucesivos representan una posición o columna en nuestra base de datos. La definición de la sequencia la guardaremos  en un nuevo objeto.
+Primero vamos a definir nuestra secuencia con el comando "seqdef()". Usaremos nuestra base en formato ancho. Este formato ancho es compatible con el formato "STate-Sequence (STS)" del paquete, es decir, los estatos sucesivos representan una posición o columna en nuestra base de datos. La definición de la sequencia la guardaremos en un nuevo objeto.
 
 ```{r}
 
@@ -156,7 +160,7 @@ id1.shortlab<-c("0", "++ Arena", "+ Arena", "++ FMLN", "+FMLN", "++ GANA", "+ GA
 
 ## El programa central
 
-Siguiendo programa central descrito por Cornwell(2015), elaboraremos los primeros cuatro pasos.  Pero primero necesitamos declarar la base para que el programa entienda que tenemos secuencias. 
+Siguiendo programa central descrito por Cornwell(2015), elaboraremos los primeros cuatro pasos. Pero primero necesitamos declarar la base para que el programa entienda que tenemos secuencias.
 
 ```{r}
 
@@ -168,9 +172,10 @@ id1.seq <- panel_wide %>%
 
 ```
 
-### Paso 1:	
+### Paso 1:
+
 Descripción de las secuencias, mediante la tabulación y cálculo de indicadores para las características de cada secuencia;
- 
+
 ```{r}
 
 
@@ -184,10 +189,11 @@ seqstatd(id1.seq)
 
 
 ```
- 
+
 ### Paso 2.
+
 Visualización, a partir de los gráficos. En este caso presentamos gráficos de frecuencias y de índice, *segfplot y seqIplot*, respectivamente.
- 
+
 ```{r}
 
 # Gráfico de frecuencias
@@ -207,8 +213,9 @@ seqIplot(seqdata=id1.seq, # objeto de la definición de secuencias
          xtlab=1:4) # Para etiquetar el eje x con el número de entrevistas
 
 ```
- 
+
 ### Paso 3:
+
 Comparación de las secuencias entre sí, utilizando las medidas de distancia obtenidas a través de una correspondencia óptima (OM);
 
 ```{r}
@@ -249,4 +256,3 @@ seqIplot(id1.seq, # objeto con secuencias declaradas
 
 
 ```
-
