@@ -72,7 +72,7 @@ Si nos molesta mucho esta repetición de comandos, pues colocar un argumento se�
 
 ```{r}
 
-merge_data<-select(merge_data,-ends_with(".y"))
+merge_data %<>% select(-ends_with(".y"))
 
 ```
 
@@ -87,7 +87,9 @@ Esto significa que tenemos un id compuesto. No es una sola variable. Para esto m
 ```{r}
 merge_data2<- merge(hogares, personas, by=c("lote", "tipo", "folio", "viv"))
 dim(merge_data2)
-merge_data2<-select(merge_data2,-ends_with(".y"))
+
+merge_data2 %<>% select(-ends_with(".y"))
+
 dim(merge_data2)
 
 ```
@@ -95,8 +97,8 @@ dim(merge_data2)
 Revisemos la base
 
 ```{r}
-str(merge_data2)
-tail(merge_data2)
+merge_data2 %>% 
+  tail()
 ```
 
 ## Bases de distinto tamaño
