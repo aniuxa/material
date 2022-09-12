@@ -3,7 +3,7 @@ title: "p11"
 editor: visual
 ---
 
-## Importación bases ehpm2018
+## Importación bases EHPM 2018
 
 Vamos a trabajar con esta base que tiene elementos separados.
 
@@ -28,7 +28,7 @@ gastos_b<- haven::read_sav("datos/ehpm2018/EHPM 2018 SEC 8 B.sav")
 ```
 
 
-# Juntando bases
+## Juntando bases
 Muchas bases de datos están organizadas en varias tablas. 
 La ventaja de la programación por objetos de R, nos permite tener las bases cargadas en nuestro ambiente y llamarlas y juntarlas cuando sea necesario. 
 
@@ -80,7 +80,7 @@ merge_data<-select(merge_data,-ends_with(".y"))
 ```
 
 
-# Merge con id compuesto
+## Merge con id compuesto
 
 La EHPM en ediciones más recientes tiene un id (o "key") ya establecido. Si trabajas co una versión más antigua no la tendra.
 
@@ -103,11 +103,12 @@ str(merge_data2)
 tail(merge_data2)
 ```
 
-# Bases de distinto tamaño
+## Bases de distinto tamaño
 
 Hasta ahorita hemos hecho merge que son de unidades de distinto nivel y son incluyentes. A veces tenemos bases de datos que son de distinto tamaño y del mismo nivel. A veces las dos aportan casos y a veces aportan variables, y a veces, las dos aportan las dos cosas. 
 
 Vamos a revisar qué pasaría si quisiéramos incorporar la información de los hogares que han gastado en paquetes turísticos
+
 ```{r}
 gastos_turis<-gastos_b %>% 
     filter(DESCRIPCION=="18. 096.Paquetes turísticos" & r808==1) 
@@ -123,17 +124,20 @@ dim(merge_data3)
 ```
 ¡La base nueva no tiene a todas las observaciones, solo la que tiene en la base más pequeña! Tenemos sólo 221 hogares.
 
-En realidad hay cuatro formas de hacer un merge
+## Cuatro formas de hacer un fusionado
 
-## A. Casos comunes en las dos bases
+En realidad hay cuatro formas de hacer un "merge"
 
-Por <i>default</i>, el comando tiene activado la opción "all = FALSE", que nos deja los datos de ambas bases comunes. (tipo una intersección)
+### Casos en ambas bases
+
+Por *default*, el comando tiene activado la opción "all = FALSE", que nos deja los datos de ambas bases comunes. (tipo una intersección)
 ```{r}
 merge_data3<-merge(hogares,gastos_turis, by=c("lote", "tipo", "folio", "viv"), all = F)
 dim(merge_data3)
 ```
 
-## B. Todos los casos
+### Todos los casos
+
 Si cambiamos la opción "all = TRUE", que nos deja los datos comunes a ambas bases. 
 (como una unión)
 
@@ -142,7 +146,7 @@ merge_data3<-merge(hogares,gastos_turis, by=c("lote", "tipo", "folio", "viv"), a
 dim(merge_data3)
 ```
 
-## C. Casos de la base 1>
+### Casos en la base 1
 
 Si queremos quedarnos con todos los datos que hay en la primera base, x, vamos a usar a opción all.x = TRUE.
 
@@ -151,7 +155,7 @@ merge_data3<-merge(hogares,gastos_turis, by=c("lote", "tipo", "folio", "viv"), a
 dim(merge_data3)
 ```
 
-## D. Casos de la base 2
+### Casos de la base 2
 
 Notamos que hoy sí tenemos los datos de toda la población y hay missings en las variables aportadas por la base de trabajo
 

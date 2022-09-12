@@ -224,15 +224,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#importación-bases-ehpm2018" id="toc-importación-bases-ehpm2018" class="nav-link active" data-scroll-target="#importación-bases-ehpm2018"><span class="toc-section-number">11.1</span>  Importación bases ehpm2018</a></li>
-  <li><a href="#juntando-bases" id="toc-juntando-bases" class="nav-link" data-scroll-target="#juntando-bases"><span class="toc-section-number">12</span>  Juntando bases</a></li>
-  <li><a href="#merge-con-id-compuesto" id="toc-merge-con-id-compuesto" class="nav-link" data-scroll-target="#merge-con-id-compuesto"><span class="toc-section-number">13</span>  Merge con id compuesto</a></li>
-  <li><a href="#bases-de-distinto-tamaño" id="toc-bases-de-distinto-tamaño" class="nav-link" data-scroll-target="#bases-de-distinto-tamaño"><span class="toc-section-number">14</span>  Bases de distinto tamaño</a>
+  <li><a href="#importación-bases-ehpm-2018" id="toc-importación-bases-ehpm-2018" class="nav-link active" data-scroll-target="#importación-bases-ehpm-2018"><span class="toc-section-number">11.1</span>  Importación bases EHPM 2018</a></li>
+  <li><a href="#juntando-bases" id="toc-juntando-bases" class="nav-link" data-scroll-target="#juntando-bases"><span class="toc-section-number">11.2</span>  Juntando bases</a></li>
+  <li><a href="#merge-con-id-compuesto" id="toc-merge-con-id-compuesto" class="nav-link" data-scroll-target="#merge-con-id-compuesto"><span class="toc-section-number">11.3</span>  Merge con id compuesto</a></li>
+  <li><a href="#bases-de-distinto-tamaño" id="toc-bases-de-distinto-tamaño" class="nav-link" data-scroll-target="#bases-de-distinto-tamaño"><span class="toc-section-number">11.4</span>  Bases de distinto tamaño</a></li>
+  <li><a href="#cuatro-formas-de-hacer-un-fusionado" id="toc-cuatro-formas-de-hacer-un-fusionado" class="nav-link" data-scroll-target="#cuatro-formas-de-hacer-un-fusionado"><span class="toc-section-number">11.5</span>  Cuatro formas de hacer un fusionado</a>
   <ul class="collapse">
-  <li><a href="#a.-casos-comunes-en-las-dos-bases" id="toc-a.-casos-comunes-en-las-dos-bases" class="nav-link" data-scroll-target="#a.-casos-comunes-en-las-dos-bases"><span class="toc-section-number">14.1</span>  A. Casos comunes en las dos bases</a></li>
-  <li><a href="#b.-todos-los-casos" id="toc-b.-todos-los-casos" class="nav-link" data-scroll-target="#b.-todos-los-casos"><span class="toc-section-number">14.2</span>  B. Todos los casos</a></li>
-  <li><a href="#c.-casos-de-la-base-1" id="toc-c.-casos-de-la-base-1" class="nav-link" data-scroll-target="#c.-casos-de-la-base-1"><span class="toc-section-number">14.3</span>  C. Casos de la base 1&gt;</a></li>
-  <li><a href="#d.-casos-de-la-base-2" id="toc-d.-casos-de-la-base-2" class="nav-link" data-scroll-target="#d.-casos-de-la-base-2"><span class="toc-section-number">14.4</span>  D. Casos de la base 2</a></li>
+  <li><a href="#casos-en-ambas-bases" id="toc-casos-en-ambas-bases" class="nav-link" data-scroll-target="#casos-en-ambas-bases"><span class="toc-section-number">11.5.1</span>  Casos en ambas bases</a></li>
+  <li><a href="#todos-los-casos" id="toc-todos-los-casos" class="nav-link" data-scroll-target="#todos-los-casos"><span class="toc-section-number">11.5.2</span>  Todos los casos</a></li>
+  <li><a href="#casos-en-la-base-1" id="toc-casos-en-la-base-1" class="nav-link" data-scroll-target="#casos-en-la-base-1"><span class="toc-section-number">11.5.3</span>  Casos en la base 1</a></li>
+  <li><a href="#casos-de-la-base-2" id="toc-casos-de-la-base-2" class="nav-link" data-scroll-target="#casos-de-la-base-2"><span class="toc-section-number">11.5.4</span>  Casos de la base 2</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -256,8 +257,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </header>
 
-<section id="importación-bases-ehpm2018" class="level2" data-number="11.1">
-<h2 data-number="11.1" class="anchored" data-anchor-id="importación-bases-ehpm2018"><span class="header-section-number">11.1</span> Importación bases ehpm2018</h2>
+<section id="importación-bases-ehpm-2018" class="level2" data-number="11.1">
+<h2 data-number="11.1" class="anchored" data-anchor-id="importación-bases-ehpm-2018"><span class="header-section-number">11.1</span> Importación bases EHPM 2018</h2>
 <p>Vamos a trabajar con esta base que tiene elementos separados.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">require</span>(<span class="st">"pacman"</span>)) <span class="fu">install.packages</span>(<span class="st">"pacman"</span>) <span class="co"># instala pacman si se requiere</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -277,8 +278,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>gastos_b<span class="ot">&lt;-</span> haven<span class="sc">::</span><span class="fu">read_sav</span>(<span class="st">"datos/ehpm2018/EHPM 2018 SEC 8 B.sav"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="juntando-bases" class="level1" data-number="12">
-<h1 data-number="12"><span class="header-section-number">12</span> Juntando bases</h1>
+<section id="juntando-bases" class="level2" data-number="11.2">
+<h2 data-number="11.2" class="anchored" data-anchor-id="juntando-bases"><span class="header-section-number">11.2</span> Juntando bases</h2>
 <p>Muchas bases de datos están organizadas en varias tablas. La ventaja de la programación por objetos de R, nos permite tener las bases cargadas en nuestro ambiente y llamarlas y juntarlas cuando sea necesario.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(hogares)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -620,8 +621,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>merge_data<span class="ot">&lt;-</span><span class="fu">select</span>(merge_data,<span class="sc">-</span><span class="fu">ends_with</span>(<span class="st">".y"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="merge-con-id-compuesto" class="level1" data-number="13">
-<h1 data-number="13"><span class="header-section-number">13</span> Merge con id compuesto</h1>
+<section id="merge-con-id-compuesto" class="level2" data-number="11.3">
+<h2 data-number="11.3" class="anchored" data-anchor-id="merge-con-id-compuesto"><span class="header-section-number">11.3</span> Merge con id compuesto</h2>
 <p>La EHPM en ediciones más recientes tiene un id (o “key”) ya establecido. Si trabajas co una versión más antigua no la tendra.</p>
 <p>Hogares {hogares} es “lote”, “tipo”, “folio”, “viv” Persons {individuos} es “lote”, “tipo”, “folio”, “viv”, “r101”</p>
 <p>Esto significa que tenemos un id compuesto. No es una sola variable. Para esto modificamos ligeramente cómo ponemos el “by”, pero siempre eligiendo el id de la base de mayor nivel. (Tené cuidado con los paréntesis)</p>
@@ -1497,8 +1498,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 </section>
-<section id="bases-de-distinto-tamaño" class="level1" data-number="14">
-<h1 data-number="14"><span class="header-section-number">14</span> Bases de distinto tamaño</h1>
+<section id="bases-de-distinto-tamaño" class="level2" data-number="11.4">
+<h2 data-number="11.4" class="anchored" data-anchor-id="bases-de-distinto-tamaño"><span class="header-section-number">11.4</span> Bases de distinto tamaño</h2>
 <p>Hasta ahorita hemos hecho merge que son de unidades de distinto nivel y son incluyentes. A veces tenemos bases de datos que son de distinto tamaño y del mismo nivel. A veces las dos aportan casos y a veces aportan variables, y a veces, las dos aportan las dos cosas.</p>
 <p>Vamos a revisar qué pasaría si quisiéramos incorporar la información de los hogares que han gastado en paquetes turísticos</p>
 <div class="cell">
@@ -1518,10 +1519,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 <p>¡La base nueva no tiene a todas las observaciones, solo la que tiene en la base más pequeña! Tenemos sólo 221 hogares.</p>
-<p>En realidad hay cuatro formas de hacer un merge</p>
-<section id="a.-casos-comunes-en-las-dos-bases" class="level2" data-number="14.1">
-<h2 data-number="14.1" class="anchored" data-anchor-id="a.-casos-comunes-en-las-dos-bases"><span class="header-section-number">14.1</span> A. Casos comunes en las dos bases</h2>
-<p>Por <i>default</i>, el comando tiene activado la opción “all = FALSE”, que nos deja los datos de ambas bases comunes. (tipo una intersección)</p>
+</section>
+<section id="cuatro-formas-de-hacer-un-fusionado" class="level2" data-number="11.5">
+<h2 data-number="11.5" class="anchored" data-anchor-id="cuatro-formas-de-hacer-un-fusionado"><span class="header-section-number">11.5</span> Cuatro formas de hacer un fusionado</h2>
+<p>En realidad hay cuatro formas de hacer un “merge”</p>
+<section id="casos-en-ambas-bases" class="level3" data-number="11.5.1">
+<h3 data-number="11.5.1" class="anchored" data-anchor-id="casos-en-ambas-bases"><span class="header-section-number">11.5.1</span> Casos en ambas bases</h3>
+<p>Por <em>default</em>, el comando tiene activado la opción “all = FALSE”, que nos deja los datos de ambas bases comunes. (tipo una intersección)</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>merge_data3<span class="ot">&lt;-</span><span class="fu">merge</span>(hogares,gastos_turis, <span class="at">by=</span><span class="fu">c</span>(<span class="st">"lote"</span>, <span class="st">"tipo"</span>, <span class="st">"folio"</span>, <span class="st">"viv"</span>), <span class="at">all =</span> F)</span>
 <span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(merge_data3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1530,8 +1534,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 </section>
-<section id="b.-todos-los-casos" class="level2" data-number="14.2">
-<h2 data-number="14.2" class="anchored" data-anchor-id="b.-todos-los-casos"><span class="header-section-number">14.2</span> B. Todos los casos</h2>
+<section id="todos-los-casos" class="level3" data-number="11.5.2">
+<h3 data-number="11.5.2" class="anchored" data-anchor-id="todos-los-casos"><span class="header-section-number">11.5.2</span> Todos los casos</h3>
 <p>Si cambiamos la opción “all = TRUE”, que nos deja los datos comunes a ambas bases. (como una unión)</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>merge_data3<span class="ot">&lt;-</span><span class="fu">merge</span>(hogares,gastos_turis, <span class="at">by=</span><span class="fu">c</span>(<span class="st">"lote"</span>, <span class="st">"tipo"</span>, <span class="st">"folio"</span>, <span class="st">"viv"</span>), <span class="at">all =</span> T)</span>
@@ -1541,8 +1545,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 </section>
-<section id="c.-casos-de-la-base-1" class="level2" data-number="14.3">
-<h2 data-number="14.3" class="anchored" data-anchor-id="c.-casos-de-la-base-1"><span class="header-section-number">14.3</span> C. Casos de la base 1&gt;</h2>
+<section id="casos-en-la-base-1" class="level3" data-number="11.5.3">
+<h3 data-number="11.5.3" class="anchored" data-anchor-id="casos-en-la-base-1"><span class="header-section-number">11.5.3</span> Casos en la base 1</h3>
 <p>Si queremos quedarnos con todos los datos que hay en la primera base, x, vamos a usar a opción all.x = TRUE.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>merge_data3<span class="ot">&lt;-</span><span class="fu">merge</span>(hogares,gastos_turis, <span class="at">by=</span><span class="fu">c</span>(<span class="st">"lote"</span>, <span class="st">"tipo"</span>, <span class="st">"folio"</span>, <span class="st">"viv"</span>), <span class="at">all.x  =</span> <span class="cn">TRUE</span>)</span>
@@ -1552,8 +1556,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 </section>
-<section id="d.-casos-de-la-base-2" class="level2" data-number="14.4">
-<h2 data-number="14.4" class="anchored" data-anchor-id="d.-casos-de-la-base-2"><span class="header-section-number">14.4</span> D. Casos de la base 2</h2>
+<section id="casos-de-la-base-2" class="level3" data-number="11.5.4">
+<h3 data-number="11.5.4" class="anchored" data-anchor-id="casos-de-la-base-2"><span class="header-section-number">11.5.4</span> Casos de la base 2</h3>
 <p>Notamos que hoy sí tenemos los datos de toda la población y hay missings en las variables aportadas por la base de trabajo</p>
 <p>Si queremos lo contrario, quedarnos con los datos aportados por la segunda base, y, vamos a usar la opción all.y=TRUE</p>
 <div class="cell">
