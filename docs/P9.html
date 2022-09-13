@@ -93,6 +93,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
+<link href="./P10.html" rel="next">
 <link href="./P8.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -206,6 +207,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <a href="./P9.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Análisis longitundinal: panel</span></a>
   </div>
 </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P10.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Análisis longitundinal: secuencias</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P11.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Fusionado de conjuntos de datos</span></a>
+  </div>
+</li>
     </ul>
     </div>
 </nav>
@@ -266,24 +277,26 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2 data-number="9.1" class="anchored" data-anchor-id="paquetes"><span class="header-section-number">9.1</span> Paquetes</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages("sjPlot", dependencies=T) # solito porque da problmas</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sjPlot)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">require</span>(<span class="st">"pacman"</span>)) <span class="fu">install.packages</span>(<span class="st">"pacman"</span>) <span class="co"># instala pacman si se requiere</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sjPlot)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>#refugeeswelcome</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">require</span>(<span class="st">"pacman"</span>)) <span class="fu">install.packages</span>(<span class="st">"pacman"</span>) <span class="co"># instala pacman si se requiere</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Loading required package: pacman</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(tidyverse, magrittr, <span class="co"># sobretodo para dplyr</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>              haven, readxl, <span class="co">#importación</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>              janitor, <span class="co">#tablas</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>              sjlabelled, <span class="co"># etiquetas</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>              DescTools, <span class="co"># Paquete para estimaciones y pruebas</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>              infer, <span class="co"># tidy way </span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>              broom,  <span class="co"># Una escobita para limpiar (pero es para arreglar)</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>              estimatr, car, stargazer, ggpubr, </span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>              jtools, lm.beta, robustbase, sandwich,</span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>              officer,flextable,huxtable, ggstance, kableExtra,</span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>              ResourceSelection, lmtest, mlogit, nnet,</span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>              plm, tseries) <span class="co"># este es</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(tidyverse, magrittr, <span class="co"># sobretodo para dplyr</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>              haven, readxl, <span class="co">#importación</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>              janitor, <span class="co">#tablas</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>              sjlabelled, <span class="co"># etiquetas</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>              DescTools, <span class="co"># Paquete para estimaciones y pruebas</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>              infer, <span class="co"># tidy way </span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>              broom,  <span class="co"># Una escobita para limpiar (pero es para arreglar)</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>              estimatr, car, stargazer, ggpubr, </span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>              jtools, lm.beta, robustbase, sandwich,</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>              officer,flextable,huxtable, ggstance, kableExtra,</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>              ResourceSelection, lmtest, mlogit, nnet,</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>              plm, tseries) <span class="co"># este es</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="nuevos-datos" class="level2" data-number="9.2">
@@ -291,17 +304,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Vamos a trabajar con una base por países, de tal manera que los países son las unidades.</p>
 <p>Vamos a importar toda la base. En este documento de excel hay muchas hojas. Podemos importar un grupo de hojas de un solo. Los datos son del IMCO <a href="https://imco.org.mx/indices/internacional" class="uri">https://imco.org.mx/indices/internacional</a></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>ruta <span class="ot">&lt;-</span> <span class="st">"datos/ICI_total.xlsx"</span> <span class="co"># nombre del archivo y su rura</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co"># hojas a leer</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>data<span class="ot">&lt;-</span>readxl<span class="sc">::</span><span class="fu">excel_sheets</span>(ruta)[<span class="dv">5</span><span class="sc">:</span><span class="dv">21</span>] <span class="sc">%&gt;%</span> </span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  purrr<span class="sc">::</span><span class="fu">set_names</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  purrr<span class="sc">::</span><span class="fu">map_df</span>(<span class="sc">~</span> readxl<span class="sc">::</span><span class="fu">read_excel</span>(<span class="at">path =</span> ruta,</span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>                      <span class="at">sheet =</span> .x, <span class="co"># proviene del purr::set_names</span></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>                      <span class="at">range =</span> <span class="st">"A7:CI50"</span>),</span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>         <span class="at">.id =</span> <span class="st">"hoja"</span>) <span class="sc">%&gt;%</span> <span class="co"># Qué nombre le doy a la hoja</span></span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a> janitor<span class="sc">::</span><span class="fu">clean_names</span>() <span class="co"># limpiamos nombres</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>ruta <span class="ot">&lt;-</span> <span class="st">"datos/ICI_total.xlsx"</span> <span class="co"># nombre del archivo y su rura</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co"># hojas a leer</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>data<span class="ot">&lt;-</span>readxl<span class="sc">::</span><span class="fu">excel_sheets</span>(ruta)[<span class="dv">5</span><span class="sc">:</span><span class="dv">21</span>] <span class="sc">%&gt;%</span> </span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  purrr<span class="sc">::</span><span class="fu">set_names</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  purrr<span class="sc">::</span><span class="fu">map_df</span>(<span class="sc">~</span> readxl<span class="sc">::</span><span class="fu">read_excel</span>(<span class="at">path =</span> ruta,</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>                      <span class="at">sheet =</span> .x, <span class="co"># proviene del purr::set_names</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>                      <span class="at">range =</span> <span class="st">"A7:CI50"</span>),</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>         <span class="at">.id =</span> <span class="st">"hoja"</span>) <span class="sc">%&gt;%</span> <span class="co"># Qué nombre le doy a la hoja</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a> janitor<span class="sc">::</span><span class="fu">clean_names</span>() <span class="co"># limpiamos nombres</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>New names:
 New names:
@@ -325,8 +338,8 @@ New names:
 </div>
 <p>Esta base de datos tiene como primera columna la hoja de la que proviene. Nos va a servir para revisar algunos elementos de limpieza.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span> </span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tabyl</span>(hoja)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span> </span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tabyl</span>(hoja)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 
 <table class="huxtable" style="border-collapse: collapse; border: 0px; margin-bottom: 2em; margin-top: 2em; ; margin-left: auto; margin-right: auto;  " id="tab:unnamed-chunk-3">
@@ -372,10 +385,10 @@ New names:
 </div>
 <p>Tenemos un panel de 43 países del año 2005 de 2021. Si tenemos una cadena que tiene algún número podemos “extraerlo” conparse_number</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&lt;&gt;%</span>  <span class="co"># recuerda este pipe diferente</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">year=</span><span class="fu">parse_number</span>(hoja))</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="fu">tabyl</span>(data<span class="sc">$</span>year)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&lt;&gt;%</span>  <span class="co"># recuerda este pipe diferente</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">year=</span><span class="fu">parse_number</span>(hoja))</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="fu">tabyl</span>(data<span class="sc">$</span>year)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 
 <table class="huxtable" style="border-collapse: collapse; border: 0px; margin-bottom: 2em; margin-top: 2em; ; margin-left: auto; margin-right: auto;  " id="tab:unnamed-chunk-4">
@@ -421,11 +434,11 @@ New names:
 </div>
 <p>Aprovechando que andamos revisando otros trucos, vamos a limpiar los caracteres especial de país, tiene muchos acentos y espacios</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&lt;&gt;%</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">pais2=</span>stringr<span class="sc">::</span><span class="fu">str_replace_all</span>(pais, <span class="st">"[^a-zA-Z0-9]"</span>, <span class="st">""</span> )) <span class="sc">%&gt;%</span> </span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">pais2=</span>stringr<span class="sc">::</span><span class="fu">str_to_lower</span>(pais2))</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="fu">tabyl</span>(data<span class="sc">$</span>pais2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&lt;&gt;%</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">pais2=</span>stringr<span class="sc">::</span><span class="fu">str_replace_all</span>(pais, <span class="st">"[^a-zA-Z0-9]"</span>, <span class="st">""</span> )) <span class="sc">%&gt;%</span> </span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">pais2=</span>stringr<span class="sc">::</span><span class="fu">str_to_lower</span>(pais2))</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="fu">tabyl</span>(data<span class="sc">$</span>pais2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 
 <table class="huxtable" style="border-collapse: collapse; border: 0px; margin-bottom: 2em; margin-top: 2em; ; margin-left: auto; margin-right: auto;  " id="tab:unnamed-chunk-5">
@@ -524,18 +537,18 @@ New names:
 <p>Como vemos tenemos nuestra base en formato ancho. Tenemos países (unidades) y cada tiempo como una línea.</p>
 <p>Vamos a quedarnos con un par de variables y ver las pruebas apareadas en R. Vamos a quedarnos con dos años 2005 y 2021</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>data_wide <span class="ot">&lt;-</span>data <span class="sc">%&gt;%</span> </span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">2005</span>,<span class="dv">2021</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(year, pais, indice_de_gini) <span class="sc">%&gt;%</span> </span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  tidyr<span class="sc">::</span><span class="fu">pivot_wider</span>(<span class="at">names_from =</span> year, <span class="at">names_prefix =</span> <span class="st">"t"</span>,</span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>                     <span class="at">values_from =</span> indice_de_gini)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>data_wide <span class="ot">&lt;-</span>data <span class="sc">%&gt;%</span> </span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">2005</span>,<span class="dv">2021</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(year, pais, indice_de_gini) <span class="sc">%&gt;%</span> </span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  tidyr<span class="sc">::</span><span class="fu">pivot_wider</span>(<span class="at">names_from =</span> year, <span class="at">names_prefix =</span> <span class="st">"t"</span>,</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>                     <span class="at">values_from =</span> indice_de_gini)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Con esta base ya tenemos un renglón por persona. La primera prueba que podemos hacer es la prueba muestras apareadas.</p>
 </section>
 <section id="pruebas-de-muestras-apareadas" class="level2" data-number="9.3">
 <h2 data-number="9.3" class="anchored" data-anchor-id="pruebas-de-muestras-apareadas"><span class="header-section-number">9.3</span> Pruebas de muestras apareadas</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(data_wide<span class="sc">$</span>t2021, data_wide<span class="sc">$</span>t2005, <span class="at">paired=</span>T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(data_wide<span class="sc">$</span>t2021, data_wide<span class="sc">$</span>t2005, <span class="at">paired=</span>T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Paired t-test
@@ -552,9 +565,9 @@ mean difference
 </div>
 <p>Con el paquete infer también la podemos realizar, pero debemos estimar la diferencia a manita</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>data_wide <span class="sc">%&gt;%</span> </span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">diff=</span>t2021<span class="sc">-</span>t2005) <span class="sc">%&gt;%</span> </span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  infer<span class="sc">::</span><span class="fu">t_test</span>(<span class="at">response=</span>diff)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>data_wide <span class="sc">%&gt;%</span> </span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">diff=</span>t2021<span class="sc">-</span>t2005) <span class="sc">%&gt;%</span> </span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  infer<span class="sc">::</span><span class="fu">t_test</span>(<span class="at">response=</span>diff)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 
 <table class="huxtable" style="border-collapse: collapse; border: 0px; margin-bottom: 2em; margin-top: 2em; ; margin-left: auto; margin-right: auto;  " id="tab:unnamed-chunk-8">
@@ -572,23 +585,23 @@ mean difference
 <p>De aquí en adelante seguiremos con la base en formato largo. Dentro del paquete plm, podemos revisar si nuestro panel está o no balanceado.</p>
 <p>Para eso debemos volver nuestro objeto data.frame a un pdata.frame</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>pdata <span class="ot">&lt;-</span><span class="fu">pdata.frame</span>(data, <span class="at">index=</span><span class="fu">c</span>(<span class="st">"pais"</span>,<span class="st">"year"</span>), <span class="at">drop.index=</span>F, <span class="at">row.names=</span><span class="cn">TRUE</span>)</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>pdata <span class="sc">%&gt;%</span>  <span class="fu">is.pbalanced</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>pdata <span class="ot">&lt;-</span><span class="fu">pdata.frame</span>(data, <span class="at">index=</span><span class="fu">c</span>(<span class="st">"pais"</span>,<span class="st">"year"</span>), <span class="at">drop.index=</span>F, <span class="at">row.names=</span><span class="cn">TRUE</span>)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>pdata <span class="sc">%&gt;%</span>  <span class="fu">is.pbalanced</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] TRUE</code></pre>
 </div>
 </div>
 <p>También podemos preguntarnos si tenemos datos consecutivos</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>pdata <span class="sc">%&gt;%</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">is.pconsecutive</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>pdata <span class="sc">%&gt;%</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">is.pconsecutive</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>     Alemania     Argentina     Australia       Austria       Bélgica 
+<pre><code>     Alemania     Argentina     Australia       Austria        Brasil 
          TRUE          TRUE          TRUE          TRUE          TRUE 
-       Brasil        Canadá         Chile         China      Colombia 
+      Bélgica        Canadá         Chile         China      Colombia 
          TRUE          TRUE          TRUE          TRUE          TRUE 
-Corea del Sur    Costa Rica     Dinamarca        España           EUA 
+Corea del Sur    Costa Rica     Dinamarca           EUA        España 
          TRUE          TRUE          TRUE          TRUE          TRUE 
     Finlandia       Francia        Grecia     Guatemala       Hungría 
          TRUE          TRUE          TRUE          TRUE          TRUE 
@@ -596,7 +609,7 @@ Corea del Sur    Costa Rica     Dinamarca        España           EUA
          TRUE          TRUE          TRUE          TRUE          TRUE 
         Japón       Malasia        México       Nigeria       Noruega 
          TRUE          TRUE          TRUE          TRUE          TRUE 
- Países Bajos        Panamá          Perú       Polonia      Portugal 
+       Panamá  Países Bajos          Perú       Polonia      Portugal 
          TRUE          TRUE          TRUE          TRUE          TRUE 
   Reino Unido    Rep. Checa         Rusia     Sudáfrica        Suecia 
          TRUE          TRUE          TRUE          TRUE          TRUE 
@@ -605,7 +618,7 @@ Corea del Sur    Costa Rica     Dinamarca        España           EUA
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>pdata <span class="sc">%&gt;%</span> <span class="fu">pdim</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>pdata <span class="sc">%&gt;%</span> <span class="fu">pdim</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Balanced Panel: n = 43, T = 17, N = 731</code></pre>
 </div>
@@ -614,13 +627,13 @@ Corea del Sur    Costa Rica     Dinamarca        España           EUA
 <p>Tenemos nuestros datos balanceados y consecutivos para todos los países.</p>
 <p>Podemos jugar con lo que pasa al interior de los grupos y entre los grupos</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(pdata<span class="sc">$</span>indice_de_gini)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(pdata<span class="sc">$</span>indice_de_gini)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="P9_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(pdata<span class="sc">$</span>indice_de_gini) <span class="co"># ahí ya tenmos info  diferente</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(pdata<span class="sc">$</span>indice_de_gini) <span class="co"># ahí ya tenmos info  diferente</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>total sum of squares: 55510.46 
          id        time 
@@ -629,7 +642,7 @@ Corea del Sur    Costa Rica     Dinamarca        España           EUA
    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
   24.90   31.60   35.10   37.81   42.29   64.80 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(pdata<span class="sc">$</span>crecimiento_del_pib) <span class="co"># ahí ya tenmos info  diferente</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(pdata<span class="sc">$</span>crecimiento_del_pib) <span class="co"># ahí ya tenmos info  diferente</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>total sum of squares: 10206.57 
        id      time 
@@ -643,37 +656,37 @@ Corea del Sur    Costa Rica     Dinamarca        España           EUA
 <h3 data-number="9.4.1" class="anchored" data-anchor-id="graficas"><span class="header-section-number">9.4.1</span> Graficas</h3>
 <p>Vamos a pasar de un simple gráfico de línea a uno que nos muestre la heterogeneidad en el tiempo y entre grupos.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>pdata <span class="sc">%&gt;%</span> </span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">as_factor</span>(year), <span class="at">y =</span> indice_de_gini, <span class="at">color=</span>pais) <span class="sc">+</span></span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>() <span class="sc">+</span></span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Year"</span>,  <span class="at">y =</span> <span class="st">"Gini"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>pdata <span class="sc">%&gt;%</span> </span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">as_factor</span>(year), <span class="at">y =</span> indice_de_gini, <span class="at">color=</span>pais) <span class="sc">+</span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>() <span class="sc">+</span></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Year"</span>,  <span class="at">y =</span> <span class="st">"Gini"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="P9_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>Esto está muy feo… Tenemos que hacer un par de cosas para que se vea mejor.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as_tibble</span>(pdata) <span class="sc">%&gt;%</span>  <span class="co">#ojo, con las propiedades del panel no podemos</span></span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> indice_de_gini) <span class="sc">+</span></span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">alpha=</span><span class="fu">I</span>(<span class="fl">0.3</span>)) <span class="sc">+</span></span>
-<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">fun =</span> <span class="st">"mean"</span>, <span class="at">color =</span> <span class="st">"red"</span>, <span class="at">size =</span> <span class="dv">2</span>, <span class="at">geom =</span> <span class="st">"point"</span>)<span class="sc">+</span></span>
-<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Year"</span>,  <span class="at">y =</span> <span class="st">"Gini"</span>)  <span class="sc">+</span></span>
-<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">guides</span>(<span class="at">color=</span><span class="st">"none"</span>) <span class="sc">+</span> <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as_tibble</span>(pdata) <span class="sc">%&gt;%</span>  <span class="co">#ojo, con las propiedades del panel no podemos</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> indice_de_gini) <span class="sc">+</span></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">alpha=</span><span class="fu">I</span>(<span class="fl">0.3</span>)) <span class="sc">+</span></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">fun =</span> <span class="st">"mean"</span>, <span class="at">color =</span> <span class="st">"red"</span>, <span class="at">size =</span> <span class="dv">2</span>, <span class="at">geom =</span> <span class="st">"point"</span>)<span class="sc">+</span></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Year"</span>,  <span class="at">y =</span> <span class="st">"Gini"</span>)  <span class="sc">+</span></span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">guides</span>(<span class="at">color=</span><span class="st">"none"</span>) <span class="sc">+</span> <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="P9_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>Se me mejor, pero bueno tenemos muchos países. Ahora veamos la heterogeneidad en el tiempo</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as_tibble</span>(pdata) <span class="sc">%&gt;%</span>  <span class="co">#ojo, con las propiedades del panel no podemos</span></span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> pais, <span class="at">y =</span> indice_de_gini) <span class="sc">+</span></span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">alpha=</span><span class="fu">I</span>(<span class="fl">0.3</span>)) <span class="sc">+</span></span>
-<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">fun =</span> <span class="st">"mean"</span>, <span class="at">color =</span> <span class="st">"red"</span>, <span class="at">size =</span> <span class="dv">2</span>, <span class="at">geom =</span> <span class="st">"point"</span>)<span class="sc">+</span></span>
-<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"pais"</span>,  <span class="at">y =</span> <span class="st">"Gini"</span>)  <span class="sc">+</span></span>
-<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">guides</span>(<span class="at">color=</span><span class="st">"none"</span>) <span class="sc">+</span> <span class="fu">theme_minimal</span>() <span class="sc">+</span> <span class="fu">coord_flip</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as_tibble</span>(pdata) <span class="sc">%&gt;%</span>  <span class="co">#ojo, con las propiedades del panel no podemos</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> pais, <span class="at">y =</span> indice_de_gini) <span class="sc">+</span></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">alpha=</span><span class="fu">I</span>(<span class="fl">0.3</span>)) <span class="sc">+</span></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">fun =</span> <span class="st">"mean"</span>, <span class="at">color =</span> <span class="st">"red"</span>, <span class="at">size =</span> <span class="dv">2</span>, <span class="at">geom =</span> <span class="st">"point"</span>)<span class="sc">+</span></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"pais"</span>,  <span class="at">y =</span> <span class="st">"Gini"</span>)  <span class="sc">+</span></span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">guides</span>(<span class="at">color=</span><span class="st">"none"</span>) <span class="sc">+</span> <span class="fu">theme_minimal</span>() <span class="sc">+</span> <span class="fu">coord_flip</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="P9_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid" width="672"></p>
 </div>
@@ -686,19 +699,19 @@ Corea del Sur    Costa Rica     Dinamarca        España           EUA
 <section id="modelo-pooled" class="level3" data-number="9.5.1">
 <h3 data-number="9.5.1" class="anchored" data-anchor-id="modelo-pooled"><span class="header-section-number">9.5.1</span> Modelo “pooled”</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>mpool_lm<span class="ot">&lt;-</span><span class="fu">lm</span>(indice_de_gini <span class="sc">~</span> crecimiento_del_pib,</span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>             <span class="at">data=</span>data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>mpool_lm<span class="ot">&lt;-</span><span class="fu">lm</span>(indice_de_gini <span class="sc">~</span> crecimiento_del_pib,</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>             <span class="at">data=</span>data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Con plm también se puede hacer</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>mpool_plm<span class="ot">&lt;-</span><span class="fu">plm</span>(indice_de_gini <span class="sc">~</span> crecimiento_del_pib,</span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>              <span class="at">data=</span>pdata, <span class="co">#ojo</span></span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>              <span class="at">model=</span><span class="st">"pooling"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>mpool_plm<span class="ot">&lt;-</span><span class="fu">plm</span>(indice_de_gini <span class="sc">~</span> crecimiento_del_pib,</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>              <span class="at">data=</span>pdata, <span class="co">#ojo</span></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>              <span class="at">model=</span><span class="st">"pooling"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Comparemos los modelos con jtools::summs</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co">#jtools::summ(mpool_plm)</span></span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>jtools<span class="sc">::</span><span class="fu">summ</span>(mpool_lm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co">#jtools::summ(mpool_plm)</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>jtools<span class="sc">::</span><span class="fu">summ</span>(mpool_lm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 
 <table class="table table-striped table-hover table-condensed table-responsive" style="width: auto !important; margin-left: auto; margin-right: auto;">
@@ -761,7 +774,7 @@ Corea del Sur    Costa Rica     Dinamarca        España           EUA
 <sup></sup> Standard errors: OLS</td></tr></tfoot>
 </table>
 </div>
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>jtools<span class="sc">::</span><span class="fu">export_summs</span>(mpool_lm, mpool_plm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>jtools<span class="sc">::</span><span class="fu">export_summs</span>(mpool_lm, mpool_plm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 
 <table class="huxtable" style="border-collapse: collapse; border: 0px; margin-bottom: 2em; margin-top: 2em; ; margin-left: auto; margin-right: auto;  " id="tab:unnamed-chunk-19">
@@ -784,7 +797,7 @@ Corea del Sur    Costa Rica     Dinamarca        España           EUA
 </tbody></table>
 
 </div>
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mpool_plm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mpool_plm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Pooling Model
 
@@ -817,10 +830,10 @@ F-statistic: 31.2056 on 1 and 729 DF, p-value: 3.2785e-08</code></pre>
 <h3 data-number="9.5.2" class="anchored" data-anchor-id="efectos-fijos-de-país"><span class="header-section-number">9.5.2</span> Efectos fijos de país</h3>
 <p>Least squares dummy variable (LSDV)</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>mldsv_lm<span class="ot">&lt;-</span><span class="fu">lm</span>(indice_de_gini <span class="sc">~</span> crecimiento_del_pib <span class="sc">+</span> pais2,</span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>              <span class="at">data=</span>data)</span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summ</span>(mldsv_lm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>mldsv_lm<span class="ot">&lt;-</span><span class="fu">lm</span>(indice_de_gini <span class="sc">~</span> crecimiento_del_pib <span class="sc">+</span> pais2,</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>              <span class="at">data=</span>data)</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summ</span>(mldsv_lm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 
 <table class="table table-striped table-hover table-condensed table-responsive" style="width: auto !important; margin-left: auto; margin-right: auto;">
@@ -1180,9 +1193,9 @@ F-statistic: 31.2056 on 1 and 729 DF, p-value: 3.2785e-08</code></pre>
 </div>
 <p>Podemos también excluir el intercepto</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>mldsv_lm_nocons <span class="ot">&lt;-</span> <span class="fu">lm</span>(indice_de_gini <span class="sc">~</span> crecimiento_del_pib <span class="sc">+</span> pais2 <span class="sc">-</span><span class="dv">1</span>, <span class="at">data =</span> data)</span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summ</span>(mldsv_lm_nocons)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>mldsv_lm_nocons <span class="ot">&lt;-</span> <span class="fu">lm</span>(indice_de_gini <span class="sc">~</span> crecimiento_del_pib <span class="sc">+</span> pais2 <span class="sc">-</span><span class="dv">1</span>, <span class="at">data =</span> data)</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summ</span>(mldsv_lm_nocons)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 
 <table class="table table-striped table-hover table-condensed table-responsive" style="width: auto !important; margin-left: auto; margin-right: auto;">
@@ -1542,7 +1555,7 @@ F-statistic: 31.2056 on 1 and 729 DF, p-value: 3.2785e-08</code></pre>
 </div>
 <p>comparemos</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">export_summs</span>(mpool_plm, mldsv_lm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">export_summs</span>(mpool_plm, mldsv_lm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 
 <table class="huxtable" style="border-collapse: collapse; border: 0px; margin-bottom: 2em; margin-top: 2em; ; margin-left: auto; margin-right: auto;  " id="tab:unnamed-chunk-22">
@@ -1751,10 +1764,10 @@ F-statistic: 31.2056 on 1 and 729 DF, p-value: 3.2785e-08</code></pre>
 </blockquote>
 <p><span class="math display">\[ y= \alpha + \beta x_{it}  + v_i + u_{it} \]</span></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>plm_fe <span class="ot">&lt;-</span> <span class="fu">plm</span>(indice_de_gini <span class="sc">~</span> crecimiento_del_pib, <span class="at">data =</span> pdata, <span class="at">model =</span> <span class="st">"within"</span>)</span>
-<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>plm_re <span class="ot">&lt;-</span> <span class="fu">plm</span>(indice_de_gini <span class="sc">~</span> crecimiento_del_pib, <span class="at">data =</span> pdata, <span class="at">model =</span> <span class="st">"random"</span>)</span>
-<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(plm_fe)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>plm_fe <span class="ot">&lt;-</span> <span class="fu">plm</span>(indice_de_gini <span class="sc">~</span> crecimiento_del_pib, <span class="at">data =</span> pdata, <span class="at">model =</span> <span class="st">"within"</span>)</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>plm_re <span class="ot">&lt;-</span> <span class="fu">plm</span>(indice_de_gini <span class="sc">~</span> crecimiento_del_pib, <span class="at">data =</span> pdata, <span class="at">model =</span> <span class="st">"random"</span>)</span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(plm_fe)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Oneway (individual) effect Within Model
 
@@ -1780,7 +1793,7 @@ R-Squared:      0.072659
 Adj. R-Squared: 0.014615
 F-statistic: 53.8276 on 1 and 687 DF, p-value: 6.191e-13</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(plm_re)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(plm_re)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Oneway (individual) effect Random Effect Model 
    (Swamy-Arora's transformation)
@@ -1817,7 +1830,7 @@ Chisq: 54.4034 on 1 DF, p-value: 1.6328e-13</code></pre>
 </div>
 <p>Veamos como van nuestros modelos</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">export_summs</span>(mpool_plm,mldsv_lm, plm_fe, plm_re)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">export_summs</span>(mpool_plm,mldsv_lm, plm_fe, plm_re)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 
 <table class="huxtable" style="border-collapse: collapse; border: 0px; margin-bottom: 2em; margin-top: 2em; ; margin-left: auto; margin-right: auto;  " id="tab:unnamed-chunk-24">
@@ -2015,22 +2028,22 @@ Chisq: 54.4034 on 1 DF, p-value: 1.6328e-13</code></pre>
 <p>Una de las cosa bonitas de haber modelado los efectos… es verlos</p>
 <p>Para los efectos fijos tenemos:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fixef</span>(plm_fe) <span class="co"># se pueden sacar otros tipo</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fixef</span>(plm_fe) <span class="co"># se pueden sacar otros tipo</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>     Alemania     Argentina     Australia       Austria       Bélgica 
-       31.013        43.672        34.040        30.187        28.030 
-       Brasil        Canadá         Chile         China      Colombia 
-       53.797        33.268        46.073        39.700        52.509 
-Corea del Sur    Costa Rica     Dinamarca        España           EUA 
-       31.226        48.249        26.922        34.555        40.722 
+<pre><code>     Alemania     Argentina     Australia       Austria        Brasil 
+       31.013        43.672        34.040        30.187        53.797 
+      Bélgica        Canadá         Chile         China      Colombia 
+       28.030        33.268        46.073        39.700        52.509 
+Corea del Sur    Costa Rica     Dinamarca           EUA        España 
+       31.226        48.249        26.922        40.722        34.555 
     Finlandia       Francia        Grecia     Guatemala       Hungría 
        27.356        31.994        34.593        50.628        29.619 
         India     Indonesia       Irlanda        Israel        Italia 
        34.563        36.146        31.814        40.323        34.765 
         Japón       Malasia        México       Nigeria       Noruega 
        33.447        42.779        47.945        38.948        27.142 
- Países Bajos        Panamá          Perú       Polonia      Portugal 
-       28.458        51.244        45.576        32.808        36.081 
+       Panamá  Países Bajos          Perú       Polonia      Portugal 
+       51.244        28.458        45.576        32.808        36.081 
   Reino Unido    Rep. Checa         Rusia     Sudáfrica        Suecia 
        34.273        25.831        39.288        63.248        27.682 
         Suiza     Tailandia       Turquía 
@@ -2039,15 +2052,15 @@ Corea del Sur    Costa Rica     Dinamarca        España           EUA
 </div>
 <p>Tenemos un efecto por país, las constanste o puntos de partida para cada uno</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">fixef</span>(plm_fe)) <span class="co"># esto se tarda más</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">fixef</span>(plm_fe)) <span class="co"># esto se tarda más</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>              Estimate Std. Error t-value  Pr(&gt;|t|)    
 Alemania      31.01330    0.37481  82.743 &lt; 2.2e-16 ***
 Argentina     43.67209    0.37628 116.062 &lt; 2.2e-16 ***
 Australia     34.03952    0.37724  90.234 &lt; 2.2e-16 ***
 Austria       30.18667    0.37484  80.533 &lt; 2.2e-16 ***
-Bélgica       28.02968    0.37491  74.764 &lt; 2.2e-16 ***
 Brasil        53.79657    0.37603 143.063 &lt; 2.2e-16 ***
+Bélgica       28.02968    0.37491  74.764 &lt; 2.2e-16 ***
 Canadá        33.26797    0.37606  88.464 &lt; 2.2e-16 ***
 Chile         46.07280    0.37838 121.764 &lt; 2.2e-16 ***
 China         39.69968    0.40392  98.287 &lt; 2.2e-16 ***
@@ -2055,8 +2068,8 @@ Colombia      52.50873    0.37919 138.478 &lt; 2.2e-16 ***
 Corea del Sur 31.22648    0.37888  82.418 &lt; 2.2e-16 ***
 Costa Rica    48.24877    0.37948 127.144 &lt; 2.2e-16 ***
 Dinamarca     26.92213    0.37497  71.799 &lt; 2.2e-16 ***
-España        34.55517    0.37451  92.267 &lt; 2.2e-16 ***
 EUA           40.72175    0.37552 108.440 &lt; 2.2e-16 ***
+España        34.55517    0.37451  92.267 &lt; 2.2e-16 ***
 Finlandia     27.35562    0.37481  72.986 &lt; 2.2e-16 ***
 Francia       31.99389    0.37455  85.419 &lt; 2.2e-16 ***
 Grecia        34.59331    0.37486  92.283 &lt; 2.2e-16 ***
@@ -2072,8 +2085,8 @@ Malasia       42.77855    0.38231 111.896 &lt; 2.2e-16 ***
 México        47.94456    0.37541 127.714 &lt; 2.2e-16 ***
 Nigeria       38.94789    0.38291 101.717 &lt; 2.2e-16 ***
 Noruega       27.14184    0.37520  72.339 &lt; 2.2e-16 ***
-Países Bajos  28.45768    0.37492  75.903 &lt; 2.2e-16 ***
 Panamá        51.24359    0.38583 132.815 &lt; 2.2e-16 ***
+Países Bajos  28.45768    0.37492  75.903 &lt; 2.2e-16 ***
 Perú          45.57619    0.38154 119.454 &lt; 2.2e-16 ***
 Polonia       32.80812    0.37987  86.367 &lt; 2.2e-16 ***
 Portugal      36.08085    0.37436  96.379 &lt; 2.2e-16 ***
@@ -2091,22 +2104,22 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
 <p>Para los efectos aleatorios, no especificamos qué tipo. Pero hay varios - “swar”: from Swamy and Arora (1972), <em>the default value</em> - “walhus”: from Wallace and Hussain (1969), - “amemiya”: from T. Amemiya (1971), - “nerlove”: from Nerlove (1971). - “ht”: for Hausman-Taylor-type instrumental variable (IV) estimation, discussed later, see Section</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>plm<span class="sc">::</span><span class="fu">ranef</span>(plm_re)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>plm<span class="sc">::</span><span class="fu">ranef</span>(plm_re)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>     Alemania     Argentina     Australia       Austria       Bélgica 
-   -6.4516657     6.1803056    -3.4330714    -7.2766333    -9.4292923 
-       Brasil        Canadá         Chile         China      Colombia 
-   16.2842843    -4.2024866     8.5752334     2.2100213    14.9977688 
-Corea del Sur    Costa Rica     Dinamarca        España           EUA 
-   -6.2409926    10.7463994   -10.5346467    -2.9166324     3.2364193 
+<pre><code>     Alemania     Argentina     Australia       Austria        Brasil 
+   -6.4516657     6.1803056    -3.4330714    -7.2766333    16.2842843 
+      Bélgica        Canadá         Chile         China      Colombia 
+   -9.4292923    -4.2024866     8.5752334     2.2100213    14.9977688 
+Corea del Sur    Costa Rica     Dinamarca           EUA        España 
+   -6.2409926    10.7463994   -10.5346467     3.2364193    -2.9166324 
     Finlandia       Francia        Grecia     Guatemala       Hungría 
   -10.1018790    -5.4727481    -2.8769041    13.1207203    -7.8439769 
         India     Indonesia       Irlanda        Israel        Italia 
    -2.9133415    -1.3327827    -5.6559312     2.8364403    -2.7060573 
         Japón       Malasia        México       Nigeria       Noruega 
    -4.0221972     5.2865198    10.4445931     1.4635173   -10.3155781 
- Países Bajos        Panamá          Perú       Polonia      Portugal 
-   -9.0021768    13.7334674     8.0786569    -4.6629001    -1.3937092 
+       Panamá  Países Bajos          Perú       Polonia      Portugal 
+   13.7334674    -9.0021768     8.0786569    -4.6629001    -1.3937092 
   Reino Unido    Rep. Checa         Rusia     Sudáfrica        Suecia 
    -3.1983353   -11.6242844     1.8047474    25.7166317    -9.7766742 
         Suiza     Tailandia       Turquía 
@@ -2121,8 +2134,8 @@ Corea del Sur    Costa Rica     Dinamarca        España           EUA
 <h3 data-number="9.6.1" class="anchored" data-anchor-id="pool-vs-fijo"><span class="header-section-number">9.6.1</span> Pool vs Fijo</h3>
 <p>Para saber si necesitamos efectos fijos, podemos hacer una prueba “F Test for Individual and/or Time Effects”</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>plm<span class="sc">::</span><span class="fu">pFtest</span>(plm_fe, <span class="co">#primero va el modelo de efectos fijos</span></span>
-<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>            mpool_plm) <span class="co"># luego va el modelo pool</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>plm<span class="sc">::</span><span class="fu">pFtest</span>(plm_fe, <span class="co">#primero va el modelo de efectos fijos</span></span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>            mpool_plm) <span class="co"># luego va el modelo pool</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     F test for individual effects
@@ -2138,7 +2151,7 @@ alternative hypothesis: significant effects</code></pre>
 <section id="hausman-fe-vs-re" class="level3" data-number="9.6.2">
 <h3 data-number="9.6.2" class="anchored" data-anchor-id="hausman-fe-vs-re"><span class="header-section-number">9.6.2</span> Hausman fe vs re</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>plm<span class="sc">::</span><span class="fu">phtest</span>(plm_fe, plm_re)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>plm<span class="sc">::</span><span class="fu">phtest</span>(plm_fe, plm_re)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Hausman Test
@@ -2154,7 +2167,7 @@ alternative hypothesis: one model is inconsistent</code></pre>
 <h3 data-number="9.6.3" class="anchored" data-anchor-id="re-vs-ols"><span class="header-section-number">9.6.3</span> RE vs OLS</h3>
 <p>Breusch-Pagan Lagrange Multiplier for random effects. Null is no panel effect</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>plm<span class="sc">::</span><span class="fu">plmtest</span>(mpool_plm, <span class="at">type=</span><span class="fu">c</span>(<span class="st">"bp"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>plm<span class="sc">::</span><span class="fu">plmtest</span>(mpool_plm, <span class="at">type=</span><span class="fu">c</span>(<span class="st">"bp"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Lagrange Multiplier Test - (Breusch-Pagan) for balanced panels
@@ -2170,7 +2183,7 @@ alternative hypothesis: significant effects</code></pre>
 <h3 data-number="9.6.4" class="anchored" data-anchor-id="correlación-contemporánea"><span class="header-section-number">9.6.4</span> Correlación contemporánea</h3>
 <p>Para modelos fijos, con muchos años -paneles muy largo-, a veces existe este problema</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a> <span class="fu">pcdtest</span>(plm_fe, <span class="at">test =</span> <span class="fu">c</span>(<span class="st">"lm"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a> <span class="fu">pcdtest</span>(plm_fe, <span class="at">test =</span> <span class="fu">c</span>(<span class="st">"lm"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Breusch-Pagan LM test for cross-sectional dependence in panels
@@ -2179,7 +2192,7 @@ data:  indice_de_gini ~ crecimiento_del_pib
 chisq = 4021.1, df = 903, p-value &lt; 2.2e-16
 alternative hypothesis: cross-sectional dependence</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a> <span class="fu">pcdtest</span>(plm_fe, <span class="at">test =</span> <span class="fu">c</span>(<span class="st">"cd"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a> <span class="fu">pcdtest</span>(plm_fe, <span class="at">test =</span> <span class="fu">c</span>(<span class="st">"cd"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Pesaran CD test for cross-sectional dependence in panels
@@ -2196,13 +2209,13 @@ alternative hypothesis: cross-sectional dependence</code></pre>
 <h3 data-number="9.6.5" class="anchored" data-anchor-id="correlación-serial"><span class="header-section-number">9.6.5</span> Correlación serial</h3>
 <p>Breusch-Godfrey/Wooldridge test</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>plm<span class="sc">::</span><span class="fu">pbgtest</span>(plm_fe)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a>plm<span class="sc">::</span><span class="fu">pbgtest</span>(plm_fe)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Breusch-Godfrey/Wooldridge test for serial correlation in panel models
 
 data:  indice_de_gini ~ crecimiento_del_pib
-chisq = 394.33, df = 17, p-value &lt; 2.2e-16
+chisq = 392.25, df = 17, p-value &lt; 2.2e-16
 alternative hypothesis: serial correlation in idiosyncratic errors</code></pre>
 </div>
 </div>
@@ -2214,7 +2227,7 @@ alternative hypothesis: serial correlation in idiosyncratic errors</code></pre>
 <h3 data-number="9.6.6" class="anchored" data-anchor-id="raíces-unitarias"><span class="header-section-number">9.6.6</span> Raíces unitarias</h3>
 <p>Como en las series de tiempo pueden ser un problema. Haremos la prueba Dickey-Fuller Si la raíz unitaria es mayor que 1, podemos usar la primera diferencia.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a>tseries<span class="sc">::</span><span class="fu">adf.test</span>(pdata<span class="sc">$</span>indice_de_gini, <span class="at">k=</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a>tseries<span class="sc">::</span><span class="fu">adf.test</span>(pdata<span class="sc">$</span>indice_de_gini, <span class="at">k=</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning in tseries::adf.test(pdata$indice_de_gini, k = 2): p-value smaller than
 printed p-value</code></pre>
@@ -2224,7 +2237,7 @@ printed p-value</code></pre>
     Augmented Dickey-Fuller Test
 
 data:  pdata$indice_de_gini
-Dickey-Fuller = -5.5144, Lag order = 2, p-value = 0.01
+Dickey-Fuller = -5.9276, Lag order = 2, p-value = 0.01
 alternative hypothesis: stationary</code></pre>
 </div>
 </div>
@@ -2234,9 +2247,9 @@ alternative hypothesis: stationary</code></pre>
 <h3 data-number="9.6.7" class="anchored" data-anchor-id="heterocedasticidad"><span class="header-section-number">9.6.7</span> Heterocedasticidad</h3>
 <p>Vamos a revisarlo de la siguiente manera:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a>lmtest<span class="sc">::</span><span class="fu">bptest</span>(indice_de_gini <span class="sc">~</span> crecimiento_del_pib <span class="sc">+</span> pais2, </span>
-<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a>               <span class="at">data =</span> pdata, </span>
-<span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">studentize=</span>F)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a>lmtest<span class="sc">::</span><span class="fu">bptest</span>(indice_de_gini <span class="sc">~</span> crecimiento_del_pib <span class="sc">+</span> pais2, </span>
+<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a>               <span class="at">data =</span> pdata, </span>
+<span id="cb64-3"><a href="#cb64-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">studentize=</span>F)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Breusch-Pagan test
@@ -2256,7 +2269,7 @@ BP = 329.12, df = 43, p-value &lt; 2.2e-16</code></pre>
 <p>The following options apply*: •HC0 - heteroskedasticityconsistent. The default. •HC1,HC2, HC3 – Recommended for small samples. HC3 gives less weight to influential observations. •HC4 - small samples with influential observations •HAC - heteroskedasticityand autocorrelation consistent</p>
 </blockquote>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="fu">coeftest</span>(plm_re)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="fu">coeftest</span>(plm_re)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 t test of coefficients:
@@ -2267,7 +2280,7 @@ crecimiento_del_pib  0.13004    0.01763  7.3759 4.451e-13 ***
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="fu">coeftest</span>(plm_re, vcovHC)  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="fu">coeftest</span>(plm_re, vcovHC)  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 t test of coefficients:
@@ -2278,7 +2291,7 @@ crecimiento_del_pib  0.130035   0.030348  4.2848 2.075e-05 ***
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="fu">coeftest</span>(plm_re, <span class="fu">vcovHC</span>(plm_re, <span class="at">type =</span> <span class="st">"HC3"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="fu">coeftest</span>(plm_re, <span class="fu">vcovHC</span>(plm_re, <span class="at">type =</span> <span class="st">"HC3"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 t test of coefficients:
@@ -2291,7 +2304,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="fu">coeftest</span>(plm_fe) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb72"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="fu">coeftest</span>(plm_fe) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 t test of coefficients:
@@ -2301,7 +2314,7 @@ crecimiento_del_pib 0.129107   0.017597  7.3367 6.191e-13 ***
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb72"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="fu">coeftest</span>(plm_fe, vcovHC)  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb74"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="fu">coeftest</span>(plm_fe, vcovHC)  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 t test of coefficients:
@@ -2311,7 +2324,7 @@ crecimiento_del_pib 0.129107   0.030349   4.254 2.391e-05 ***
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb74"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="fu">coeftest</span>(plm_fe, <span class="fu">vcovHC</span>(plm_re, <span class="at">method =</span> <span class="st">"arellano"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb76"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a><span class="fu">coeftest</span>(plm_fe, <span class="fu">vcovHC</span>(plm_re, <span class="at">method =</span> <span class="st">"arellano"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 t test of coefficients:
@@ -2321,7 +2334,7 @@ crecimiento_del_pib 0.129107   0.030348  4.2542 2.389e-05 ***
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb76"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a><span class="fu">coeftest</span>(plm_fe, <span class="fu">vcovHC</span>(plm_re, <span class="at">type =</span> <span class="st">"HC3"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb78"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a><span class="fu">coeftest</span>(plm_fe, <span class="fu">vcovHC</span>(plm_re, <span class="at">type =</span> <span class="st">"HC3"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 t test of coefficients:
@@ -2453,6 +2466,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
+      <a href="./P10.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Análisis longitundinal: secuencias</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
   </div>
 </nav>
 </div> <!-- /content -->
