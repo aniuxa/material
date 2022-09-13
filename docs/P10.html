@@ -1316,7 +1316,7 @@ H              0.77   0.8  0.73  0.72</code></pre>
 <pre><code> [&gt;] computing distances using the OM metric</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code> [&gt;] elapsed time: 0.093 secs</code></pre>
+<pre><code> [&gt;] elapsed time: 0.09 secs</code></pre>
 </div>
 </div>
 </section>
@@ -1333,17 +1333,17 @@ H              0.77   0.8  0.73  0.72</code></pre>
 <div class="cell-output-display">
 <p><img src="P10_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid" width="672"></p>
 </div>
-<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a>cl1<span class="fl">.3</span> <span class="ot">&lt;-</span> <span class="fu">cutree</span>(clusterward1, <span class="at">k =</span> <span class="dv">3</span>) <span class="co">#corta los casos</span></span>
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a>cl1<span class="fl">.5</span> <span class="ot">&lt;-</span> <span class="fu">cutree</span>(clusterward1, <span class="at">k =</span> <span class="dv">5</span>) <span class="co">#corta los casos</span></span>
 <span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a>cl1<span class="fl">.3</span>fac <span class="ot">&lt;-</span> <span class="fu">factor</span>(cl1<span class="fl">.3</span>, </span>
-<span id="cb62-4"><a href="#cb62-4" aria-hidden="true" tabindex="-1"></a>                   <span class="at">labels =</span> <span class="fu">paste</span>(<span class="st">"Tipología"</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>))</span>
+<span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a>cl1<span class="fl">.5</span>fac <span class="ot">&lt;-</span> <span class="fu">factor</span>(cl1<span class="fl">.5</span>, </span>
+<span id="cb62-4"><a href="#cb62-4" aria-hidden="true" tabindex="-1"></a>                   <span class="at">labels =</span> <span class="fu">paste</span>(<span class="st">"Tipología"</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>))</span>
 <span id="cb62-5"><a href="#cb62-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb62-6"><a href="#cb62-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb62-7"><a href="#cb62-7" aria-hidden="true" tabindex="-1"></a><span class="co"># ¿Cómo se ven  las secuencias por grupo?</span></span>
 <span id="cb62-8"><a href="#cb62-8" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb62-9"><a href="#cb62-9" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb62-10"><a href="#cb62-10" aria-hidden="true" tabindex="-1"></a><span class="fu">seqIplot</span>(id1.seq, <span class="co"># objeto con secuencias declaradas</span></span>
-<span id="cb62-11"><a href="#cb62-11" aria-hidden="true" tabindex="-1"></a>         <span class="at">group =</span> cl1<span class="fl">.3</span>fac, <span class="co">#identifica los cluster calculados</span></span>
+<span id="cb62-11"><a href="#cb62-11" aria-hidden="true" tabindex="-1"></a>         <span class="at">group =</span> cl1<span class="fl">.5</span>fac, <span class="co">#identifica los cluster calculados</span></span>
 <span id="cb62-12"><a href="#cb62-12" aria-hidden="true" tabindex="-1"></a>         <span class="at">sortv =</span> <span class="st">"from.start"</span>,<span class="co"># ordena según condición inicial</span></span>
 <span id="cb62-13"><a href="#cb62-13" aria-hidden="true" tabindex="-1"></a>         <span class="at">cpal=</span>cols)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
